@@ -15,7 +15,7 @@ const Clients = () => {
   return (
     <>
     <div className="flex rounded-lg p-4">
-    <h2 className="text-2xl font-semibold text-gray-700">Clients</h2>
+    <h2 className="text-2xl font-semibold text-gray-700">Categories</h2>
     <div className="ml-auto flex items-center space-x-4">
       {" "}
 
@@ -24,7 +24,7 @@ const Clients = () => {
           className="bg-[#0EB599] text-white rounded-full p-3 cursor-pointer"
           onClick={toggleModal}
         >
-          + Add Employees
+          + Add New Category
         </span>
 
         <Modal isVisible={isModalVisible} onClose={toggleModal} modalHeader={'Add Client'}>

@@ -40,7 +40,7 @@ function ContentArea() {
   return (
     <>
       <div className="flex rounded-lg p-4">
-        <h2 className="text-2xl font-semibold text-gray-700">Employees</h2>
+        <h2 className="text-2xl font-semibold text-gray-700">Business</h2>
         <div className="ml-auto flex items-center space-x-4">
           {" "}
           <span
@@ -82,7 +82,7 @@ function ContentArea() {
               className="bg-[#0EB599] text-white rounded-full p-3 cursor-pointer"
               onClick={toggleModal}
             >
-              + Add Employees
+              + Add New Bussines
             </span>
 
             <Modal isVisible={isModalVisible} onClose={toggleModal} modalHeader={'Add Employee Bulky'}>
@@ -146,13 +146,13 @@ function ContentArea() {
             selected
             className="text-gray-500 font-bold"
           >
-            Select Designation
+            Select Category
           </option>
           <option value="All">All</option>
-          <option value="Web Designer">Web Designer</option>
-          <option value="Web Developer">Web Developer</option>
-          <option value="FrontEnd Developer">FrontEnd Developer</option>
-          <option value="BackEnd Developer">BackEnd Developer</option>
+          <option value="Web Designer">Resturant</option>
+          <option value="Web Developer">Saloon</option>
+          <option value="FrontEnd Developer">Resorts</option>
+          <option value="BackEnd Developer">Super Markets</option>
         </select>
 
         <div className="ml-auto flex items-center space-x-4">
@@ -162,7 +162,7 @@ function ContentArea() {
               value={selectedRole} // Bind the state to the input value
               onChange={handleInputChange} // Call handleInputChange on input change
               className="p-2 lg:w-[250px] w-full appearance-none bg-white border border-gray-500"
-              placeholder="Employee Name, Id"
+              placeholder="Business Name, Category, Location"
             />
           </span>
           <span className="flex items-center">
