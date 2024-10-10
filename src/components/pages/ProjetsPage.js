@@ -1,11 +1,20 @@
 import React, { useState } from "react"
 import Modal from "../reUsableCmponent/modal/Modal"
 import ProjectDetailsCard from "../reUsableCmponent/ProjectDetailsCard"
+import Pagination from "../Pagination"
+import EmpCard from "../reUsableCmponent/EmpCard"
+
 
 const ProjetsPage = () => {
+  const totalItems = 100;
+  const itemsPerPage = 10;
+  const currentPage = 6;
+  const handlePageChange = (page) => {
+    console.log('Page changed:', page);
+  };
   const [isGrid, setGrid] = useState(true)
   const [isModalVisible, setIsModalVisible] = useState(false)
-  const [selectedDesignation, setSelectedDesignation] = useState("Total Project : 3")
+  const [selectedDesignation, setSelectedDesignation] = useState("Total Plans : 3")
   const [fileName, setFileName] = useState("")
   const [selectedRole, setSelectedRole] = useState("")
 
@@ -33,7 +42,7 @@ const ProjetsPage = () => {
   return (
     <>
       <div className="flex rounded-lg p-4">
-        <h2 className="text-2xl font-semibold text-gray-700">Projects</h2>
+        <h2 className="text-2xl font-semibold text-gray-700">Plans</h2>
         <div className="ml-auto flex items-center space-x-4">
           {" "}
           <span
@@ -75,7 +84,7 @@ const ProjetsPage = () => {
               className="bg-[#0EB599] text-white rounded-full p-3 cursor-pointer"
               onClick={toggleModal}
             >
-              + Add Project
+              + Add New Plan
             </span>
 
             <Modal
@@ -140,7 +149,7 @@ const ProjetsPage = () => {
               value={selectedRole} // Bind the state to the input value
               onChange={handleInputChange} // Call handleInputChange on input change
               className="p-2 lg:w-[250px] w-full appearance-none bg-white border border-gray-500"
-              placeholder="Employee Name, Id"
+              placeholder="Plan Name"
             />
           </span>
           <span className="flex items-center">
@@ -155,14 +164,29 @@ const ProjetsPage = () => {
       </div>
 
       <div className="m-4">
-      <h1 className="mt-0 mb-8 text-2xl font-semibold">Projects</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 justify-center">
+      <h1 className="mt-0 mb-8 text-2xl font-semibold">All Plans</h1>
+      {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 justify-center">
         <ProjectDetailsCard isGrid={isGrid} />
         <ProjectDetailsCard />
         <ProjectDetailsCard />
         <ProjectDetailsCard />
+      </div> */}
+         <div className="flex flex-wrap justify-center">
+        <EmpCard  
+          selectedRole={selectedRole}
+          selectedDesignation={selectedDesignation}
+          isGrid={false}
+        />
       </div>
     </div>
+    <div className="m-auto flex justify-end mt-8">
+      <Pagination
+        totalItems={totalItems}
+        itemsPerPage={itemsPerPage}
+        currentPage={currentPage}
+        onPageChange={handlePageChange}
+      />
+      </div>
       
     </>
   );

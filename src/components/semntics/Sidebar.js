@@ -93,7 +93,7 @@ function Sidebar({ isOpen, setIsOpen }) {
                 />
               </Disclosure.Button>
 
-              <Disclosure.Panel className="bg-[#373b3e] text-custom-16 rounded-md px-4 py-2">
+              {/* <Disclosure.Panel className="bg-[#373b3e] text-custom-16 rounded-md px-4 py-2">
                 <ul className="list-disc list-inside">
                   <li
                     onClick={() => navigate("/allemployees")}
@@ -120,7 +120,7 @@ function Sidebar({ isOpen, setIsOpen }) {
                     NA
                   </li>
                 </ul>
-              </Disclosure.Panel>
+              </Disclosure.Panel> */}
             </>
           )}
         </Disclosure>
@@ -205,9 +205,9 @@ function Sidebar({ isOpen, setIsOpen }) {
                     onClick={() => navigate("/paymentpage")}
                     className="cursor-pointer text-[#1DB290] hover:text-[#75eed2] "
                   >
-                    Payment
+                    Payment History
                   </li>
-                  <li
+                  {/* <li
                     onClick={() => navigate("/subscription")}
                     className="text-[#909294] hover:text-[#75eed2]"
                   >
@@ -215,14 +215,14 @@ function Sidebar({ isOpen, setIsOpen }) {
                   </li>
                   <li className="text-[#909294] hover:text-[#75eed2]">
                     Payment History
-                  </li>
+                  </li> */}
                 </ul>
               </Disclosure.Panel>
             </>
           )}
         </Disclosure>
 
-        <Disclosure>
+        {/* <Disclosure>
           {({ open }) => (
             <>
               <Disclosure.Button className="flex justify-between text-custom-16 text-[#909294] hover:text-[#75eed2] lg:2xl px-4 py-2">
@@ -272,7 +272,7 @@ function Sidebar({ isOpen, setIsOpen }) {
               </Disclosure.Panel>
             </>
           )}
-        </Disclosure>
+        </Disclosure> */}
 
         <div
           onClick={() => navigate("/settingandconfi")}

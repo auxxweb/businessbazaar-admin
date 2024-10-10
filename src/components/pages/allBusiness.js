@@ -1,6 +1,7 @@
 import { useState } from "react"
 import EmpCard from "../reUsableCmponent/EmpCard"
 import Modal from "../reUsableCmponent/modal/Modal"
+import Pagination from "../Pagination"
 
 function ContentArea() {
 
@@ -37,6 +38,12 @@ function ContentArea() {
       setFileName("")
     }
   }
+  const totalItems = 5;
+  const itemsPerPage = 4;
+  const currentPage = 1;
+  const handlePageChange = (page) => {
+    console.log('Page changed:', page);
+  };
   return (
     <>
       <div className="flex rounded-lg p-4">
@@ -177,11 +184,19 @@ function ContentArea() {
       </div>
 
       <div className="flex flex-wrap justify-center">
-        <EmpCard 
+        <EmpCard  
           selectedRole={selectedRole}
           selectedDesignation={selectedDesignation}
-          isGrid={isGrid}
+          isGrid={false}
         />
+      </div>
+      <div className="m-auto flex justify-end mt-8">
+      <Pagination
+        totalItems={totalItems}
+        itemsPerPage={itemsPerPage}
+        currentPage={currentPage}
+        onPageChange={handlePageChange}
+      />
       </div>
     </>
   );

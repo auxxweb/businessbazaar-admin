@@ -1,8 +1,15 @@
 import React, { useState } from 'react'
 import Modal from '../reUsableCmponent/modal/Modal'
 import EmpCard from '../reUsableCmponent/EmpCard'
+import Pagination from "../Pagination"
 
 const Clients = () => {
+  const totalItems = 100;
+  const itemsPerPage = 10;
+  const currentPage = 6;
+  const handlePageChange = (page) => {
+    console.log('Page changed:', page);
+  };
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -92,8 +99,16 @@ const Clients = () => {
         <EmpCard
           selectedRole={''}
           selectedDesignation={'client'}
-          isGrid={true}
+          isGrid={false}
         />
+      </div>
+      <div className="m-auto flex justify-end mt-8">
+      <Pagination
+        totalItems={totalItems}
+        itemsPerPage={itemsPerPage}
+        currentPage={currentPage}
+        onPageChange={handlePageChange}
+      />
       </div>
   </>
   )
