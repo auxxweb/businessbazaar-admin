@@ -83,7 +83,7 @@ function Sidebar({ isOpen, setIsOpen }) {
                     </svg>
                   </span>
                   <span  onClick={() => navigate("/allemployees")} className="text-custom-16 mt-[-3px] text-[#a5a5a5] hover:text-[#75eed2] ml-4">
-                    Employees
+                    Business
                   </span>
                 </div>
                 <ChevronUpIcon
@@ -99,25 +99,25 @@ function Sidebar({ isOpen, setIsOpen }) {
                     onClick={() => navigate("/allemployees")}
                     className="cursor-pointer text-[#1DB290] hover:text-[#75eed2]"
                   >
-                    All Employees
+                    All Business
                   </li>
                   <li
                     onClick={() => navigate("/leaves")}
                     className="cursor-pointer text-[#909294] hover:text-[#75eed2]"
                   >
-                    Leaves
+                    NA
                   </li>
                   <li
                     onClick={() => navigate("/attendence")}
                     className="cursor-pointer text-[#909294] hover:text-[#75eed2]"
                   >
-                    Attendance
+                    NA
                   </li>
                   <li
                     onClick={() => navigate("/shiftsandschedules")}
                     className="cursor-pointer text-[#909294] hover:text-[#75eed2]"
                   >
-                    Shift & Schedule
+                    NA
                   </li>
                 </ul>
               </Disclosure.Panel>
@@ -142,7 +142,7 @@ function Sidebar({ isOpen, setIsOpen }) {
                 fill="currentColor"
               />
             </svg>
-            <span className="text-custom-16 ml-4">Clients</span>
+            <span className="text-custom-16 ml-4">Categories</span>
           </span>
         </div>
 
@@ -165,7 +165,7 @@ function Sidebar({ isOpen, setIsOpen }) {
               />
             </svg>
 
-            <span className="text-custom-16 ml-4">Project</span>
+            <span className="text-custom-16 ml-4">Plans</span>
           </span>
         </div>
 
@@ -189,7 +189,7 @@ function Sidebar({ isOpen, setIsOpen }) {
                     </svg>
                   </span>
                   <span className="text-custom-16 mt-[-8px] mr-4 text-[#a5a5a5] hover:text-[#75eed2] ml-4">
-                    Billing
+                    Payment
                   </span>
                 </div>
                 <ChevronUpIcon

@@ -25,11 +25,11 @@ const TableView = ({ selectedDesignation, selectedRole }) => {
           <tr>
             <th align='left' className="p-2 border-b"></th>
             <th align='left' className="p-2 border-b">Name</th>
-            <th align='left' className="p-2 border-b">EmpID</th>
+            <th align='left' className="p-2 border-b">Category</th>
             <th align='left' className="p-2 border-b">Email</th>
             <th align='left' className="p-2 border-b">Mobile</th>
-            <th align='left' className="p-2 border-b">Code</th>
-            <th align='left' className="p-2 border-b">Role</th>
+            <th align='left' className="p-2 border-b">Owner</th>
+            <th align='left' className="p-2 border-b">Location</th>
             <th align='left' className="p-2 border-b">Actions</th>
           </tr>
         </thead>

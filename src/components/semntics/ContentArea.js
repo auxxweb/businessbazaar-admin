@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom"
-import AllEmployees from '../pages/AllEmployees'
+import AllEmployees from '../pages/allBusiness'
 import Leaves from '../pages/Leaves'
 import Attendence from "../pages/Attendence"
 import ShiftAndSchedule from "../pages/ShiftAndSchedule"
