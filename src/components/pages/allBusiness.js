@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EmpCard from "../reUsableCmponent/EmpCard";
 import Modal from "../reUsableCmponent/modal/Modal";
 import Pagination from "../Pagination";
 import { employeeData } from "../../api/constents";
+import { settingsDetails } from "../../Features/Authority";
+import { useSelector, useDispatch } from 'react-redux';
 
 function ContentArea() {
   // const [isGrid, setGrid] = useState(true)
@@ -22,6 +24,7 @@ function ContentArea() {
     setSelectedRole("");
     setSelectedDesignation("");
   };
+
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -44,6 +47,14 @@ function ContentArea() {
   const handlePageChange = (page) => {
     console.log("Page changed:", page);
   };
+
+
+  const dispatch = useDispatch();
+  useEffect( () =>{
+    dispatch(settingsDetails())
+  })
+
+
   return (
     <>
       <div className="flex rounded-lg p-4">
