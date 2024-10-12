@@ -1,14 +1,14 @@
-import React from 'react'
-import GridView from './GridView'
-import TableView from './TableView'
+import React from "react";
+import TableView from "./TableView";
 
-function EmpCard({ isGrid, selectedDesignation, selectedRole }) {
+function EmpCard({ tableData, selectedDesignation, selectedRole }) {
   return (
     <>
-      {isGrid ? 
-      <GridView selectedRole={selectedRole} selectedDesignation={selectedDesignation} className="w-full sm:w-1/2 md:w-1/4 lg:w-1/5"/> 
-      : 
-      <TableView selectedRole={selectedRole} selectedDesignation={selectedDesignation}/>}
+      <TableView
+        tableData={tableData}
+        selectedRole={selectedRole}
+        selectedDesignation={selectedDesignation}
+      />
     </>
   );
 }
