@@ -3,7 +3,6 @@ import EmpCard from "../reUsableCmponent/EmpCard";
 import Modal from "../reUsableCmponent/modal/Modal";
 import Pagination from "../Pagination";
 import { employeeData } from "../../api/constents";
-import { settingsDetails } from "../../Features/Authority";
 import { useSelector, useDispatch } from 'react-redux';
 
 function ContentArea() {
@@ -50,9 +49,9 @@ function ContentArea() {
 
 
   const dispatch = useDispatch();
-  useEffect( () =>{
-    dispatch(settingsDetails())
-  })
+  // useEffect( () =>{
+  //   dispatch(settingsDetails())
+  // })
 
 
   return (
