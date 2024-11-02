@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import { useLoginMutation } from "../../api/auth";
+import { logIn } from "../../api/authRequest";
 // import { getUserCredential } from "../../common/utils";
 import { PiEyeFill, PiEyeSlashFill } from "react-icons/pi";
-// import { toast } from "sonner";
+import { toast } from "sonner";
+import { useDispatch } from "react-redux";
+import {setLogin,setLoading,resetLogin} from '../../Features/Authority'
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
   const [showPassword, setShowPassword] = useState(false);
 //   const userData = getUserCredential();
     
@@ -19,28 +22,29 @@ const Login = () => {
     const email = formData.get("email"); // Get email input value
     const password = formData.get("password");
     try {
-    //   const body = {
-    //     email,
-    //     password,
-    //   };
-    //   const res = await login?.(body);
-    //   if (res?.data?.success) {
-    //     localStorage.setItem(
-    //       "userCredential",
-    //       JSON.stringify(res?.data?.admin?.token)
-    //     );
-    //     navigate("/"); // Redirect after form submission
-    //   } else {
-    //     toast.error(res.data.message,{
-    //       position: "top-right",
-    //       duration: 2000,  
-    //       style: {
-    //         backgroundColor: "#fb0909", // Custom green color for success
-    //         color: "#FFFFFF", // Text color
-    //       },
-    //       dismissible: true,  
-    //     });
-    //   }
+      const body = {
+        email,
+        password,
+      };
+      const res = await logIn?.(body);
+      if (res?.data?.success) {
+        localStorage.setItem(
+          "admin",
+          JSON.stringify(res?.data.data)
+        );
+        dispatch(setLogin(res?.data.data))
+        navigate("/"); // Redirect after form submission
+      } else {
+        toast.error(res.data.message,{
+          position: "top-right",
+          duration: 2000,  
+          style: {
+            backgroundColor: "#fb0909", // Custom green color for success
+            color: "#FFFFFF", // Text color
+          },
+          dismissible: true,  
+        });
+      }
     } catch (error) {
       console.log("error", error);
     }
@@ -70,7 +74,7 @@ const Login = () => {
                 Log In
               </h1>
               <h3 className=" text-sm sm:text-base text-[#686219]">
-                Enter your Username And Password To Login in!
+                Enter your Email And Password To Login in!
               </h3>
 
               {/* Email Input Field */}
@@ -78,9 +82,9 @@ const Login = () => {
                 {/* Increased margin for spacing */}
                 <label
                   className=" px-2 sm:px-3 py-1 text-base sm:text-lg font-medium text-[#] bg-transparent m-auto" // Increased padding and adjusted label positioning
-                  htmlFor="name"
+                  htmlFor="email"
                 >
-                  User Name
+                  E-mail
                 </label>
                 <input
                   className="w-full px-4 sm:px-6 py-3 sm:py-4 border border-[#0EB599] text-gold-500 placeholder-gold-500 rounded-[22px] bg-transparent outline-none focus:border-gold-600 "

@@ -1,13 +1,27 @@
-import React from "react";
+import React,{useState} from "react";
 import { Transition } from "@headlessui/react";
 import { Disclosure } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
+import Modal from "../reUsableCmponent/modal/Modal";
+import { resetLogin } from "../../Features/Authority";
+import { useDispatch } from "react-redux";
+
 
 function Sidebar({ isOpen, setIsOpen }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [sideBarOption,setSideBaroption] = useState('dashboard')
 
   // navigate('/browse');
+  const toggleModal = () => {
+    setIsModalVisible(!isModalVisible);
+  };
+  const handleLogout = ()=>{
+    dispatch(resetLogin())
+    navigate('/login')
+  }
 
   return (
     <Transition
@@ -24,11 +38,11 @@ function Sidebar({ isOpen, setIsOpen }) {
         {/* Close button for mobile */}
         <button
           className="lg:hidden text-white focus:outline-none absolute right-4 top-4"
-          onClick={() => setIsOpen(false)}>
+          onClick={() => {setIsOpen(false)
+          setSideBaroption('dashboard')}}>
           <svg
             className="w-6 h-6"
             fill="none"
-            stroke="currentColor"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg">
             <path
@@ -53,7 +67,7 @@ function Sidebar({ isOpen, setIsOpen }) {
                 fill="#1DB290"
               />
             </svg>
-            <span className="text-custom-16 text-[#25e2b6] hover:text-[#75eed2] ml-4">
+            <span className={`text-custom-16 ${sideBarOption=='dashboard'? 'text-[#25e2b6]':'text-[#909294]' }  hover:text-[#75eed2] ml-4`}>
               Dashboard
             </span>
           </span>
@@ -78,8 +92,9 @@ function Sidebar({ isOpen, setIsOpen }) {
                     </svg>
                   </span>
                   <span
-                    onClick={() => navigate("/allemployees")}
-                    className="text-custom-16 mt-[-3px] text-[#a5a5a5] hover:text-[#75eed2] ml-4">
+                    onClick={() => {navigate("/business")
+                    setSideBaroption('business')}}
+                    className={`text-custom-16 ${sideBarOption=='business'? 'text-[#25e2b6]':'text-[#909294]' }  hover:text-[#75eed2] ml-4`}>
                     Business
                   </span>
                 </div>
@@ -94,8 +109,9 @@ function Sidebar({ isOpen, setIsOpen }) {
         </Disclosure>
 
         <div
-          onClick={() => navigate("/clients")}
-          className="cursor-pointer flex items-center text-[#909294] hover:text-[#75eed2]">
+          onClick={() => {navigate("/categories")
+          setSideBaroption('categories')}}
+          className={`text-custom-16 ${sideBarOption=='categories'? 'text-[#25e2b6]':'text-[#909294]' }  hover:text-[#75eed2] ml-4`}>
           <span className="flex items-center ml-2 ">
             <svg
               width="24"
@@ -113,8 +129,9 @@ function Sidebar({ isOpen, setIsOpen }) {
         </div>
 
         <div
-          onClick={() => navigate("/projetspage")}
-          className="cursor-pointer flex items-center text-[#909294] hover:text-[#75eed2]">
+          onClick={() =>{ navigate("/projetspage")
+          setSideBaroption('plans')}}
+          className={`text-custom-16 ${sideBarOption=='plans'? 'text-[#25e2b6]':'text-[#909294]' }  hover:text-[#75eed2] ml-4`}>
           <span className="flex items-center ml-2">
             <svg
               width="20"
@@ -151,7 +168,7 @@ function Sidebar({ isOpen, setIsOpen }) {
                       />
                     </svg>
                   </span>
-                  <span className="text-custom-16 mt-[-8px] mr-4 text-[#a5a5a5] hover:text-[#75eed2] ml-4">
+                  <span className={`text-custom-16 ${sideBarOption=='payments'? 'text-[#25e2b6]':'text-[#909294]' }  hover:text-[#75eed2] ml-4`}>
                     Payment
                   </span>
                 </div>
@@ -165,8 +182,9 @@ function Sidebar({ isOpen, setIsOpen }) {
               <Disclosure.Panel className="bg-[#373b3e] text-custom-16 rounded-md px-4 py-2">
                 <ul className="list-disc list-inside">
                   <li
-                    onClick={() => navigate("/paymentpage")}
-                    className="cursor-pointer text-[#1DB290] hover:text-[#75eed2] ">
+                    onClick={() =>{ navigate("/paymentpage")
+                    setSideBaroption('payments')}}
+                    className={`text-custom-16 ${sideBarOption=='payments'? 'text-[#25e2b6]':'text-[#909294]' }  hover:text-[#75eed2] ml-4`}>
                     Payment History
                   </li>
                   {/* <li
@@ -237,8 +255,9 @@ function Sidebar({ isOpen, setIsOpen }) {
         </Disclosure> */}
 
         <div
-          onClick={() => navigate("/settingandconfi")}
-          className="cursor-pointer flex items-center text-[#909294] hover:text-[#75eed2]">
+          onClick={() =>{ navigate("/settingandconfi")
+          setSideBaroption('settings')}}
+          className={`text-custom-16 ${sideBarOption=='settings'? 'text-[#25e2b6]':'text-[#909294]' }  hover:text-[#75eed2] ml-4`}>
           <span className="flex items-center ml-2">
             <svg
               width="22"
@@ -259,6 +278,41 @@ function Sidebar({ isOpen, setIsOpen }) {
         <span className="text-custom-16 text-[#909294] hover:text-[#75eed2]lg:2xl block px-4">
           Other
         </span>
+
+        <div
+              onClick={toggleModal}
+              className="cursor-pointer flex items-center text-[#909294] hover:text-[#dc554e]">
+          <span className="flex items-center ml-2 ">
+          <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    className="h-6 w-6"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M16 17l5-5-5-5M21 12H9" />
+    <path d="M9 21H4a2 2 0 01-2-2V5a2 2 0 012-2h5" />
+  </svg>
+            <span className="text-custom-16 ml-4">Logout</span>
+          </span>
+        </div>
+        <Modal
+              isVisible={isModalVisible}
+              onClose={toggleModal}
+              modalHeader={"Are you you want to logout?"}
+            >
+               
+                <button
+                onClick={()=>handleLogout()}
+                  type="button"
+                  className="bg-gray-200 p-3 w-full flex justify-center items-center mb-4 border border-gray-500 "
+                >
+                  logout
+                </button>
+            </Modal>
       </div>
     </Transition>
   );
