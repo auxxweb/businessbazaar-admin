@@ -17,9 +17,9 @@ const Login = () => {
 //   if (userData) return <>Loading</>;
 
   const onSubmit = async (event) => {
-    event.preventDefault(); // Prevent the default form submission
-    const formData = new FormData(event.target); // Make sure event.target is the form
-    const email = formData.get("email"); // Get email input value
+    event.preventDefault(); 
+    const formData = new FormData(event.target); 
+    const email = formData.get("email"); 
     const password = formData.get("password");
     try {
       const body = {
