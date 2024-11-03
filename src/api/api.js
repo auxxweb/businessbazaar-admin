@@ -29,6 +29,7 @@ export const postApi = async ({
 
 export const getApi = async (url, authToken) => {
   const adminData = localStorage.getItem('admin')
+  const parsedAdminData = JSON.parse(adminData)
 
   const config = {
     headers: {
@@ -38,9 +39,10 @@ export const getApi = async (url, authToken) => {
 
   if (authToken) {
     config.headers = {
-      Authorization: `Bearer ${adminData?.token}`,
+      Authorization: `Bearer ${parsedAdminData?.token}`,
     }
   }
+  
   const response = await axios.get(`${appConfig.apiUrl}/${url}`, config)
 
   return response?.data

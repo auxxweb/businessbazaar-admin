@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import Modal from "../reUsableCmponent/modal/Modal";
-import PaymentTable from "../PaymentTable";
+import usePayment from "../../Hooks/Payment/usePayment";
+import PaymentTable from "../reUsableCmponent/Tables/PaymentTable";
 
 const PaymentPage = () => {
+  const {payments} = usePayment() 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedRole, setSelectedRole] = useState("");
   const [selectedDesignation, setSelectedDesignation] =
@@ -440,7 +442,7 @@ const PaymentPage = () => {
       </div>
 
       <div className="p-2">
-        <PaymentTable />
+        <PaymentTable tableData={payments}/>
       </div>
     </>
   );
