@@ -1,43 +1,58 @@
-import React, { useState } from "react"
-import Modal from "../reUsableCmponent/modal/Modal"
-import ProjectDetailsCard from "../reUsableCmponent/ProjectDetailsCard"
-import Pagination from "../Pagination"
-import EmpCard from "../reUsableCmponent/EmpCard"
-
+import React, { useEffect, useState } from "react";
+import Modal from "../reUsableCmponent/modal/Modal";
+import Pagination from "../Pagination";
+import usePlans from "../../Hooks/Plan/usePlans";
+import PlanTable from "../reUsableCmponent/Tables/PlansTable";
 
 const ProjetsPage = () => {
-  const totalItems = 100;
-  const itemsPerPage = 10;
-  const currentPage = 6;
-  const handlePageChange = (page) => {
-    console.log('Page changed:', page);
-  };
-  const [isGrid, setGrid] = useState(true)
-  const [isModalVisible, setIsModalVisible] = useState(false)
-  const [selectedDesignation, setSelectedDesignation] = useState("Total Plans : 3")
-  const [fileName, setFileName] = useState("")
-  const [selectedRole, setSelectedRole] = useState("")
+  const { plans, page, setPage, loading, totalPlans, limit } = usePlans();
 
-  const handleInputChange = (event) => {
-    setSelectedRole(event.target.value)
+  const handlePageChange = (page) => {
+    setPage(page);
+  };
+
+  const [isGrid, setGrid] = useState(true);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedDesignation, setSelectedDesignation] =
+    useState("Total Plans : 3");
+  const [fileName, setFileName] = useState("");
+
+  const [searchText, setSearchText] = useState("");
+  const [filteredPlans, setFilteredPlans] = useState([]);
+
+  useEffect(() => {
+    setFilteredPlans(plans);
+    setSearchText("");
+  }, [plans]);
+
+  useEffect(() => {
+    if (!searchText) {
+      setFilteredPlans(plans);
+    }
+  }, [searchText]);
+
+  const handleSearchTextChange = (event) => {
+    setSearchText(event.target.value);
   };
   const toggleModal = () => {
-    setIsModalVisible(!isModalVisible)
+    setIsModalVisible(!isModalVisible);
   };
   const handleFileChange = (event) => {
-    const file = event.target.files[0]
+    const file = event.target.files[0];
     if (file) {
-      setFileName(file.name)
+      setFileName(file.name);
     } else {
-      setFileName("")
+      setFileName("");
     }
   };
-  const selectRole = () => {
-    setSelectedRole("")
-    setSelectedDesignation("")
+  const handleSearch = () => {
+    const filteredPlans = plans.filter((plan) =>
+      plan?.plan?.includes(searchText)
+    );
+    setFilteredPlans(filteredPlans);
   };
   const selectProfession = (event) => {
-    setSelectedDesignation(event.target.value)
+    setSelectedDesignation(event.target.value);
   };
   return (
     <>
@@ -134,27 +149,27 @@ const ProjetsPage = () => {
       </div>
 
       <div className="flex rounded-lg p-4 pt-0">
-        <input type="text"
+        <input
+          type="text"
           value={selectedDesignation}
           onChange={selectProfession}
           className="p-2 lg:w-[300px] w-full appearance-none bg-white border border-gray-500 focus:ring-indigo-500 focus:border-indigo-500 pr-10 bg-no-repeat bg-right"
-
+          disabled
         />
-
 
         <div className="ml-auto flex items-center space-x-4">
           {/* Parent div for span elements */}
           <span className="flex items-center justify-center">
             <input
-              value={selectedRole} // Bind the state to the input value
-              onChange={handleInputChange} // Call handleInputChange on input change
+              value={searchText}
+              onChange={handleSearchTextChange}
               className="p-2 lg:w-[250px] w-full appearance-none bg-white border border-gray-500"
               placeholder="Plan Name"
             />
           </span>
           <span className="flex items-center">
             <span
-              onClick={selectRole} // Call selectRole when the Search button is clicked
+              onClick={handleSearch} // Call selectRole when the Search button is clicked
               className="cursor-pointer bg-[#0EB599] text-white p-2 lg:w-[260px] text-center"
             >
               Search
@@ -164,30 +179,25 @@ const ProjetsPage = () => {
       </div>
 
       <div className="m-4">
-      <h1 className="mt-0 mb-8 text-2xl font-semibold">All Plans</h1>
-      {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 justify-center">
+        <h1 className="mt-0 mb-8 text-2xl font-semibold">All Plans</h1>
+        {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 justify-center">
         <ProjectDetailsCard isGrid={isGrid} />
         <ProjectDetailsCard />
         <ProjectDetailsCard />
         <ProjectDetailsCard />
       </div> */}
-         <div className="flex flex-wrap justify-center">
-        <EmpCard  
-          selectedRole={selectedRole}
-          selectedDesignation={selectedDesignation}
-          isGrid={false}
+        <div className="flex flex-wrap justify-center mt-4">
+          <PlanTable tableData={filteredPlans} />
+        </div>
+      </div>
+      <div className="m-auto flex justify-end mt-8">
+        <Pagination
+          totalItems={totalPlans}
+          itemsPerPage={limit}
+          currentPage={page}
+          onPageChange={handlePageChange}
         />
       </div>
-    </div>
-    <div className="m-auto flex justify-end mt-8">
-      <Pagination
-        totalItems={totalItems}
-        itemsPerPage={itemsPerPage}
-        currentPage={currentPage}
-        onPageChange={handlePageChange}
-      />
-      </div>
-      
     </>
   );
 };
