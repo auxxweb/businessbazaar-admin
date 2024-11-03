@@ -28,7 +28,7 @@ function ContentArea() {
       <Route path="/categories" element={<Clients />} />
       <Route path="/clientsdetails" element={<ClientDetails />} />
       <Route path="/detailedprojectpage" element={<ProjectDetailedPage />} />
-      <Route path="/projetspage" element={<ProjetsPage />} />       
+      <Route path="/plans" element={<ProjetsPage />} />       
       <Route path="/paymentpage" element={<PaymentPage />} />       
       <Route path="/payslip" element={<PaySlip />} />   
       <Route path="/subscription" element={<Subscription />} />   

@@ -129,7 +129,7 @@ function Sidebar({ isOpen, setIsOpen }) {
         </div>
 
         <div
-          onClick={() =>{ navigate("/projetspage")
+          onClick={() =>{ navigate("/plans")
           setSideBaroption('plans')}}
           className={`text-custom-16 ${sideBarOption=='plans'? 'text-[#25e2b6]':'text-[#909294]' }  hover:text-[#75eed2] ml-4`}>
           <span className="flex items-center ml-2">
