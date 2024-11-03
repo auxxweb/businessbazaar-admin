@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "../reUsableCmponent/modal/Modal";
 import Pagination from "../Pagination";
 import useCategories from "../../Hooks/Category/useCategories";
@@ -7,6 +7,31 @@ import CategoryTable from "../reUsableCmponent/Tables/CategoryTable";
 const Clients = () => {
   const { categories, page, setPage, loading, limit, totalCategories } =
     useCategories();
+
+  const [filteredCategoies, setFilteredCategories] = useState([]);
+  const [searchText, setSearchText] = useState("");
+
+  useEffect(() => {
+    setFilteredCategories(categories);
+    setSearchText("");
+  }, [categories]);
+
+  useEffect(() => {
+    if (!searchText) {
+      setFilteredCategories(categories);
+    }
+  }, [searchText]);
+
+  const handleSearchTextChange = (event) =>{
+    setSearchText(event.target.value);
+  }
+
+  const handleSearch = () => {
+    const filteredCategory = categories.filter((category) =>
+      category?.name?.includes(searchText)
+    );
+    setFilteredCategories(filteredCategory);
+  };
 
   const handlePageChange = (page) => {
     setPage(page);
@@ -91,18 +116,20 @@ const Clients = () => {
         <span className="flex items-center justify-center">
           <input
             className="p-2 lg:w-[300px] w-full appearance-none bg-white border border-gray-500"
+            value={searchText}
+            onChange={handleSearchTextChange}
             placeholder="Category"
           />
         </span>
         <span className="flex items-center">
-          <span className="cursor-pointer bg-[#0EB599] text-white p-2 lg:w-[250px] text-center">
+          <div className="cursor-pointer bg-[#0EB599] text-white p-2 lg:w-[250px] text-center" onClick={handleSearch}>
             Search
-          </span>
+          </div>
         </span>
       </div>
 
       <div className="flex flex-wrap justify-center mt-4">
-        <CategoryTable tableData={categories} />
+        <CategoryTable tableData={filteredCategoies} />
       </div>
       <div className="m-auto flex justify-end mt-8">
         <Pagination

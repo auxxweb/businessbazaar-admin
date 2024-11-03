@@ -7,6 +7,7 @@ const useCategories = () => {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [totalCategories, setTotalCategories] = useState(0);
+
   const limit = 10;
 
   const getAllCategories = async () => {
