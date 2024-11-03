@@ -2,8 +2,10 @@ import React from "react";
 import DashBoardSection2 from "../DashBoardSection2";
 import DashBoard1Top from "../DashBoard1Top";
 import DashBoard3Chart from "../DashBoard3Chart";
+import useDashboard from "../../Hooks/Dashboard/useDashboard"
 
 const DashBoard = () => {
+  const {}= useDashboard()
   return (
     <>
         <DashBoard1Top />
