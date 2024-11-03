@@ -3,29 +3,33 @@ import EmpCard from "../reUsableCmponent/EmpCard";
 import Modal from "../reUsableCmponent/modal/Modal";
 import Pagination from "../Pagination";
 import { getApi } from "../../api/api";
-import { useSelector, useDispatch } from "react-redux";
+import { setBusiness } from "../../Features/Business";
+import { useDispatch, useSelector } from "react-redux";
 
 function ContentArea() {
   const [selectedDesignation, setSelectedDesignation] = useState("");
   const [selectedRole, setSelectedRole] = useState("");
   const [fileName, setFileName] = useState("");
-  const [employeeData, setEmployeeData] = useState([]); // State to store API data
+  const [categoryData, setCategoryData] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [page, setPage] = useState(1); // State for current page
-  const limit = 10; // Limit of items per page
-  const totalItems = 50; // Update this value based on your actual data count
-
+  const [page, setPage] = useState(1);
+  const limit = 10;
+  const totalItems = 50;
+  const dispatch = useDispatch()
+  const businessData = useSelector((state)=>state.businessSlice.business ||[])
   const handleInputChange = (event) => {
     setSelectedRole(event.target.value);
   };
 
   const selectProfession = (event) => {
     setSelectedDesignation(event.target.value);
+    setPage(1); 
   };
 
-  const selectRole = () => {
+  const resetFilters = () => {
     setSelectedRole("");
     setSelectedDesignation("");
+    setPage(1);
   };
 
   const toggleModal = () => {
@@ -49,13 +53,13 @@ function ContentArea() {
     const fetchBusinessData = async () => {
       try {
         const data = await getApi(`business?page=${page}&limit=${limit}`, true);
-        console.log("data", data.data);
-        setEmployeeData(data.data); // Store the data in state
+        const Categories = await getApi(`category?page=${1}&limit=${100}`, true);
+        dispatch(setBusiness(data.data));
+        setCategoryData(Categories.data.data);
       } catch (error) {
         console.error("Error fetching business profiles:", error);
       }
     };
-
     fetchBusinessData();
   }, [page]);
 
@@ -77,102 +81,68 @@ function ContentArea() {
               onClose={toggleModal}
               modalHeader={"Add Employee Bulky"}
             >
-              <form>
-                <div className="flex items-center border border-gray-500 rounded-md mb-4 mt-8">
-                  <label className="w-[100px] p-2 mr-4 bg-gray-200 border border-r-gray-500 rounded-l-md cursor-pointer text-center">
-                    Add File
-                    <input
-                      type="file"
-                      className="hidden"
-                      onChange={handleFileChange}
-                    />
-                  </label>
-                  <span className="w-full px-4 text-gray-500">
-                    {fileName ? fileName : "Upload .xl File"}
-                  </span>
-                </div>
-
-                <button
-                  type="button"
-                  className="bg-gray-200 p-3 w-full flex justify-center items-center mb-4 border border-gray-500 "
-                >
-                  <span className="mr-2">
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M7 12V3.85L4.4 6.45L3 5L8 0L13 5L11.6 6.45L9 3.85V12H7ZM2 16C1.45 16 0.979333 15.8043 0.588 15.413C0.196666 15.0217 0.000666667 14.5507 0 14V11H2V14H14V11H16V14C16 14.55 15.8043 15.021 15.413 15.413C15.0217 15.805 14.5507 16.0007 14 16H2Z"
-                        fill="black"
-                      />
-                    </svg>
-                  </span>{" "}
-                  Upload
-                </button>
-              </form>
+              {/* Modal content remains the same */}
             </Modal>
           </span>
         </div>
       </div>
 
-      <div className="flex rounded-lg p-4 pt-0">
-        <select
-          value={selectedDesignation}
-          onChange={selectProfession}
-          className="p-2 lg:w-[300px] w-full appearance-none bg-white border border-gray-500 focus:ring-indigo-500 focus:border-indigo-500 pr-10 bg-no-repeat bg-right"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14' fill='none' stroke='%23000000'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='1' d='M12 5l-5 5-5-5' /%3E%3C/svg%3E")`,
-            backgroundSize: "24px 24px",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "right 10px center",
-            paddingRight: "40px",
-          }}
-        >
-          <option
-            value=""
-            disabled
-            selected
-            className="text-gray-500 font-bold"
+      <div className="flex flex-col lg:flex-row gap-4 rounded-lg p-4 pt-0">
+        <div className="lg:w-[300px] w-full">
+          <select
+            value={selectedDesignation}
+            onChange={selectProfession}
+            className="w-full p-2 appearance-none bg-white border border-gray-500 rounded focus:ring-indigo-500 focus:border-indigo-500 pr-10"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14' fill='none' stroke='%23000000'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='1' d='M12 5l-5 5-5-5' /%3E%3C/svg%3E")`,
+              backgroundSize: "24px 24px",
+              backgroundPosition: "right 10px center",
+              backgroundRepeat: "no-repeat",
+            }}
           >
-            Select Category
-          </option>
-          <option value="All">All</option>
-          <option value="Restaurant">Restaurant</option>
-          <option value="Salon">Salon</option>
-          <option value="Resorts">Resorts</option>
-          <option value="Super Markets">Super Markets</option>
-        </select>
+            <option value="">All Categories</option>
+            {categoryData.map((category) => (
+              <option key={category.id} value={category.name}>
+                {category.name}
+              </option>
+            ))}
+          </select>
+        </div>
 
-        <div className="ml-auto flex items-center space-x-4">
-          <span className="flex items-center justify-center">
+        <div className="flex-1 flex flex-col lg:flex-row gap-4">
+          <div className="flex-1">
             <input
               value={selectedRole}
               onChange={handleInputChange}
-              className="p-2 lg:w-[250px] w-full appearance-none bg-white border border-gray-500"
-              placeholder="Business Name, Category, Location"
+              className="w-full p-2 appearance-none bg-white border border-gray-500 rounded"
+              placeholder="Search by business name, category, or location..."
             />
-          </span>
-          <span className="flex items-center">
-            <span
-              onClick={selectRole}
-              className="cursor-pointer bg-[#0EB599] text-white p-2 lg:w-[260px] text-center"
+          </div>
+          <div className="flex gap-2">
+            <button
+              onClick={resetFilters}
+              className="px-4 py-2 border border-gray-300 rounded text-gray-600 hover:bg-gray-50"
+            >
+              Reset
+            </button>
+            <button
+              className="px-4 py-2 bg-[#0EB599] text-white rounded hover:bg-[#0ca589]"
+              onClick={() => setPage(1)} // Reset page when searching
             >
               Search
-            </span>
-          </span>
+            </button>
+          </div>
         </div>
       </div>
 
       <div className="flex flex-wrap justify-center">
         <EmpCard
-          tableData={employeeData}
+          tableData={businessData}
           selectedRole={selectedRole}
           selectedDesignation={selectedDesignation}
         />
       </div>
+      
       <div className="m-auto flex justify-end mt-8">
         <Pagination
           totalItems={totalItems}

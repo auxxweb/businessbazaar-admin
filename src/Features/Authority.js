@@ -1,53 +1,34 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { errorMessage } from "../utils/app.utils";
+import { createSlice } from "@reduxjs/toolkit";
 
-// login-admin
-export const adminLogin = createAsyncThunk(
-  "adminAuth/adminLogin",
-  async (adminData, thunkAPI) => {
-    try {
-      // return await adminService.login(adminData)
-    } catch (error) {
-      return thunkAPI.rejectWithValue(errorMessage(error));
-    }
-  }
-);
-
-// Initial state for the slice
 const initialState = {
   isAuthenticated: false,
   user: null,
   loading: false,
-  login: false
+  login: false,
 };
 
-// Redux slice for authority management
 const userSlice = createSlice({
   name: "authority",
   initialState,
   reducers: {
+    setLogin: (state, action) => {
+      const { _id, name, email, image, token } = action.payload;
+      state.user = { _id, name, email, image, token };
+      state.isAuthenticated = true;
+      state.login = true;
+      state.loading = false;
+    },
+    setLoading: (state, action) => {
+      state.loading = action.payload;
+    },
     resetLogin: (state) => {
+      state.isAuthenticated = false;
+      state.user = null;
       state.login = false;
-    }
+    },
   },
-  extraReducers: (builder) => {
-    // builder
-    //   .addCase(settingsDetails.pending, (state) => {
-    //     state.loading = true;
-    //   })
-    //   .addCase(settingsDetails.fulfilled, (state, action) => {
-    //     state.loading = false;
-    //     // state.settingsDetails = action.payload;
-    //   })
-    //   .addCase(settingsDetails.rejected, (state) => {
-    //     state.loading = false;
-    //     // state.settingsDetails = null;
-    //   })
-  }
 });
 
-// Export actions from the slice
-export const { resetLogin } = userSlice.actions;
+export const { setLogin, setLoading, resetLogin } = userSlice.actions;
 
-// Export the reducer function
-export default userSlice.reducer;
+export default userSlice;

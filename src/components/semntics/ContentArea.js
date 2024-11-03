@@ -21,11 +21,11 @@ function ContentArea() {
   return (
     <Routes> {/* Use Routes to define all your app routes */}
       <Route path="/" element={<DashBoard />} />
-      <Route path="/allemployees" element={<AllEmployees />} />
+      <Route path="/business" element={<AllEmployees />} />
       <Route path="/leaves" element={<Leaves />} />
       <Route path="/attendence" element={<Attendence />} />
       <Route path="/shiftsandschedules" element={<ShiftAndSchedule />} />
-      <Route path="/clients" element={<Clients />} />
+      <Route path="/categories" element={<Clients />} />
       <Route path="/clientsdetails" element={<ClientDetails />} />
       <Route path="/detailedprojectpage" element={<ProjectDetailedPage />} />
       <Route path="/projetspage" element={<ProjetsPage />} />       
@@ -36,9 +36,6 @@ function ContentArea() {
       <Route path="/designation" element={<Designation />} />   
       <Route path="/settingandconfi" element={<SettingAndConfi />} />   
       <Route path="/developerdetails" element={<DeveloperDetails />} />   
-
-      
-
     </Routes>
   );
 }

@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import { appConfig } from '../config/appConfig'
-import { getLocalStorageItem } from '../utils/appUtils'
+// import { getLocalStorageItem } from '../utils/appUtils'
 
 
 
@@ -9,7 +9,7 @@ export const postApi = async ({
   body,
   authToken = true,
 }) => {
-  const userData = getLocalStorageItem('user')
+  const userData = localStorage.getItem('admin')
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -28,7 +28,7 @@ export const postApi = async ({
 }
 
 export const getApi = async (url, authToken) => {
-  const userData = getLocalStorageItem('user')
+  const adminData = localStorage.getItem('admin')
 
   const config = {
     headers: {
@@ -38,7 +38,7 @@ export const getApi = async (url, authToken) => {
 
   if (authToken) {
     config.headers = {
-      Authorization: `Bearer ${userData?.token}`,
+      Authorization: `Bearer ${adminData?.token}`,
     }
   }
   const response = await axios.get(`${appConfig.apiUrl}/${url}`, config)
