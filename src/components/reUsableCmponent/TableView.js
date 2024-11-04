@@ -1,8 +1,8 @@
 import React from "react";
 
 const TableView = ({ tableData, selectedDesignation, selectedRole }) => {
-  const filteredEmployees = Array.isArray(tableData.data) 
-    ? tableData.data.filter(business => {
+  const filteredEmployees = Array.isArray(tableData?.data) 
+    ? tableData?.data.filter(business => {
         const matchesCategory = 
           !selectedDesignation || 
           business.category.name.toLowerCase() === selectedDesignation.toLowerCase();
