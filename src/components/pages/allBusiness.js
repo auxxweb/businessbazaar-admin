@@ -72,10 +72,13 @@ function ContentArea() {
       try {
         const data = await getApi(
           `business/all?page=${page}&limit=${limit}${
-            selectedDesignation && `&category=${selectedDesignation}`
-          }${searchClick && `&searchTerm=${searchTerm}`}`,
+            selectedDesignation !== null
+              ? `&category=${selectedDesignation}`
+              : ""
+          }${searchClick && searchTerm ? `&searchTerm=${searchTerm}` : ""}`,
           true
         );
+
         // const Categories = await getApi(`category?page=${1}&limit=${100}`, true);
         // setCategoryData(Categories.data.data);
         // console.log(data,"businessData");
