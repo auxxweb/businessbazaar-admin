@@ -1,12 +1,12 @@
 import React from 'react'
 
-const DashBoard1Top = () => {
+const DashBoard1Top = ({data}) => {
   return (
     <>
     <div className="flex space-x-8 mb-4">
-    <div className="bg-white p-4 rounded-lg shadow-md border border-gray-200">
+    <div className="bg-white p-4 rounded-lg shadow-md border border-gray-200 w-[25%]">
     <div className="flex items-center justify-between space-x-3">
-      <h2 className="text-2xl font-bold">250</h2>
+      <h2 className="text-2xl font-bold">{data?.totalBusiness}</h2>
       <div>
       <svg width="33" height="23" viewBox="0 0 33 23" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M32.3204 19.2988V22.0988H0.81922V19.1356C0.817658 18.5097 1.09578 17.916 1.57768 17.5164C3.27745 16.1448 5.10579 14.9403 7.03682 13.9198C7.1616 14.2111 8.37122 16.9919 9.14242 18.1662V18.166C9.15314 18.1881 9.17546 18.2021 9.20001 18.2021C9.22456 18.2021 9.24688 18.1881 9.2576 18.166C9.4143 17.6956 10.0192 16.0635 10.9375 16.1756H10.9377C10.9665 16.1843 10.9973 16.1704 11.01 16.1432C11.0228 16.1162 11.0138 16.0836 10.9888 16.0669C10.2944 15.5133 8.53436 14.0892 7.86562 13.2957V11.3789C7.56786 10.8727 7.36495 10.3164 7.26716 9.7372C7.03681 9.718 6.73591 9.39791 6.40956 8.24926C5.99037 6.77091 6.38389 6.47651 6.7647 6.4796C6.56314 5.61554 6.0511 2.614 8.28481 1.2508C8.01628 1.02401 7.8607 0.690529 7.85914 0.338969C7.85914 0.338969 10.4192 0.626918 11.6384 0.374238C12.8576 0.121335 14.1985 1.08784 14.4065 2.01909C14.4065 2.01909 16.9055 2.01909 15.9362 6.48315C16.3266 6.46708 16.7522 6.73606 16.3201 8.25281C16 9.40167 15.6802 9.72492 15.4625 9.74075V9.74053C15.3652 10.3198 15.1623 10.876 14.864 11.3821V13.283C14.1919 14.0765 12.4352 15.5037 11.7377 16.0542C11.7127 16.0709 11.7035 16.1033 11.7165 16.1305C11.7292 16.1578 11.76 16.1716 11.7888 16.1629C12.7071 16.0508 13.312 17.6796 13.4687 18.1533C13.4794 18.1754 13.502 18.1895 13.5263 18.1895C13.5508 18.1895 13.5734 18.1754 13.5841 18.1533C14.3553 16.9789 15.5649 14.1981 15.6897 13.9069C16.9892 14.5991 18.2451 15.3705 19.4495 16.2174C19.8553 16.0821 20.2508 15.9187 20.6337 15.7277L20.704 15.6862C20.9038 15.5569 21.0241 15.3353 21.0241 15.0973V13.9038C17.8657 13.9326 16.9346 12.579 16.9346 12.579C16.9346 12.579 18.7395 12.5502 18.6275 7.77895C18.5152 3.00775 20.6944 2.23655 21.5136 1.93895C23.8976 1.03335 25.0944 2.47333 25.0944 2.47333C27.8592 2.2173 28.6146 5.23808 28.2944 8.67505C27.9744 12.1119 29.8433 12.6494 29.8433 12.6494C28.5473 13.9742 25.8114 13.8909 25.8114 13.8909V15.123H25.8111C25.8111 15.361 25.9315 15.5826 26.1312 15.7119L26.2145 15.763C27.1745 16.2655 29.1457 16.7871 29.1841 16.8063C29.8292 16.9813 30.4563 17.2182 31.056 17.5135C31.7592 17.8485 32.2378 18.5246 32.3201 19.299L32.3204 19.2988Z" fill="#1DB290"/>
@@ -15,16 +15,16 @@ const DashBoard1Top = () => {
     </div>
     <p className="mt-2 text-black font-semibold">Total Business</p>
     <p className="text-green-500 flex items-center mt-4">
-    <svg classNameName='mr-2' width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+    {/* <svg classNameName='mr-2' width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M4.81921 1V11M4.81921 1L8.81921 5M4.81921 1L0.819214 5" stroke="#10A242" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-      <span classNameName='text-sm'>12 more than last quarter</span>  
+    </svg> */}
+      <span classNameName='text-sm'>{data?.totalActiveBusiness} active businesses</span>  
     </p>
   </div>
 
-  <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+  <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200 w-[25%]">
     <div className="flex items-center justify-between space-x-3">
-      <h2 className="text-2xl font-bold">250</h2>
+      <h2 className="text-2xl font-bold">{data?.totalPlans}</h2>
       <div>
       <svg width="25" height="34" viewBox="0 0 30 39" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M21.3065 28.5905C21.4034 28.6345 21.5004 28.65 21.597 28.65C21.8729 28.65 22.1337 28.5008 22.2604 28.24C23.7216 25.2955 24.072 22.686 23.304 20.4795C22.6553 18.6233 21.373 17.5713 20.6647 17.1173C20.2996 20.1144 19.39 23.4244 17.9362 26.9805C17.9137 27.04 17.884 27.0999 17.8542 27.1521L21.3065 28.5905Z" fill="#1DB290"/>
@@ -42,16 +42,16 @@ const DashBoard1Top = () => {
     </div>
     <p className="mt-2 text-black font-semibold">Total Plans</p>
     <p className="text-green-500 flex items-center mt-4">
-    <svg classNameName='mr-2' width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+    {/* <svg classNameName='mr-2' width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M4.81921 1V11M4.81921 1L8.81921 5M4.81921 1L0.819214 5" stroke="#10A242" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-      <span classNameName='text-sm'>12 more than last quarter</span>  
+    </svg> */}
+      {/* <span classNameName='text-sm'>12 more than last quarter</span>   */}
     </p>
   </div>
 
-  <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+  <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200 w-[25%]">
     <div className="flex items-center justify-between space-x-3">
-      <h2 className="text-2xl font-bold">250</h2>
+      <h2 className="text-2xl font-bold">{data?.totalCategories}</h2>
       <div>
       <svg width="25" height="30" viewBox="0 0 25 30" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M18.25 29.25C16.5208 29.25 15.0471 28.5795 13.8288 27.2384C12.6104 25.8973 12.0008 24.2762 12 22.375C11.9992 20.4738 12.6088 18.8527 13.8288 17.5116C15.0487 16.1705 16.5225 15.5 18.25 15.5C19.9775 15.5 21.4517 16.1705 22.6725 17.5116C23.8933 18.8527 24.5025 20.4738 24.5 22.375C24.4975 24.2762 23.8879 25.8978 22.6713 27.2397C21.4546 28.5818 19.9808 29.2518 18.25 29.25ZM20.3438 25.6406L21.2188 24.6781L18.875 22.1V18.25H17.625V22.65L20.3438 25.6406ZM3.25 27.875C2.5625 27.875 1.97417 27.606 1.485 27.0679C0.995833 26.5298 0.750833 25.8822 0.75 25.125V5.875C0.75 5.11875 0.995 4.47158 1.485 3.9335C1.975 3.39542 2.56333 3.12592 3.25 3.125H8.46875C8.69792 2.32292 9.14583 1.66429 9.8125 1.14912C10.4792 0.633958 11.2083 0.375917 12 0.375C12.8333 0.375 13.5783 0.633042 14.235 1.14912C14.8917 1.66521 15.3342 2.32383 15.5625 3.125H20.75C21.4375 3.125 22.0263 3.3945 22.5163 3.9335C23.0063 4.4725 23.2508 5.11967 23.25 5.875V14.4688C22.875 14.1708 22.4792 13.9187 22.0625 13.7125C21.6458 13.5062 21.2083 13.3229 20.75 13.1625V5.875H18.25V10H5.75V5.875H3.25V25.125H9.875C10.0208 25.6292 10.1875 26.1104 10.375 26.5687C10.5625 27.0271 10.7917 27.4625 11.0625 27.875H3.25ZM12 5.875C12.3542 5.875 12.6513 5.743 12.8913 5.479C13.1313 5.215 13.2508 4.88867 13.25 4.5C13.2492 4.11133 13.1292 3.785 12.89 3.521C12.6508 3.257 12.3542 3.125 12 3.125C11.6458 3.125 11.3492 3.257 11.11 3.521C10.8708 3.785 10.7508 4.11133 10.75 4.5C10.7492 4.88867 10.8692 5.21546 11.11 5.48037C11.3508 5.74529 11.6475 5.87683 12 5.875Z" fill="#1DB290"/>
@@ -60,18 +60,18 @@ const DashBoard1Top = () => {
     </div>
     <p className="mt-2 text-black font-semibold">Total Categories</p>
     <p className="text-green-500 flex items-center mt-4">
-    <svg classNameName='mr-2' width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+    {/* <svg classNameName='mr-2' width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M4.81921 1V11M4.81921 1L8.81921 5M4.81921 1L0.819214 5" stroke="#10A242" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-      <span classNameName='text-sm'>12 more than last quarter</span>  
+    </svg> */}
+      {/* <span classNameName='text-sm'>12 more than last quarter</span>   */}
     </p>
   </div>
 
 
 
-  <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+  <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200 w-[25%]">
     <div className="flex items-center justify-between space-x-3">
-      <h2 className="text-2xl font-bold">250</h2>
+      <h2 className="text-2xl font-bold">{data?.totalPayments}</h2>
       <div>
       <svg width="25" height="34" viewBox="0 0 24 24" fill="1DB290" xmlns="http://www.w3.org/2000/svg">
         {/* <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" fill="#1DB290"/> */}
@@ -90,10 +90,10 @@ const DashBoard1Top = () => {
     </div>
     <p className="mt-2 text-black font-semibold">Total Payments</p>
     <p className="text-green-500 flex items-center mt-4">
-    <svg classNameName='mr-2' width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+    {/* <svg classNameName='mr-2' width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M4.81921 1V11M4.81921 1L8.81921 5M4.81921 1L0.819214 5" stroke="#10A242" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-      <span classNameName='text-sm'>12 more than last quarter</span>  
+    </svg> */}
+      {/* <span classNameName='text-sm'>12 more than last quarter</span>   */}
     </p>
   </div>
 

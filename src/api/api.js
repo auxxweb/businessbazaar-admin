@@ -9,7 +9,7 @@ export const postApi = async ({
   body,
   authToken = true,
 }) => {
-  const userData = localStorage.getItem('admin')
+  const userData = JSON.parse(localStorage.getItem('admin'))
   const config = {
     headers: {
       'Content-Type': 'application/json',
