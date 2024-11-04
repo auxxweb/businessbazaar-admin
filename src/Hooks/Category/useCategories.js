@@ -30,7 +30,7 @@ const useCategories = () => {
   useEffect(() => {
     getAllCategories();
   }, [page]);
-  return { categories, loading, setPage, totalCategories, limit };
+  return { categories, loading, setPage, totalCategories, limit, getAllCategories };
 };
 
 export default useCategories;
