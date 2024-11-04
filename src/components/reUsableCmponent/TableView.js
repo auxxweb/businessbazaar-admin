@@ -1,81 +1,118 @@
-import React from "react";
+import React, { useState } from "react";
+import { BiSolidDownArrow } from "react-icons/bi";
+import Modal from "./modal/Modal";
 
-const TableView = ({ tableData, selectedDesignation, selectedRole }) => {
-  const filteredEmployees = Array.isArray(tableData.data) 
-    ? tableData.data.filter(business => {
-        const matchesCategory = 
-          !selectedDesignation || 
-          business.category.name.toLowerCase() === selectedDesignation.toLowerCase();
+const TableView = ({ tableData, handleDelete, handleStatusUpdate }) => {
+  const [showDeletePopup, setShowDeletePopup] = useState(false);
+  const [selectedBusinessId, setSelectedBusinessId] = useState(null);
 
-        const searchTerm = selectedRole.toLowerCase();
-        const matchesSearch = 
-          !selectedRole || 
-          business.businessName.toLowerCase().includes(searchTerm) ||
-          business.category.name.toLowerCase().includes(searchTerm) ||
-          business.address.city.toLowerCase().includes(searchTerm);
+  const [showStatusPopup, setShowStatusPopup] = useState(false);
 
-        return matchesCategory && matchesSearch;
-      })
-    : [];
+  const handleDeleteClick = (id) => {
+    setSelectedBusinessId(id);
+    setShowDeletePopup(true);
+  };
+
+  const handleDeleteFun = () => {
+    handleDelete(selectedBusinessId);
+    setShowDeletePopup(false)
+  };
+
+  const handleDeleteModalClose = () => {
+    setShowDeletePopup(false);
+    setSelectedBusinessId(null);
+  };
+
+  const handleStatusUpdateClick = (id)=>{
+    setSelectedBusinessId(id)
+    setShowStatusPopup(true)
+  }
+
+  const handleStatusModalClose = () => {
+    setShowStatusPopup(false);
+    setSelectedBusinessId(null);
+  };
+
+  const handleStatusFn = () => {
+    handleStatusUpdate(selectedBusinessId);
+    setShowStatusPopup(false)
+  };
 
   return (
     <div className="overflow-x-auto w-full max-w-full p-4">
-      <table className="w-full bg-white border border-gray-300 rounded-lg">
-        <thead className="bg-gray-100">
+      <table className="min-w-full table-auto mt-6">
+        <thead className="bg-white border-gray-400 border-t-[2px] border-l-[2px] border-r-[2px] border-b-[2px]">
           <tr>
-            <th align="left" className="p-2 border-b">
-              Logo
+            <th className="px-4 py-4 text-left border-r border-gray-400">
+              Business
             </th>
-            <th align="left" className="p-2 border-b">
-              Business Name
+            <th className="px-4 py-4 text-left border-r border-gray-400">
+              Business Email
             </th>
-            <th align="left" className="p-2 border-b">
-              Email
-            </th>
-            <th align="left" className="p-2 border-b">
-              Primary Phone
-            </th>
-            <th align="left" className="p-2 border-b">
-              Owner Name
-            </th>
-            <th align="left" className="p-2 border-b">
+
+            <th className="px-4 py-4 text-left border-r border-gray-400">
               Address
             </th>
-            <th align="left" className="p-2 border-b">
+            <th className="px-4 py-4 text-left border-r border-gray-400">
+              Plan
+            </th>
+            <th className="px-4 py-4 text-left border-r border-gray-400">
               Category
             </th>
-            <th align="left" className="p-2 border-b">
-              Actions
+            <th className="px-4 py-4 text-left border-r border-gray-400">
+              Status
             </th>
+            <th className="px-4 py-4 text-left">Action</th>
           </tr>
         </thead>
-        <tbody>
-          {filteredEmployees.length > 0 ? (
-            filteredEmployees.map((business, index) => (
+        <tbody className="border-[2px] border-opacity-50 border-[#969696]">
+          {tableData?.data?.length > 0 ? (
+            tableData?.data?.map((business, index) => (
               <tr
                 key={index}
-                className={`hover:bg-gray-50 ${index % 2 === 0 ? "bg-[#dafff9]" : ""}`}
-              >
-                <td className="p-2 border-b">
+                className="odd:bg-teal-100 even:bg-grey border-[2px] border-opacity-50 border-[#9e9696]">
+                <td className="px-4 py-2 flex border-r border-gray-400">
                   <img
                     src={business.logo}
                     alt={business.businessName}
-                    className="w-10 h-10 rounded-full"
+                    className="w-10 h-10 rounded-full mr-2 mt-2"
                   />
+                  <span className="items-center flex">
+                    {business?.businessName}{" "}
+                  </span>
                 </td>
-                <td className="p-2 border-b">{business.businessName}</td>
-                <td className="p-2 border-b">{business.email}</td>
-                <td className="p-2 border-b">
-                  {business.contactDetails.primaryNumber}
+                <td className="px-4 py-2 border-r border-gray-400">
+                  {business?.email}
                 </td>
-                <td className="p-2 border-b">{business.ownerName}</td>
-                <td className="p-2 border-b">
+                <td className="px-4 py-2 border-r border-gray-400">
                   {`${business.address.buildingName}, ${business.address.streetName}, ${business.address.city}, ${business.address.state}, ${business.address.pinCode}`}
                 </td>
-                <td className="p-2 border-b">{business.category.name}</td>
-                <td className="p-2 border-b">
-                  <button className="text-blue-500 hover:underline">
-                    View Details
+                <td className="px-4 py-2 border-r border-gray-400">
+                  {business?.selectedPlan?.plan}
+                </td>
+                <td className="px-4 py-2 border-r border-gray-400">
+                  {business.category.name}
+                </td>
+                <td className="px-4 py-4 border-r border-gray-400">
+                  <button
+                    onClick={() => handleStatusUpdateClick(business?._id)}
+                    className={`py-2 px-5 flex space-x-2 items-center ${
+                      !business?.status
+                        ? " text-[#FF0404] border-[#FF0404]"
+                        : "  border-[#1DB290] text-[#1DB290]"
+                    } rounded-full  border `}>
+                    {" "}
+                    <span>{business?.status ? "Active" : "Blocked"}</span>
+                    <BiSolidDownArrow className="text-black" />
+                  </button>
+                </td>
+                <td className="px-4 py-2 border-r border-gray-400">
+                  <button onClick={() => handleDeleteClick(business?._id)}>
+                    <img
+                      alt="pics"
+                      src="/icons/delete.svg"
+                      className="w-6 h-6 rounded-full mr-2 fill-red-500"
+                    />
                   </button>
                 </td>
               </tr>
@@ -89,6 +126,49 @@ const TableView = ({ tableData, selectedDesignation, selectedRole }) => {
           )}
         </tbody>
       </table>
+
+      <Modal isVisible={showDeletePopup} onClose={handleDeleteModalClose}>
+        <div className="bg-white rounded-lg shadow-md p-6 max-w-sm mx-auto">
+          <h3 className="text-center text-lg font-semibold text-gray-800 mb-6">
+            Are you sure you want to delete?
+          </h3>
+          <div className="flex justify-center space-x-4">
+            <button
+              onClick={handleDeleteModalClose}
+              type="button"
+              className="border border-green-500 text-green-600 hover:bg-green-500 hover:text-white font-semibold py-2 px-6 rounded-lg transition duration-200 ease-in-out">
+              No
+            </button>
+            <button
+              onClick={handleDeleteFun}
+              type="button"
+              className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-6 rounded-lg transition duration-200 ease-in-out">
+              Yes
+            </button>
+          </div>
+        </div>
+      </Modal>
+      <Modal isVisible={showStatusPopup} onClose={handleStatusModalClose}>
+        <div className="bg-white rounded-lg shadow-md p-6 max-w-sm mx-auto">
+          <h3 className="text-center text-lg font-semibold text-gray-800 mb-6">
+            Are you sure you want to Block/UnBlock?
+          </h3>
+          <div className="flex justify-center space-x-4">
+            <button
+              onClick={handleStatusModalClose}
+              type="button"
+              className="border border-green-500 text-green-600 hover:bg-green-500 hover:text-white font-semibold py-2 px-6 rounded-lg transition duration-200 ease-in-out">
+              No
+            </button>
+            <button
+              onClick={handleStatusFn}
+              type="button"
+              className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-6 rounded-lg transition duration-200 ease-in-out">
+              Yes
+            </button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };

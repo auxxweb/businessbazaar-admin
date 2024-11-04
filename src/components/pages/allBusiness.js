@@ -12,18 +12,24 @@ function ContentArea() {
   const [fileName, setFileName] = useState("");
   const [categoryData, setCategoryData] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchClick, setSearchClick] = useState(false);
   const [page, setPage] = useState(1);
   const limit = 10;
-  const totalItems = 50;
-  const dispatch = useDispatch()
-  const businessData = useSelector((state)=>state.businessSlice.business ||[])
+  // const totalItems = 50;
+  const dispatch = useDispatch();
+  const businessData = useSelector(
+    (state) => state.businessSlice?.business || []
+  );
+  // console.log(data,"dataaaa",totalCount);
+
   const handleInputChange = (event) => {
-    setSelectedRole(event.target.value);
+    setSearchTerm(event.target.value);
   };
 
   const selectProfession = (event) => {
     setSelectedDesignation(event.target.value);
-    setPage(1); 
+    setPage(1);
   };
 
   const resetFilters = () => {
@@ -50,41 +56,53 @@ function ContentArea() {
   };
 
   useEffect(() => {
+    const fetchCategoryData = async () => {
+      try {
+        const Categories = await getApi(`category/all`, true);
+        setCategoryData(Categories.data.data);
+      } catch (error) {
+        console.error("Error fetching business categories:", error);
+      }
+    };
+    fetchCategoryData();
+  }, [selectedDesignation]);
+
+  useEffect(() => {
     const fetchBusinessData = async () => {
       try {
-        const data = await getApi(`business?page=${page}&limit=${limit}`, true);
-        const Categories = await getApi(`category?page=${1}&limit=${100}`, true);
+        const data = await getApi(
+          `business/all?page=${page}&limit=${limit}${
+            selectedDesignation && `&category=${selectedDesignation}`
+          }${searchClick && `&searchTerm=${searchTerm}`}`,
+          true
+        );
+        // const Categories = await getApi(`category?page=${1}&limit=${100}`, true);
+        // setCategoryData(Categories.data.data);
+        // console.log(data,"businessData");
+
         dispatch(setBusiness(data.data));
-        setCategoryData(Categories.data.data);
       } catch (error) {
         console.error("Error fetching business profiles:", error);
       }
     };
     fetchBusinessData();
-  }, [page]);
+  }, [page, selectedDesignation, searchClick]);
+
+  const handleSearch = () => {
+    setSearchClick(!searchClick);
+  };
+
+  const handleDelete = (id) => {
+    alert(id);
+  };
+  const handleStatusUpdate = (id) => {
+    alert(`status${id}`);
+  };
 
   return (
     <>
       <div className="flex rounded-lg p-4">
         <h2 className="text-2xl font-semibold text-gray-700">Business</h2>
-        <div className="ml-auto flex items-center space-x-4">
-          <span className="flex items-center">
-            <span
-              className="bg-[#0EB599] text-white rounded-full p-3 cursor-pointer"
-              onClick={toggleModal}
-            >
-              + Add New Business
-            </span>
-
-            <Modal
-              isVisible={isModalVisible}
-              onClose={toggleModal}
-              modalHeader={"Add Employee Bulky"}
-            >
-              {/* Modal content remains the same */}
-            </Modal>
-          </span>
-        </div>
       </div>
 
       <div className="flex flex-col lg:flex-row gap-4 rounded-lg p-4 pt-0">
@@ -97,19 +115,37 @@ function ContentArea() {
               backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14' fill='none' stroke='%23000000'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='1' d='M12 5l-5 5-5-5' /%3E%3C/svg%3E")`,
               backgroundSize: "24px 24px",
               backgroundPosition: "right 10px center",
-              backgroundRepeat: "no-repeat",
-            }}
-          >
+              backgroundRepeat: "no-repeat"
+            }}>
             <option value="">All Categories</option>
-            {categoryData.map((category) => (
-              <option key={category.id} value={category.name}>
-                {category.name}
+            {categoryData?.map((category) => (
+              <option key={`index-${category?.id}`} value={category?._id}>
+                {category?.name}
               </option>
             ))}
           </select>
         </div>
 
-        <div className="flex-1 flex flex-col lg:flex-row gap-4">
+        <div className="ml-auto lg:mr-4 flex items-center space-x-4 justify-end pt-3">
+          {/* Parent div for span elements */}
+          <span className="flex items-center justify-center">
+            <input
+              value={searchTerm}
+              onChange={handleInputChange}
+              className="p-2 lg:w-[250px] w-full appearance-none bg-white border border-gray-400 rounded-3xl"
+              placeholder="Search by name"
+            />
+          </span>
+          <span className="flex items-center">
+            <span
+              onClick={handleSearch}
+              className="cursor-pointer bg-[#0EB599] hover:bg-[#068A55] text-white p-2 lg:w-[100px] text-center rounded-3xl">
+              Search
+            </span>
+          </span>
+        </div>
+
+        {/* <div className="flex-1 flex flex-col lg:flex-row gap-4">
           <div className="flex-1">
             <input
               value={selectedRole}
@@ -121,8 +157,7 @@ function ContentArea() {
           <div className="flex gap-2">
             <button
               onClick={resetFilters}
-              className="px-4 py-2 border border-gray-300 rounded text-gray-600 hover:bg-gray-50"
-            >
+              className="px-4 py-2 border border-gray-300 rounded text-gray-600 hover:bg-gray-50">
               Reset
             </button>
             <button
@@ -132,20 +167,20 @@ function ContentArea() {
               Search
             </button>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="flex flex-wrap justify-center">
         <EmpCard
           tableData={businessData}
-          selectedRole={selectedRole}
-          selectedDesignation={selectedDesignation}
+          handleDelete={handleDelete}
+          handleStatusUpdate={handleStatusUpdate}
         />
       </div>
-      
+
       <div className="m-auto flex justify-end mt-8">
         <Pagination
-          totalItems={totalItems}
+          totalItems={businessData?.totalCount}
           itemsPerPage={limit}
           currentPage={page}
           onPageChange={handlePageChange}

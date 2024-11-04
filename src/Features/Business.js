@@ -9,6 +9,8 @@ const businessSlice = createSlice({
   initialState,
   reducers: {
     setBusiness: (state, action) => {
+      console.log(action.payload,"payload--payload");
+      
       state.business = action.payload;
     },
     resetBusiness: (state) => {

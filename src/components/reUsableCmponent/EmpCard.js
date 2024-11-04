@@ -1,13 +1,13 @@
 import React from "react";
 import TableView from "./TableView";
 
-function EmpCard({ tableData, selectedDesignation, selectedRole }) {
+function EmpCard({ tableData,handleDelete,handleStatusUpdate }) {
   return (
     <>
       <TableView
         tableData={tableData}
-        selectedRole={selectedRole}
-        selectedDesignation={selectedDesignation}
+        handleDelete={handleDelete}
+        handleStatusUpdate={handleStatusUpdate}
       />
     </>
   );
