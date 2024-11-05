@@ -1,38 +1,39 @@
-import React from "react";
+import React, { useState } from 'react'
+import Modal from '../modal/Modal'
 
-const CategoryTable = ({ tableData, selectedDesignation, selectedRole }) => {
-    // const filteredEmployees = Array.isArray(tableData.data)
-    //   ? tableData.data.filter(business => {
-    //       const matchesCategory =
-    //         !selectedDesignation ||
-    //         business.category.name.toLowerCase() === selectedDesignation.toLowerCase();
+const CategoryTable = ({ tableData, handleDeleteCategory ,handleEditCategory }) => {
+  const [showDeletePopup, setShowDeletePopup] = useState(false)
+  const [selectedCategoryId, setSelectedCategoryId] = useState(null)
 
-    //       const searchTerm = selectedRole.toLowerCase();
-    //       const matchesSearch =
-    //         !selectedRole ||
-    //         business.businessName.toLowerCase().includes(searchTerm) ||
-    //         business.category.name.toLowerCase().includes(searchTerm) ||
-    //         business.address.city.toLowerCase().includes(searchTerm);
+  const handleDeleteModalClose = async (id) => {
+    setSelectedCategoryId(null)
+    setShowDeletePopup(false)
+  }
 
-    //       return matchesCategory && matchesSearch;
-    //     })
-    //   : [];
+  const handleDeleteFun = () => {
+    handleDeleteCategory(selectedCategoryId)
+    setShowDeletePopup(false)
+  }
 
+  const handleDeleteClick = async (id) => {
+    setSelectedCategoryId(id)
+    setShowDeletePopup(true)
+  }
   return (
     <div className="overflow-x-auto w-full max-w-full p-4">
-      <table className="w-full bg-white border border-gray-300 rounded-lg">
-        <thead className="bg-gray-100">
+      <table className="min-w-full table-auto mt-6">
+        <thead className="bg-white border-gray-400 border-t-[2px] border-l-[2px] border-r-[2px] border-b-[2px]">
           <tr>
-            <th align="left" className="p-2 border-b">
+            <th className="px-4 py-4 text-left border-r border-gray-400">
               Name
             </th>
-            <th align="left" className="p-2 border-b">
+            <th className="px-4 py-4 text-left border-r border-gray-400">
               Image
             </th>
-            <th align="left" className="p-2 border-b">
+            <th className="px-4 py-4 text-left border-r border-gray-400">
               Cover Image
             </th>
-            <th align="left" className="p-2 border-b">
+            <th className="px-4 py-4 text-left border-r border-gray-400">
               Actions
             </th>
           </tr>
@@ -42,19 +43,19 @@ const CategoryTable = ({ tableData, selectedDesignation, selectedRole }) => {
             tableData.map((category, index) => (
               <tr
                 key={index}
-                className={`hover:bg-gray-50 ${
-                  index % 2 === 0 ? "bg-[#dafff9]" : ""
-                }`}
+                className="odd:bg-teal-100 even:bg-grey border-[2px] border-opacity-50 border-[#9e9696]"
               >
-                <td className="p-2 border-b">{category?.name}</td>
-                <td className="p-2 border-b">
+                <td className="px-4 py-2 border-r border-gray-400">
+                  {category?.name}
+                </td>
+                <td className="px-4 py-2 border-r border-gray-400">
                   <img
                     src={category?.image}
                     alt={category?.image}
                     className="w-10 h-10 rounded-full"
                   />
                 </td>
-                <td className="p-2 border-b">
+                <td className="px-4 py-2 border-r border-gray-400">
                   <img
                     src={category?.coverImage}
                     alt={category?.coverImage}
@@ -62,9 +63,23 @@ const CategoryTable = ({ tableData, selectedDesignation, selectedRole }) => {
                   />
                 </td>
 
-                <td className="p-2 border-b">
-                  <button className="text-blue-500 hover:underline">
-                    View Details
+                <td className="px-4 py-2 border-r flex text-center border-gray-400">
+                  <button
+                  // disabled={isLoadingBlock}
+                  onClick={() => handleEditCategory(category?._id)}
+                  >
+                    <img
+                      alt="pics"
+                      src="/icons/edit.svg"
+                      className="w-6 h-6 rounded-full mr-2"
+                    />
+                  </button>
+                  <button onClick={() => handleDeleteClick(category?._id)}>
+                    <img
+                      alt="pics"
+                      src="/icons/delete.svg"
+                      className="w-6 h-6 rounded-full mr-2 fill-red-500"
+                    />
                   </button>
                 </td>
               </tr>
@@ -78,8 +93,31 @@ const CategoryTable = ({ tableData, selectedDesignation, selectedRole }) => {
           )}
         </tbody>
       </table>
+      <Modal isVisible={showDeletePopup} onClose={handleDeleteModalClose}>
+        <div className="bg-white rounded-lg shadow-md p-6 max-w-sm mx-auto">
+          <h3 className="text-center text-lg font-semibold text-gray-800 mb-6">
+            Are you sure you want to delete?
+          </h3>
+          <div className="flex justify-center space-x-4">
+            <button
+              onClick={handleDeleteModalClose}
+              type="button"
+              className="border border-green-500 text-green-600 hover:bg-green-500 hover:text-white font-semibold py-2 px-6 rounded-lg transition duration-200 ease-in-out"
+            >
+              No
+            </button>
+            <button
+              onClick={handleDeleteFun}
+              type="button"
+              className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-6 rounded-lg transition duration-200 ease-in-out"
+            >
+              Yes
+            </button>
+          </div>
+        </div>
+      </Modal>
     </div>
-  );
-};
+  )
+}
 
-export default CategoryTable;
+export default CategoryTable
