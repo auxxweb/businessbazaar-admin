@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { BiSolidDownArrow } from "react-icons/bi";
 import Modal from "./modal/Modal";
+import { formatDate } from "../../utils/app.utils";
 
 const TableView = ({ tableData, handleDelete, handleStatusUpdate }) => {
   const [showDeletePopup, setShowDeletePopup] = useState(false);
@@ -15,7 +16,7 @@ const TableView = ({ tableData, handleDelete, handleStatusUpdate }) => {
 
   const handleDeleteFun = () => {
     handleDelete(selectedBusinessId);
-    setShowDeletePopup(false)
+    setShowDeletePopup(false);
   };
 
   const handleDeleteModalClose = () => {
@@ -23,10 +24,10 @@ const TableView = ({ tableData, handleDelete, handleStatusUpdate }) => {
     setSelectedBusinessId(null);
   };
 
-  const handleStatusUpdateClick = (id)=>{
-    setSelectedBusinessId(id)
-    setShowStatusPopup(true)
-  }
+  const handleStatusUpdateClick = (id) => {
+    setSelectedBusinessId(id);
+    setShowStatusPopup(true);
+  };
 
   const handleStatusModalClose = () => {
     setShowStatusPopup(false);
@@ -35,7 +36,7 @@ const TableView = ({ tableData, handleDelete, handleStatusUpdate }) => {
 
   const handleStatusFn = () => {
     handleStatusUpdate(selectedBusinessId);
-    setShowStatusPopup(false)
+    setShowStatusPopup(false);
   };
 
   return (
@@ -55,6 +56,9 @@ const TableView = ({ tableData, handleDelete, handleStatusUpdate }) => {
             </th>
             <th className="px-4 py-4 text-left border-r border-gray-400">
               Plan
+            </th>
+            <th className="px-4 py-4 text-left border-r border-gray-400">
+              Joined Date
             </th>
             <th className="px-4 py-4 text-left border-r border-gray-400">
               Category
@@ -89,6 +93,9 @@ const TableView = ({ tableData, handleDelete, handleStatusUpdate }) => {
                 </td>
                 <td className="px-4 py-2 border-r border-gray-400">
                   {business?.selectedPlan?.plan}
+                </td>
+                <td className="px-2 py-2 border-r border-gray-400  items-center">
+                  {formatDate(business?.createdAt)}
                 </td>
                 <td className="px-4 py-2 border-r border-gray-400">
                   {business.category.name}

@@ -158,30 +158,6 @@ function ContentArea() {
             </span>
           </span>
         </div>
-
-        {/* <div className="flex-1 flex flex-col lg:flex-row gap-4">
-          <div className="flex-1">
-            <input
-              value={selectedRole}
-              onChange={handleInputChange}
-              className="w-full p-2 appearance-none bg-white border border-gray-500 rounded"
-              placeholder="Search by business name, category, or location..."
-            />
-          </div>
-          <div className="flex gap-2">
-            <button
-              onClick={resetFilters}
-              className="px-4 py-2 border border-gray-300 rounded text-gray-600 hover:bg-gray-50">
-              Reset
-            </button>
-            <button
-              className="px-4 py-2 bg-[#0EB599] text-white rounded hover:bg-[#0ca589]"
-              onClick={() => setPage(1)} // Reset page when searching
-            >
-              Search
-            </button>
-          </div>
-        </div> */}
       </div>
 
       <div className="flex flex-wrap justify-center">
