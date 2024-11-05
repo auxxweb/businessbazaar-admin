@@ -130,7 +130,20 @@ const ProjetsPage = () => {
                       required
                     />
                   </div>
-
+                  <div className="flex flex-row mb-2">
+                  <input
+                    type="checkbox"
+                    name="isMain"
+                    id="isMain"
+                    className="mr-2 border-2 p-1 border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    defaultChecked={
+                       false
+                    }
+                  />
+                  <label className="block text-m font-medium text-gray-700">
+                    Premium plan
+                  </label>
+                </div>
                  
                 </div>
 
