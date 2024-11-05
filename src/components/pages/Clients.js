@@ -226,19 +226,19 @@ const Clients = () => {
           </span>
         </div>
       </div>
-      <div className="ml-auto lg:mr-4 flex items-center space-x-8 justify-end">
-        {/* Parent div for span elements */}
+      <div className="ml-auto lg:mr-4 flex items-center space-x-4 justify-end pt-3">
+      {/* Parent div for span elements */}
         <span className="flex items-center justify-center">
           <input
-            className="p-2 lg:w-[300px] w-full appearance-none bg-white border border-gray-500"
-            value={searchText}
+                className="p-2 lg:w-[250px] w-full appearance-none bg-white border border-gray-400 rounded-3xl"
+                value={searchText}
             onChange={handleSearchTextChange}
             placeholder="Category"
           />
         </span>
         <span className="flex items-center">
           <div
-            className="cursor-pointer bg-[#0EB599] text-white p-2 lg:w-[250px] text-center"
+            className="cursor-pointer bg-[#0EB599] hover:bg-[#068A55] text-white p-2 lg:w-[100px] text-center rounded-3xl"
             onClick={handleSearch}
           >
             Search

@@ -398,42 +398,16 @@ const PaymentPage = () => {
             <input
               value={selectedRole} // Bind the state to the input value
               onChange={handleInputChange} // Call handleInputChange on input change
-              className="p-2 lg:w-[200px] rounded w-full appearance-none bg-white border border-gray-500"
-              placeholder="EmpId"
+              className="p-2 lg:w-[250px] w-full appearance-none bg-white border border-gray-400 rounded-3xl"
+              placeholder="Search by name"
             />
           </span>
 
-          <span className="flex items-center">
-            <select
-              value={selectedDesignation}
-              onChange={selectProfession}
-              className="rounded p-2 lg:w-[150px] w-full appearance-none bg-white border border-gray-400 focus:ring-indigo-500 focus:border-indigo-500 pr-10 bg-no-repeat bg-right"
-              style={{
-                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14' fill='none' stroke='%23000000'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='1' d='M12 5l-5 5-5-5' /%3E%3C/svg%3E")`,
-                backgroundSize: "24px 24px",
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "right 10px center",
-                paddingRight: "40px",
-              }}
-            >
-              <option
-                value=""
-                disabled
-                selected
-                className="text-gray-500 font-bold"
-              >
-                All
-              </option>
-              <option value="All">All</option>
-              <option value="Web Designer">Web Designer</option>
-              <option value="Web Developer">Web Developer</option>
-              <option value="FrontEnd Developer">FrontEnd Developer</option>
-            </select>
-          </span>
+          
           <span className="flex items-center">
             <span
               onClick={selectRole} // Call selectRole when the Search button is clicked
-              className="cursor-pointer bg-[#0EB599] text-white p-2 lg:w-[228px] rounded text-center"
+              className="cursor-pointer bg-[#0EB599] hover:bg-[#068A55] text-white p-2 lg:w-[100px] text-center rounded-3xl"
             >
               Search
             </span>

@@ -17,6 +17,7 @@ function Browse() {
       </div>
     </div>
   );
+  
 }
 
 export default Browse;
