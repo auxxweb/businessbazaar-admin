@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import EmpCard from "../reUsableCmponent/EmpCard";
 import Modal from "../reUsableCmponent/modal/Modal";
 import Pagination from "../Pagination";
-import { getApi } from "../../api/api";
+import { deleteApi, getApi, patchApi } from "../../api/api";
 import { setBusiness } from "../../Features/Business";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -15,6 +15,7 @@ function ContentArea() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchClick, setSearchClick] = useState(false);
   const [page, setPage] = useState(1);
+  const [reFetch, SetReFetch] = useState(false);
   const limit = 10;
   // const totalItems = 50;
   const dispatch = useDispatch();
@@ -89,17 +90,27 @@ function ContentArea() {
       }
     };
     fetchBusinessData();
-  }, [page, selectedDesignation, searchClick]);
+  }, [page, selectedDesignation, searchClick, reFetch]);
 
   const handleSearch = () => {
     setSearchClick(!searchClick);
   };
 
-  const handleDelete = (id) => {
-    alert(id);
+  const handleDelete = async (id) => {
+    try {
+      await deleteApi(`business/admin/${id}`);
+      SetReFetch(!reFetch);
+    } catch (error) {
+      console.log(error, "error");
+    }
   };
-  const handleStatusUpdate = (id) => {
-    alert(`status${id}`);
+  const handleStatusUpdate = async (id) => {
+    try {
+      await patchApi({ url: `business/admin/status/${id}`, body: {} });
+      SetReFetch(!reFetch);
+    } catch (error) {
+      console.log(error, "error");
+    }
   };
 
   return (
