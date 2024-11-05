@@ -26,7 +26,7 @@ export const getPreSignedUrl = async (fileData) => {
 };
 
 export const preRequestFun = async (file, position) => {
-  const url = 'https://businessbazaarserver.auxxweb.in/api/v1/s3url';
+  const url =  `${appConfig.apiUrl}/s3url`;
   const requestBody = {
       files: [{
           position: position,
@@ -41,12 +41,12 @@ export const preRequestFun = async (file, position) => {
       const preReq = response.data.data[0];
   
 
-      // if (!preReq.url) {
-      //     throw new Error('The URL is not defined in the response.');
-      // }
-      // await axios.put(preReq.url, file, {
-      //     headers: { 'Content-Type': file.type }, 
-      // });
+      if (!preReq.url) {
+          throw new Error('The URL is not defined in the response.');
+      }
+      await axios.put(preReq.url, file, {
+          headers: { 'Content-Type': file.type }, 
+      });
 
       return preReq;
   } catch (error) {
