@@ -72,10 +72,9 @@ function ContentArea() {
     const fetchBusinessData = async () => {
       try {
         const data = await getApi(
-          `business/all?page=${page}&limit=${limit}${
-            selectedDesignation !== null
-              ? `&category=${selectedDesignation}`
-              : ""
+          `business/all?page=${page}&limit=${limit}${selectedDesignation !== null
+            ? `&category=${selectedDesignation}`
+            : ""
           }${searchClick && searchTerm ? `&searchTerm=${searchTerm}` : ""}`,
           true
         );
@@ -129,8 +128,9 @@ function ContentArea() {
               backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14' fill='none' stroke='%23000000'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='1' d='M12 5l-5 5-5-5' /%3E%3C/svg%3E")`,
               backgroundSize: "24px 24px",
               backgroundPosition: "right 10px center",
-              backgroundRepeat: "no-repeat"
-            }}>
+              backgroundRepeat: "no-repeat",
+            }}
+          >
             <option value="">All Categories</option>
             {categoryData?.map((category) => (
               <option key={`index-${category?.id}`} value={category?._id}>
@@ -140,7 +140,7 @@ function ContentArea() {
           </select>
         </div>
 
-        <div className="ml-auto lg:mr-4 flex items-center space-x-4 justify-end pt-3">
+        <div className="ml-auto lg:mr-0 flex items-center space-x-4 justify-end pt-0">
           {/* Parent div for span elements */}
           <span className="flex items-center justify-center">
             <input
@@ -153,7 +153,8 @@ function ContentArea() {
           <span className="flex items-center">
             <span
               onClick={handleSearch}
-              className="cursor-pointer bg-[#0EB599] hover:bg-[#068A55] text-white p-2 lg:w-[100px] text-center rounded-3xl">
+              className="cursor-pointer bg-[#0EB599] hover:bg-[#068A55] text-white p-2 lg:w-[100px] text-center rounded-3xl"
+            >
               Search
             </span>
           </span>

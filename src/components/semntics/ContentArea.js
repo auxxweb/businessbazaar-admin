@@ -4,10 +4,10 @@ import AllEmployees from '../pages/allBusiness'
 import Leaves from '../pages/Leaves'
 import Attendence from "../pages/Attendence"
 import ShiftAndSchedule from "../pages/ShiftAndSchedule"
-import Clients from "../pages/Clients"
+import Clients from "../pages/categories"
 import ClientDetails from "../pages/ClientDetails"
 import ProjectDetailedPage from "../pages/ProjectDetailedPage";
-import ProjetsPage from "../pages/ProjetsPage";
+import ProjetsPage from "../pages/plans";
 import PaymentPage from "../pages/PaymentPage";
 import PaySlip from "../PaySlip";
 import Subscription from "../Subscription";

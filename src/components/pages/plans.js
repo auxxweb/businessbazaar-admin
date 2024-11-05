@@ -72,50 +72,83 @@ const ProjetsPage = () => {
             <Modal
               isVisible={isModalVisible}
               onClose={toggleModal}
-              modalHeader={"Add Employee Bulky"}
+              modalHeader={"Add Plan"}
             >
               <form>
-                <div className="flex items-center border border-gray-500 rounded-md mb-4 mt-8">
-                  <label className="w-[100px] p-2 mr-4 bg-gray-200 border border-r-gray-500 rounded-l-md cursor-pointer text-center">
-                    Add File
+              <div className="grid grid-cols-1 gap-4">
+                  <div>
+                    <label
+                      htmlFor="name"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Plan Name
+                    </label>
                     <input
-                      type="file"
-                      className="hidden"
-                      onChange={handleFileChange}
+                      type="text"
+                      // value={name}
+                      name="name"
+                      id="name"
+                      className="mt-1 block w-full border-2 p-1 border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      placeholder="Plan Name"
+                      onChange={{}}
+                      required
                     />
-                  </label>
-                  <span className="w-full px-4 text-gray-500">
-                    {fileName ? fileName : "Upload .xl File"}
-                  </span>
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="name"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Validity
+                    </label>
+                    <input
+                      type="text"
+                      // value={name}
+                      name="validity"
+                      id="name"
+                      className="mt-1 block w-full border-2 p-1 border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      placeholder="Select Validity"
+                      onChange={{}}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="name"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Description
+                    </label>
+                    <input
+                      type="text"
+                      // value={name}
+                      name="description"
+                      id="name"
+                      className="mt-1 block w-full border-2 p-1 border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      placeholder="Description"
+                      onChange={{}}
+                      required
+                    />
+                  </div>
+
+                 
                 </div>
 
-                <button
-                  type="button"
-                  className="bg-gray-200 p-3 w-full flex justify-center items-center mb-4 border border-gray-500 "
-                >
-                  <span className="mr-2">
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M7 12V3.85L4.4 6.45L3 5L8 0L13 5L11.6 6.45L9 3.85V12H7ZM2 16C1.45 16 0.979333 15.8043 0.588 15.413C0.196666 15.0217 0.000666667 14.5507 0 14V11H2V14H14V11H16V14C16 14.55 15.8043 15.021 15.413 15.413C15.0217 15.805 14.5507 16.0007 14 16H2Z"
-                        fill="black"
-                      />
-                    </svg>
-                  </span>{" "}
-                  Upload
-                </button>
+                <div className="flex justify-center">
+                  <button
+                    type="submit"
+                    className="cursor-pointer bg-[#0EB599] hover:bg-[#068A55] text-white p-2 lg:w-[100px] text-center rounded-3xl"
+                  >
+                    Submit
+                  </button>
+                </div>
               </form>
             </Modal>
           </span>
         </div>
       </div>
 
-      <div className="flex rounded-lg p-4 pt-0">
+      <div className="flex rounded-lg p-0 pt-0">
         <input
           type="text"
           value={selectedDesignation}

@@ -166,7 +166,7 @@ const Clients = () => {
                     />
                   </div>
 
-                  <div className="mt-5">
+                  <div className="mt-2">
                     <label
                       htmlFor="image"
                       className="block text-sm font-medium text-gray-700"
@@ -189,7 +189,7 @@ const Clients = () => {
                     )}
                   </div>
 
-                  <div className="mt-5">
+                  <div className="mt-2">
                     <label
                       htmlFor="coverImage"
                       className="block text-sm font-medium text-gray-700"
@@ -213,10 +213,10 @@ const Clients = () => {
                   </div>
                 </div>
 
-                <div className="flex justify-end">
+                <div className="flex justify-center">
                   <button
                     type="submit"
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    className="cursor-pointer bg-[#0EB599] hover:bg-[#068A55] text-white p-2 lg:w-[100px] text-center rounded-3xl"
                   >
                     Submit
                   </button>
