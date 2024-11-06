@@ -1,7 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
+import Modal from '../modal/Modal'
 
-const PlanTable = ({ tableData, handlePlanEdit }) => {
-  const handleDeletePlan = () => {}
+const PlanTable = ({ tableData, handlePlanEdit, handlePlanDelete }) => {
+  const [showDeletePopup, setShowDeletePopup] = useState(false)
+  const [selectedPlan, setSelectedPlan] = useState(null)
+
+  const handleDeletePlan = (id) => {
+    setSelectedPlan(id)
+    setShowDeletePopup(true)
+  }
+
+  const handleDeleteModalClose = () => {
+    setShowDeletePopup(false)
+  }
+
+  const handleDeleteFun = () => {
+    handlePlanDelete(selectedPlan ,setShowDeletePopup)
+  }
 
   return (
     <div className="overflow-x-auto w-full max-w-full p-4">
@@ -105,6 +120,29 @@ const PlanTable = ({ tableData, handlePlanEdit }) => {
           )}
         </tbody>
       </table>
+      <Modal isVisible={showDeletePopup} onClose={handleDeleteModalClose}>
+        <div className="bg-white rounded-lg shadow-md p-6 max-w-sm mx-auto">
+          <h3 className="text-center text-lg font-semibold text-gray-800 mb-6">
+            Are you sure you want to delete?
+          </h3>
+          <div className="flex justify-center space-x-4">
+            <button
+              onClick={handleDeleteModalClose}
+              type="button"
+              className="border border-green-500 text-green-600 hover:bg-green-500 hover:text-white font-semibold py-2 px-6 rounded-lg transition duration-200 ease-in-out"
+            >
+              No
+            </button>
+            <button
+              onClick={handleDeleteFun}
+              type="button"
+              className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-6 rounded-lg transition duration-200 ease-in-out"
+            >
+              Yes
+            </button>
+          </div>
+        </div>
+      </Modal>
     </div>
   )
 }

@@ -16,7 +16,8 @@ const ProjetsPage = () => {
     limit,
     setSearch,
     addPlan,
-  editPlan
+    editPlan,
+    deletePlan
   } = usePlans();
 
   const [selectedPlan, setSelectedPlan] = useState(null);
@@ -62,8 +63,12 @@ const ProjetsPage = () => {
     await addPlan(plansData, toggleModal);
   };
 
-  const handleEditPlanFun = async(planUpdateData) => {
-    await editPlan(selectedPlan,planUpdateData,toggleEditModal)
+  const handleEditPlanFun = async (planUpdateData) => {
+    await editPlan(selectedPlan, planUpdateData, toggleEditModal);
+  };
+
+  const handleDeletePlan = async (id,setShowDeletePopup) => {
+    await deletePlan(id,setShowDeletePopup)
   };
 
   return (
@@ -130,7 +135,7 @@ const ProjetsPage = () => {
         <ProjectDetailsCard />
       </div> */}
         <div className="flex flex-wrap justify-center mt-4">
-          <PlanTable tableData={plans} handlePlanEdit={handlePlanEdit} />
+          <PlanTable tableData={plans} handlePlanEdit={handlePlanEdit} handlePlanDelete={handleDeletePlan} />
         </div>
       </div>
       <div className="m-auto flex justify-end mt-8">
