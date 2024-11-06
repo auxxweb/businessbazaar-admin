@@ -3,6 +3,8 @@ import { appConfig } from "../config/appConfig";
 // import { getLocalStorageItem } from '../utils/appUtils'
 
 export const postApi = async ({ url = "", body, authToken = true }) => {
+  console.log(url,"url-url-url");
+  
   const userData = JSON.parse(localStorage.getItem("admin"));
   const config = {
     headers: {
@@ -15,7 +17,7 @@ export const postApi = async ({ url = "", body, authToken = true }) => {
       Authorization: `Bearer ${userData?.token}`
     };
   }
-  const response = await axios.post(`${appConfig.apiUrl}/${url}`, body, config);
+  const response = await axios.post(`${appConfig?.apiUrl}/${url}`, body, config);
   console.log(response, "response");
 
   return response?.data;

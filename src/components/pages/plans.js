@@ -3,33 +3,45 @@ import Modal from "../reUsableCmponent/modal/Modal";
 import Pagination from "../Pagination";
 import usePlans from "../../Hooks/Plan/usePlans";
 import PlanTable from "../reUsableCmponent/Tables/PlansTable";
+import AddPlanModal from "../reUsableCmponent/modal/AddPlanModal";
+import EditPlanModal from "../reUsableCmponent/modal/EditPlanModal";
 
 const ProjetsPage = () => {
-  const { plans, page, setPage, loading, totalPlans, limit } = usePlans();
+  const {
+    plans,
+    page,
+    setPage,
+    loading,
+    totalPlans,
+    limit,
+    setSearch,
+    addPlan,
+  editPlan
+  } = usePlans();
+
+  const [selectedPlan, setSelectedPlan] = useState(null);
 
   const handlePageChange = (page) => {
     setPage(page);
   };
 
-  const [isGrid, setGrid] = useState(true);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [selectedDesignation, setSelectedDesignation] =
-    useState("Total Plans : 3");
-  const [fileName, setFileName] = useState("");
+  const [isEditModalVisible, setEditIsModalVisible] = useState(false);
+
+  const [selectedDesignation, setSelectedDesignation] = useState(
+    `Total Plans : ${totalPlans}`
+  );
+
+  const handlePlanEdit = async (id) => {
+    setSelectedPlan(id);
+    setEditIsModalVisible(true);
+  };
 
   const [searchText, setSearchText] = useState("");
-  const [filteredPlans, setFilteredPlans] = useState([]);
 
   useEffect(() => {
-    setFilteredPlans(plans);
-    setSearchText("");
+    setSelectedDesignation(`Total Plans : ${totalPlans}`);
   }, [plans]);
-
-  useEffect(() => {
-    if (!searchText) {
-      setFilteredPlans(plans);
-    }
-  }, [searchText]);
 
   const handleSearchTextChange = (event) => {
     setSearchText(event.target.value);
@@ -37,113 +49,46 @@ const ProjetsPage = () => {
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
   };
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setFileName(file.name);
-    } else {
-      setFileName("");
-    }
+
+  const toggleEditModal = () => {
+    setEditIsModalVisible(!isEditModalVisible);
   };
+
   const handleSearch = () => {
-    const filteredPlans = plans.filter((plan) =>
-      plan?.plan?.includes(searchText)
-    );
-    setFilteredPlans(filteredPlans);
+    setSearch(searchText);
   };
-  const selectProfession = (event) => {
-    setSelectedDesignation(event.target.value);
+
+  const handleAddPlan = async (plansData) => {
+    await addPlan(plansData, toggleModal);
   };
+
+  const handleEditPlanFun = async(planUpdateData) => {
+    await editPlan(selectedPlan,planUpdateData,toggleEditModal)
+  };
+
   return (
     <>
       <div className="flex rounded-lg p-4">
-        <h2 className="text-2xl font-semibold text-gray-700">Plans</h2>
         <div className="ml-auto flex items-center space-x-4">
           {" "}
-         
           <span className="flex items-center">
             <span
               className="bg-[#0EB599] text-white rounded-full p-3 cursor-pointer"
-              onClick={toggleModal}
-            >
+              onClick={toggleModal}>
               + Add New Plan
             </span>
 
-            <Modal
-              isVisible={isModalVisible}
-              onClose={toggleModal}
-              modalHeader={"Add Plan"}
-            >
-              <form>
-              <div className="grid grid-cols-1 gap-4">
-                  <div>
-                    <label
-                      htmlFor="name"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Plan Name
-                    </label>
-                    <input
-                      type="text"
-                      // value={name}
-                      name="name"
-                      id="name"
-                      className="mt-1 block w-full border-2 p-1 border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                      placeholder="Plan Name"
-                      onChange={{}}
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="name"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Validity
-                    </label>
-                    <input
-                      type="text"
-                      // value={name}
-                      name="validity"
-                      id="name"
-                      className="mt-1 block w-full border-2 p-1 border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                      placeholder="Select Validity"
-                      onChange={{}}
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="name"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Description
-                    </label>
-                    <input
-                      type="text"
-                      // value={name}
-                      name="description"
-                      id="name"
-                      className="mt-1 block w-full border-2 p-1 border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                      placeholder="Description"
-                      onChange={{}}
-                      required
-                    />
-                  </div>
-
-                 
-                </div>
-
-                <div className="flex justify-center">
-                  <button
-                    type="submit"
-                    className="cursor-pointer bg-[#0EB599] hover:bg-[#068A55] text-white p-2 lg:w-[100px] text-center rounded-3xl"
-                  >
-                    Submit
-                  </button>
-                </div>
-              </form>
-            </Modal>
+            <AddPlanModal
+              isModalVisible={isModalVisible}
+              toggleModal={toggleModal}
+              handleAddPlan={handleAddPlan}
+            />
+            <EditPlanModal
+              isModalVisible={isEditModalVisible}
+              toggleModal={toggleEditModal}
+              handlePlanEdit={handleEditPlanFun}
+              planId={selectedPlan}
+            />
           </span>
         </div>
       </div>
@@ -152,7 +97,6 @@ const ProjetsPage = () => {
         <input
           type="text"
           value={selectedDesignation}
-          onChange={selectProfession}
           className="p-2 lg:w-[300px] w-full appearance-none bg-white border border-gray-500 focus:ring-indigo-500 focus:border-indigo-500 pr-10 bg-no-repeat bg-right"
           disabled
         />
@@ -170,8 +114,7 @@ const ProjetsPage = () => {
           <span className="flex items-center">
             <span
               onClick={handleSearch} // Call selectRole when the Search button is clicked
-              className="cursor-pointer bg-[#0EB599] hover:bg-[#068A55] text-white p-2 lg:w-[100px] text-center rounded-3xl"
-            >
+              className="cursor-pointer bg-[#0EB599] hover:bg-[#068A55] text-white p-2 lg:w-[100px] text-center rounded-3xl">
               Search
             </span>
           </span>
@@ -187,7 +130,7 @@ const ProjetsPage = () => {
         <ProjectDetailsCard />
       </div> */}
         <div className="flex flex-wrap justify-center mt-4">
-          <PlanTable tableData={filteredPlans} />
+          <PlanTable tableData={plans} handlePlanEdit={handlePlanEdit} />
         </div>
       </div>
       <div className="m-auto flex justify-end mt-8">
