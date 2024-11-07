@@ -44,14 +44,14 @@ export const preRequestFun = async (file, position) => {
       if (!preReq.url) {
           throw new Error('The URL is not defined in the response.');
       }
-      await axios.put(preReq.url, file, {
+      await axios.put(preReq?.url, file, {
           headers: { 'Content-Type': file.type }, 
       });
 
       return preReq;
   } catch (error) {
       console.error('Error uploading file:', error.message || error);
-      // throw new Error('File upload failed');
+      throw new Error('File upload failed');
   }
 };
 

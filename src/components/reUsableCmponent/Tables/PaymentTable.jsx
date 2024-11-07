@@ -1,19 +1,16 @@
 import React from 'react'
 import moment from 'moment'
+import Loader from '../../Loader/Loader';
 
-// Premium Loader Component
-const PremiumLoader = () => (
-  <div className="flex justify-center items-center py-6">
-    <div className="circular-loader"></div>
-  </div>
-)
+// Premium Loader Componen
 
 const PaymentTable = ({ tableData, loading }) => {
   return (
     <div className="overflow-x-auto w-full max-w-full p-4">
       {/* Conditionally show loading spinner */}
       {loading ? (
-        <PremiumLoader /> // Show premium loader when loading
+        <Loader />
+         // Show premium loader when loading
       ) : (
         <table className="min-w-full table-auto mt-6">
           <thead className="bg-white border-gray-400 border-t-[2px] border-l-[2px] border-r-[2px] border-b-[2px]">
