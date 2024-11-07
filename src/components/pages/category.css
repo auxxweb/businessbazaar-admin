@@ -53,7 +53,7 @@
 }
 
 .modal-submit-btn {
-  background-color: #0eb599;
+  background-color: #105193;
   color: #fff;
   padding: 10px 20px;
   border-radius: 25px;
@@ -63,7 +63,7 @@
 }
 
 .modal-submit-btn:hover {
-  background-color: #068a55;
+  background-color: #107D93;
 }
 
 /* Animation for modal entrance */

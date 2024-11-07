@@ -153,7 +153,7 @@ function ContentArea() {
           <span className="flex items-center">
             <span
               onClick={handleSearch}
-              className="cursor-pointer bg-[#0EB599] hover:bg-[#068A55] text-white p-2 lg:w-[100px] text-center rounded-3xl"
+              className="cursor-pointer bg-[#105193] hover:bg-[#107D93] text-white p-2 lg:w-[100px] text-center rounded-3xl"
             >
               Search
             </span>

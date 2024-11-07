@@ -16,7 +16,7 @@ function Pagination({ totalItems, itemsPerPage, currentPage, onPageChange }) {
       pageNumbers.push(
         <button
           key={i}
-          className={`pagination-button px-3 py-1 rounded ${activePage === i ? 'bg-teal-500 text-white' : 'bg-gray-200 text-gray-700'}`}
+          className={`pagination-button px-3 py-1 rounded ${activePage === i ? 'bg-[#105193] text-white' : 'bg-gray-200 text-gray-700'}`}
           onClick={() => handlePageChange(i)}
         >
           {i}
@@ -26,10 +26,10 @@ function Pagination({ totalItems, itemsPerPage, currentPage, onPageChange }) {
     return pageNumbers;
   };
   return (
-    <div className="flex justify-center items-center space-x-2 p-4 bg-teal-50">
+    <div className="flex justify-center items-center space-x-2 p-4">
       {/* Previous Button */}
       <button
-        className={`p-2 bg-teal-500 text-white rounded ${activePage === 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
+        className={`p-2 bg-[#105193] text-white rounded ${activePage === 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
         onClick={() => handlePageChange(activePage - 1)}
         disabled={activePage === 1}
       >
@@ -47,7 +47,7 @@ function Pagination({ totalItems, itemsPerPage, currentPage, onPageChange }) {
       {renderPageNumbers()}
       {/* Next Button */}
       <button
-        className={`p-2 bg-teal-500 text-white rounded ${activePage === totalPages ? 'opacity-50 cursor-not-allowed' : ''}`}
+        className={`p-2 bg-[#105193] text-white rounded ${activePage === totalPages ? 'opacity-50 cursor-not-allowed' : ''}`}
         onClick={() => handlePageChange(activePage + 1)}
         disabled={activePage === totalPages}
       >

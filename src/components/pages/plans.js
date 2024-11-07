@@ -78,7 +78,7 @@ const ProjetsPage = () => {
           {" "}
           <span className="flex items-center">
             <span
-              className="bg-[#0EB599] text-white rounded-full p-3 cursor-pointer"
+              className="bg-[#105193] hover:bg-[#107D93] text-white rounded-full p-3 cursor-pointer"
               onClick={toggleModal}>
               + Add New Plan
             </span>
@@ -119,7 +119,7 @@ const ProjetsPage = () => {
           <span className="flex items-center">
             <span
               onClick={handleSearch} // Call selectRole when the Search button is clicked
-              className="cursor-pointer bg-[#0EB599] hover:bg-[#068A55] text-white p-2 lg:w-[100px] text-center rounded-3xl">
+              className="cursor-pointer bg-[#105193] hover:bg-[#107D93] text-white p-2 lg:w-[100px] text-center rounded-3xl">
               Search
             </span>
           </span>

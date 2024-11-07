@@ -76,9 +76,9 @@ function Sidebar({ isOpen, setIsOpen }) {
             <span
               className={`text-custom-16 ${
                 sideBarOption == "dashboard"
-                  ? "text-[#25e2b6]"
+                  ? "text-[#e7edf4]"
                   : "text-[#909294]"
-              }  hover:text-[#75eed2] ml-4`}>
+              }  hover:text-[#e7edf4] ml-4`}>
               Dashboard
             </span>
           </span>
@@ -87,7 +87,7 @@ function Sidebar({ isOpen, setIsOpen }) {
         <Disclosure>
           {({ open }) => (
             <>
-              <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#75eed2] lg:2xl px-4 py-2">
+              <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#e7edf4] lg:2xl px-4 py-2">
                 <div className=" flex mr-14">
                   <span className="ml-[-10px]">
                     <svg
@@ -110,9 +110,9 @@ function Sidebar({ isOpen, setIsOpen }) {
                     }}
                     className={`text-custom-16 ${
                       sideBarOption == "business"
-                        ? "text-[#25e2b6]"
+                        ? "text-[#e7edf4]"
                         : "text-[#909294]"
-                    }  hover:text-[#75eed2] ml-4`}>
+                    }  hover:text-[#e7edf4] ml-4`}>
                     Business
                   </span>
                 </div>
@@ -123,7 +123,7 @@ function Sidebar({ isOpen, setIsOpen }) {
         <Disclosure>
           {({ open }) => (
             <>
-              <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#75eed2] lg:2xl px-4 py-2">
+              <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#e7edf4] lg:2xl px-4 py-2">
                 <div className=" flex mr-14">
                   <span className="ml-[-10px]">
                     <svg
@@ -145,9 +145,9 @@ function Sidebar({ isOpen, setIsOpen }) {
                     }}
                     className={`text-custom-16 ${
                       sideBarOption == "categories"
-                        ? "text-[#25e2b6]"
+                        ? "text-[#e7edf4]"
                         : "text-[#909294]"
-                    }  hover:text-[#75eed2] ml-4`}>
+                    }  hover:text-[#e7edf4] ml-4`}>
                     Categories
                   </span>
                 </div>
@@ -158,7 +158,7 @@ function Sidebar({ isOpen, setIsOpen }) {
         <Disclosure>
           {({ open }) => (
             <>
-              <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#75eed2] lg:2xl px-4 py-2">
+              <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#e7edf4] lg:2xl px-4 py-2">
                 <div className=" flex mr-14">
                   <span className="ml-[-10px]">
                     <svg
@@ -181,9 +181,9 @@ function Sidebar({ isOpen, setIsOpen }) {
                     }}
                     className={`text-custom-16 ${
                       sideBarOption == "plans"
-                        ? "text-[#25e2b6]"
+                        ? "text-[#e7edf4]"
                         : "text-[#909294]"
-                    }  hover:text-[#75eed2] ml-4`}>
+                    }  hover:text-[#e7edf4] ml-4`}>
                     Plans
                   </span>
                 </div>
@@ -194,7 +194,7 @@ function Sidebar({ isOpen, setIsOpen }) {
         <Disclosure>
           {({ open }) => (
             <>
-              <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#75eed2] lg:2xl px-4 py-2">
+              <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#e7edf4] lg:2xl px-4 py-2">
                 <div className=" flex mr-14">
                   <span className="ml-[-10px]">
                     <svg
@@ -217,9 +217,9 @@ function Sidebar({ isOpen, setIsOpen }) {
                     }}
                     className={`text-custom-16 ${
                       sideBarOption == "payments"
-                        ? "text-[#25e2b6]"
+                        ? "text-[#e7edf4]"
                         : "text-[#909294]"
-                    }  hover:text-[#75eed2] ml-4`}>
+                    }  hover:text-[#e7edf4] ml-4`}>
                     Payment
                   </span>
                 </div>
@@ -230,7 +230,7 @@ function Sidebar({ isOpen, setIsOpen }) {
         <Disclosure>
           {({ open }) => (
             <>
-              <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#75eed2] lg:2xl px-4 py-2">
+              <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#e7edf4] lg:2xl px-4 py-2">
                 <div className=" flex mr-14">
                   <span className="ml-[-10px]">
                     <svg
@@ -249,9 +249,9 @@ function Sidebar({ isOpen, setIsOpen }) {
                     }}
                     className={`text-custom-16 ${
                       sideBarOption == "banner"
-                        ? "text-[#25e2b6]"
+                        ? "text-[#e7edf4]"
                         : "text-[#909294]"
-                    }  hover:text-[#75eed2] ml-4`}>
+                    }  hover:text-[#e7edf4] ml-4`}>
                     Banner
                   </span>
                 </div>
@@ -262,7 +262,7 @@ function Sidebar({ isOpen, setIsOpen }) {
         <Disclosure>
           {({ open }) => (
             <>
-              <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#75eed2] lg:2xl px-4 py-2">
+              <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#e7edf4] lg:2xl px-4 py-2">
                 <div className=" flex mr-14">
                   <span className="ml-[-10px]">
                     <svg
@@ -284,9 +284,9 @@ function Sidebar({ isOpen, setIsOpen }) {
                     }}
                     className={`text-custom-16 ${
                       sideBarOption == "terms"
-                        ? "text-[#25e2b6]"
+                        ? "text-[#e7edf4]"
                         : "text-[#909294]"
-                    }  hover:text-[#75eed2] ml-2`}>
+                    }  hover:text-[#e7edf4] ml-2`}>
                     Terms&conditions
                   </span>
                 </div>
@@ -297,7 +297,7 @@ function Sidebar({ isOpen, setIsOpen }) {
         <Disclosure>
           {({ open }) => (
             <>
-              <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#75eed2] lg:2xl px-4 py-2">
+              <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#e7edf4] lg:2xl px-4 py-2">
                 <div className=" flex mr-14">
                   <span className="ml-[-10px]">
                     <svg
@@ -319,9 +319,9 @@ function Sidebar({ isOpen, setIsOpen }) {
                     }}
                     className={`text-custom-16 ${
                       sideBarOption == "settingandconfi"
-                        ? "text-[#25e2b6]"
+                        ? "text-[#e7edf4]"
                         : "text-[#909294]"
-                    }  hover:text-[#75eed2] ml-2`}>
+                    }  hover:text-[#e7edf4] ml-2`}>
                     Settings & Config
                   </span>
                 </div>
@@ -332,7 +332,7 @@ function Sidebar({ isOpen, setIsOpen }) {
         <Disclosure>
           {({ open }) => (
             <>
-              <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#75eed2] lg:2xl px-4 py-2">
+              <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#e7edf4] lg:2xl px-4 py-2">
                 <div className=" flex mr-14">
                   <span className="ml-[-10px]">
                   <svg
@@ -352,9 +352,9 @@ function Sidebar({ isOpen, setIsOpen }) {
                   onClick={toggleModal}
                     className={`text-custom-16 ${
                       sideBarOption == "logout"
-                        ? "text-[#25e2b6]"
+                        ? "text-[#e7edf4]"
                         : "text-[#909294]"
-                    }  hover:text-[#75eed2] ml-2`}>
+                    }  hover:text-[#e7edf4] ml-2`}>
                   Logout
                   </span>
                 </div>

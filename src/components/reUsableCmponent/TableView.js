@@ -74,7 +74,7 @@ const TableView = ({ tableData, handleDelete, handleStatusUpdate }) => {
             tableData?.data?.map((business, index) => (
               <tr
                 key={index}
-                className="odd:bg-teal-100 even:bg-grey border-[2px] border-opacity-50 border-[#9e9696]">
+                className="odd:bg-[#d4e0ec] even:bg-grey border-[2px] border-opacity-50 border-[#9e9696]">
                 <td className="px-4 py-2 flex border-r border-gray-400">
                   <img
                     src={business.logo}

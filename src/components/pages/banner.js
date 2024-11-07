@@ -133,7 +133,7 @@ const BannerPage = () => {
         <h2 className="text-2xl font-semibold text-gray-700">Banners</h2>
         <div className="ml-auto flex items-center space-x-4">
           <span
-            className="bg-[#0EB599] text-white rounded-full p-3 cursor-pointer"
+            className="bg-[#105193] hover:bg-[#107D93] text-white rounded-full p-3 cursor-pointer"
             onClick={toggleModal}>
             + Add New Banner
           </span>
@@ -170,7 +170,7 @@ const BannerPage = () => {
               <div className="flex justify-center">
                 <button
                   type="submit"
-                  className="bg-[#0EB599] hover:bg-[#068A55] text-white p-2 lg:w-[100px] text-center rounded-3xl">
+                  className="bg-[#105193] hover:bg-[#107D93] text-white p-2 lg:w-[100px] text-center rounded-3xl">
                   Submit
                 </button>
               </div>
@@ -211,7 +211,7 @@ const BannerPage = () => {
                 <div className="flex justify-center">
                   <button
                     type="submit"
-                    className="bg-[#0EB599] hover:bg-[#068A55] text-white p-2 lg:w-[100px] text-center rounded-3xl">
+                    className="bg-[#105193] hover:bg-[#107D93] text-white p-2 lg:w-[100px] text-center rounded-3xl">
                     update
                   </button>
                 </div>
