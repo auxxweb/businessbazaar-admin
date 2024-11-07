@@ -29,7 +29,7 @@ const Login = () => {
       const res = await logIn?.(body);
       if (res?.data?.success) {
         localStorage.setItem(
-          "admin",
+          "authToken",
           JSON.stringify(res?.data.data)
         );
         dispatch(setLogin(res?.data.data))
