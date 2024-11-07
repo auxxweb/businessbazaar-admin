@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { getApi } from "../../api/api";
+import { getApi, patchApi, postApi } from "../../api/api";
 
 const useBusiness = (
   initialSearch = "",
@@ -13,6 +13,7 @@ const useBusiness = (
   const [searchTerm, setSearchTerm] = useState(initialSearch);
   const [page, setPage] = useState(initialPage);
   const [limit, setLimit] = useState(initialLimit);
+  const [terms, setTerms] = useState({});
 
   const getBusinessData = async () => {
     setLoading(true);
@@ -35,6 +36,48 @@ const useBusiness = (
     }
   };
 
+  const createTerms = async (termsData = {}) => {
+    setLoading(true);
+    try {
+      const response = await postApi({
+        url: "admin-terms",
+        body: termsData
+      });
+      setTerms(response?.data);
+      toast.success("Terms & conditions created successfully!!");
+    } catch (error) {
+      toast.error("Failed to create terms & conditions");
+    } finally {
+      setLoading(false);
+    }
+  };
+  const updateTerms = async (termsData = {}) => {
+    setLoading(true);
+    try {
+      const response = await patchApi({
+        url: "admin-terms",
+        body: termsData
+      });
+      setTerms(response?.data);
+      toast.success("Terms & conditions updated successfully!!");
+    } catch (error) {
+      toast.error("Failed to update terms & conditions");
+    } finally {
+      setLoading(false);
+    }
+  };
+  const getTerms = async () => {
+    setLoading(true);
+    try {
+      const response = await getApi("admin-terms");
+      setTerms(response?.data);
+    } catch (error) {
+      toast.error("Failed to create terms & conditions");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     getBusinessData();
   }, [page, limit, searchTerm]); // Refetch data on page, limit, or search term change
@@ -48,7 +91,11 @@ const useBusiness = (
     page,
     setPage,
     limit,
-    setLimit
+    setLimit,
+    createTerms,
+    terms,
+    getTerms,
+    updateTerms
   };
 };
 

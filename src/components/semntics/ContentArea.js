@@ -7,6 +7,7 @@ import ProjetsPage from "../pages/plans";
 import PaymentPage from "../pages/PaymentPage";
 import SettingAndConfi from "../pages/SettingAndConfi";
 import DashBoard from "../pages/DashBoard";
+import TermsAndConditions from "../pages/TermsAndConditions";
 
 function ContentArea() {
   return (
@@ -17,6 +18,7 @@ function ContentArea() {
       {/* <Route path="/clientsdetails" element={<ClientDetails />} /> */}
       <Route path="/plans" element={<ProjetsPage />} />       
       <Route path="/paymentpage" element={<PaymentPage />} />       
+      <Route path="/terms" element={<TermsAndConditions />} />       
       <Route path="/settingandconfi" element={<SettingAndConfi />} />   
     </Routes>
   );
