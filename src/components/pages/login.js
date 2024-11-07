@@ -2,9 +2,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { logIn } from "../../api/authRequest";
 import { PiEyeFill, PiEyeSlashFill } from "react-icons/pi";
-import { toast } from "sonner";
+import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { setLogin } from '../../Features/Authority'
+import { setLogin } from "../../Features/Authority";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -12,9 +12,9 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit = async (event) => {
-    event.preventDefault(); 
-    const formData = new FormData(event.target); 
-    const email = formData.get("email"); 
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const email = formData.get("email");
     const password = formData.get("password");
 
     try {
@@ -25,36 +25,55 @@ const Login = () => {
         dispatch(setLogin(res?.data.data));
         navigate("/"); // Redirect after form submission
       } else {
-        toast.error(res.data.message, {
-          position: "top-right",
-          duration: 2000,  
-          style: {
-            backgroundColor: "#fb0909", // Custom red color for error
-            color: "#FFFFFF", // Text color
-          },
-          dismissible: true,  
-        });
+        console.log(res.data?.response?.data?.message,"resodata");
+        
+       
       }
     } catch (error) {
+      toast.error(error?.response?.data?.message, {
+        position: "top-right",
+        duration: 2000,
+        style: {
+          backgroundColor: "#fb0909", // Custom red color for error
+          color: "#FFFFFF" // Text color
+        },
+        dismissible: true
+      });
       console.log("error", error);
     }
   };
 
   return (
-    <div className="relative min-h-screen bg-cover bg-center" style={{ backgroundImage: 'url("/background-image.jpg")' }}>
+    <div
+      className="relative min-h-screen bg-cover bg-center"
+      style={{backgroundColor:"#126bbd" }}>
       <div className="relative z-10 flex flex-col h-full items-center justify-center p-6">
-        <div className="w-full max-w-lg bg-white shadow-xl rounded-2xl p-8 space-y-6" style={{ boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)" }}>
+        <div
+          className="w-full max-w-lg bg-white shadow-xl rounded-2xl p-8 space-y-6"
+          style={{ boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)" }}>
           <div className="flex justify-center mb-6">
-            <img src="/logonew-auxxweb 1.png" alt="Logo" className="h-20 object-contain" />
+            <img
+              src="/logonew-auxxweb 1.png"
+              alt="Logo"
+              className="h-20 object-contain"
+            />
           </div>
 
           <form onSubmit={onSubmit} className="space-y-4">
-            <h1 className="text-3xl font-semibold text-center text-[#333]">Log In</h1>
-            <h3 className="text-sm sm:text-base text-center text-[#686219]">Enter your Email and Password to Log In</h3>
+            <h1 className="text-3xl font-semibold text-center text-[#333]">
+              Log In
+            </h1>
+            <h3 className="text-sm sm:text-base text-center text-[#686219]">
+              Enter your Email and Password to Log In
+            </h3>
 
             {/* Email Input Field */}
             <div className="relative mb-6">
-              <label htmlFor="email" className="text-lg font-medium text-[#333] mb-2 block">E-mail</label>
+              <label
+                htmlFor="email"
+                className="text-lg font-medium text-[#333] mb-2 block">
+                E-mail
+              </label>
               <input
                 type="email"
                 id="email"
@@ -67,7 +86,11 @@ const Login = () => {
 
             {/* Password Input Field */}
             <div className="relative mb-6">
-              <label htmlFor="password" className="text-lg font-medium text-[#333] mb-2 block">Password</label>
+              <label
+                htmlFor="password"
+                className="text-lg font-medium text-[#333] mb-2 block">
+                Password
+              </label>
               <div className="relative">
                 <input
                   type={showPassword ? "text" : "password"}
@@ -80,8 +103,7 @@ const Login = () => {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-xl text-[#888888] cursor-pointer"
-                >
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-xl text-[#888888] cursor-pointer">
                   {showPassword ? <PiEyeSlashFill /> : <PiEyeFill />}
                 </button>
               </div>
@@ -95,8 +117,7 @@ const Login = () => {
               </label>
               <span
                 onClick={() => navigate("/forgotPassword")}
-                className="cursor-pointer hover:underline"
-              >
+                className="cursor-pointer hover:underline">
                 Forgot Password?
               </span>
             </div>
@@ -105,8 +126,7 @@ const Login = () => {
             <div className="pt-4">
               <button
                 type="submit"
-                className="w-full py-3 bg-gradient-to-r from-[#0EB599] to-[#000000] text-white font-semibold rounded-lg hover:translate-y-1 transform transition duration-300"
-              >
+                className="w-full py-3 bg-gradient-to-r from-[#0EB599] to-[#000000] text-white font-semibold rounded-lg hover:translate-y-1 transform transition duration-300">
                 Log In
               </button>
             </div>

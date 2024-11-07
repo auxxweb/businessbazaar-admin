@@ -324,12 +324,13 @@ function Sidebar({ isOpen, setIsOpen }) {
             </>
           )}
         </Disclosure>
-
-        <div
-          onClick={toggleModal}
-          className="cursor-pointer flex items-center text-[#909294] hover:text-[#dc554e]">
-          <span className="flex items-center ml-2 ">
-            <svg
+        <Disclosure>
+          {({ open }) => (
+            <>
+              <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#75eed2] lg:2xl px-4 py-2">
+                <div className=" flex mr-14">
+                  <span className="ml-[-10px]">
+                  <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               className="h-6 w-6"
@@ -341,9 +342,22 @@ function Sidebar({ isOpen, setIsOpen }) {
               <path d="M16 17l5-5-5-5M21 12H9" />
               <path d="M9 21H4a2 2 0 01-2-2V5a2 2 0 012-2h5" />
             </svg>
-            <span className="text-custom-16 ml-4">Logout</span>
-          </span>
-        </div>
+                  </span>
+                  <span
+                  onClick={toggleModal}
+                    className={`text-custom-16 ${
+                      sideBarOption == "logout"
+                        ? "text-[#25e2b6]"
+                        : "text-[#909294]"
+                    }  hover:text-[#75eed2] ml-2`}>
+                  Logout
+                  </span>
+                </div>
+              </Disclosure.Button>
+            </>
+          )}
+        </Disclosure>
+
         {/* <Modal
           isVisible={isModalVisible}
           onClose={toggleModal}
