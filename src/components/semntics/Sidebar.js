@@ -238,6 +238,38 @@ function Sidebar({ isOpen, setIsOpen }) {
                       viewBox="0 0 24 24"
                       width="24"
                       height="24"
+                      fill="currentColor">
+                      <path d="M4 4h16c1.1 0 1.99.9 1.99 2L22 18c0 1.1-.89 2-1.99 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm0 2v12h16V6H4z" />
+                    </svg>
+                  </span>
+                  <span
+                    onClick={() => {
+                      navigate("/banner");
+                      setSideBaroption("banner");
+                    }}
+                    className={`text-custom-16 ${
+                      sideBarOption == "banner"
+                        ? "text-[#25e2b6]"
+                        : "text-[#909294]"
+                    }  hover:text-[#75eed2] ml-4`}>
+                    Banner
+                  </span>
+                </div>
+              </Disclosure.Button>
+            </>
+          )}
+        </Disclosure>
+        <Disclosure>
+          {({ open }) => (
+            <>
+              <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#75eed2] lg:2xl px-4 py-2">
+                <div className=" flex mr-14">
+                  <span className="ml-[-10px]">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      height="24"
                       fill="none">
                       <path
                         fill="currentColor"
@@ -268,18 +300,17 @@ function Sidebar({ isOpen, setIsOpen }) {
               <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#75eed2] lg:2xl px-4 py-2">
                 <div className=" flex mr-14">
                   <span className="ml-[-10px]">
-                  <svg
-              width="22"
-              height="21"
-              viewBox="0 0 22 21"
-              fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M7.665 21L7.245 17.64C7.0175 17.5525 6.8033 17.4475 6.6024 17.325C6.4015 17.2025 6.20445 17.0712 6.01125 16.9312L2.8875 18.2437L0 13.2562L2.70375 11.2087C2.68625 11.0862 2.6775 10.9683 2.6775 10.8549V10.1461C2.6775 10.0321 2.68625 9.91375 2.70375 9.79125L0 7.74375L2.8875 2.75625L6.01125 4.06875C6.20375 3.92875 6.405 3.7975 6.615 3.675C6.825 3.5525 7.035 3.4475 7.245 3.36L7.665 0H13.44L13.86 3.36C14.0875 3.4475 14.302 3.5525 14.5036 3.675C14.7052 3.7975 14.9019 3.92875 15.0938 4.06875L18.2175 2.75625L21.105 7.74375L18.4012 9.79125C18.4187 9.91375 18.4275 10.0321 18.4275 10.1461V10.8538C18.4275 10.9679 18.41 11.0862 18.375 11.2087L21.0787 13.2562L18.1912 18.2437L15.0938 16.9312C14.9012 17.0712 14.7 17.2025 14.49 17.325C14.28 17.4475 14.07 17.5525 13.86 17.64L13.44 21H7.665ZM9.5025 18.9H11.5763L11.9437 16.1175C12.4862 15.9775 12.9895 15.772 13.4536 15.5012C13.9177 15.2302 14.342 14.9019 14.7262 14.5162L17.325 15.5925L18.3487 13.8075L16.0912 12.1012C16.1787 11.8562 16.24 11.5983 16.275 11.3274C16.31 11.0565 16.3275 10.7807 16.3275 10.5C16.3275 10.2193 16.31 9.94385 16.275 9.67365C16.24 9.40345 16.1787 9.14515 16.0912 8.89875L18.3487 7.1925L17.325 5.4075L14.7262 6.51C14.3412 6.1075 13.917 5.7708 13.4536 5.4999C12.9902 5.229 12.4869 5.0232 11.9437 4.8825L11.6025 2.1H9.52875L9.16125 4.8825C8.61875 5.0225 8.1158 5.2283 7.6524 5.4999C7.189 5.7715 6.76445 6.09945 6.37875 6.48375L3.78 5.4075L2.75625 7.1925L5.01375 8.8725C4.92625 9.135 4.865 9.3975 4.83 9.66C4.795 9.9225 4.7775 10.2025 4.7775 10.5C4.7775 10.78 4.795 11.0512 4.83 11.3137C4.865 11.5762 4.92625 11.8387 5.01375 12.1012L2.75625 13.8075L3.78 15.5925L6.37875 14.49C6.76375 14.8925 7.1883 15.2295 7.6524 15.5012C8.1165 15.7727 8.61945 15.9782 9.16125 16.1175L9.5025 18.9ZM10.605 14.175C11.62 14.175 12.4862 13.8162 13.2037 13.0988C13.9212 12.3812 14.28 11.515 14.28 10.5C14.28 9.485 13.9212 8.61875 13.2037 7.90125C12.4862 7.18375 11.62 6.825 10.605 6.825C9.5725 6.825 8.7017 7.18375 7.9926 7.90125C7.2835 8.61875 6.9293 9.485 6.93 10.5C6.9307 11.515 7.28525 12.3812 7.99365 13.0988C8.70205 13.8162 9.5725 14.175 10.605 14.175Z"
-                fill="currentColor"
-              />
-            </svg>
+                    <svg
+                      width="22"
+                      height="21"
+                      viewBox="0 0 22 21"
+                      fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M7.665 21L7.245 17.64C7.0175 17.5525 6.8033 17.4475 6.6024 17.325C6.4015 17.2025 6.20445 17.0712 6.01125 16.9312L2.8875 18.2437L0 13.2562L2.70375 11.2087C2.68625 11.0862 2.6775 10.9683 2.6775 10.8549V10.1461C2.6775 10.0321 2.68625 9.91375 2.70375 9.79125L0 7.74375L2.8875 2.75625L6.01125 4.06875C6.20375 3.92875 6.405 3.7975 6.615 3.675C6.825 3.5525 7.035 3.4475 7.245 3.36L7.665 0H13.44L13.86 3.36C14.0875 3.4475 14.302 3.5525 14.5036 3.675C14.7052 3.7975 14.9019 3.92875 15.0938 4.06875L18.2175 2.75625L21.105 7.74375L18.4012 9.79125C18.4187 9.91375 18.4275 10.0321 18.4275 10.1461V10.8538C18.4275 10.9679 18.41 11.0862 18.375 11.2087L21.0787 13.2562L18.1912 18.2437L15.0938 16.9312C14.9012 17.0712 14.7 17.2025 14.49 17.325C14.28 17.4475 14.07 17.5525 13.86 17.64L13.44 21H7.665ZM9.5025 18.9H11.5763L11.9437 16.1175C12.4862 15.9775 12.9895 15.772 13.4536 15.5012C13.9177 15.2302 14.342 14.9019 14.7262 14.5162L17.325 15.5925L18.3487 13.8075L16.0912 12.1012C16.1787 11.8562 16.24 11.5983 16.275 11.3274C16.31 11.0565 16.3275 10.7807 16.3275 10.5C16.3275 10.2193 16.31 9.94385 16.275 9.67365C16.24 9.40345 16.1787 9.14515 16.0912 8.89875L18.3487 7.1925L17.325 5.4075L14.7262 6.51C14.3412 6.1075 13.917 5.7708 13.4536 5.4999C12.9902 5.229 12.4869 5.0232 11.9437 4.8825L11.6025 2.1H9.52875L9.16125 4.8825C8.61875 5.0225 8.1158 5.2283 7.6524 5.4999C7.189 5.7715 6.76445 6.09945 6.37875 6.48375L3.78 5.4075L2.75625 7.1925L5.01375 8.8725C4.92625 9.135 4.865 9.3975 4.83 9.66C4.795 9.9225 4.7775 10.2025 4.7775 10.5C4.7775 10.78 4.795 11.0512 4.83 11.3137C4.865 11.5762 4.92625 11.8387 5.01375 12.1012L2.75625 13.8075L3.78 15.5925L6.37875 14.49C6.76375 14.8925 7.1883 15.2295 7.6524 15.5012C8.1165 15.7727 8.61945 15.9782 9.16125 16.1175L9.5025 18.9ZM10.605 14.175C11.62 14.175 12.4862 13.8162 13.2037 13.0988C13.9212 12.3812 14.28 11.515 14.28 10.5C14.28 9.485 13.9212 8.61875 13.2037 7.90125C12.4862 7.18375 11.62 6.825 10.605 6.825C9.5725 6.825 8.7017 7.18375 7.9926 7.90125C7.2835 8.61875 6.9293 9.485 6.93 10.5C6.9307 11.515 7.28525 12.3812 7.99365 13.0988C8.70205 13.8162 9.5725 14.175 10.605 14.175Z"
+                        fill="currentColor"
+                      />
+                    </svg>
                   </span>
                   <span
                     onClick={() => {
@@ -291,7 +322,7 @@ function Sidebar({ isOpen, setIsOpen }) {
                         ? "text-[#25e2b6]"
                         : "text-[#909294]"
                     }  hover:text-[#75eed2] ml-2`}>
-                   Settings & Config
+                    Settings & Config
                   </span>
                 </div>
               </Disclosure.Button>
@@ -318,7 +349,7 @@ function Sidebar({ isOpen, setIsOpen }) {
             <span className="text-custom-16 ml-4">Logout</span>
           </span>
         </div>
-        <Modal
+        {/* <Modal
           isVisible={isModalVisible}
           onClose={toggleModal}
           modalHeader={"Are you you want to logout?"}>
@@ -328,7 +359,70 @@ function Sidebar({ isOpen, setIsOpen }) {
             className="bg-gray-200 p-3 w-full flex justify-center items-center mb-4 border border-gray-500 ">
             logout
           </button>
-        </Modal>
+        </Modal> */}
+ <Modal isVisible={isModalVisible} onClose={toggleModal}>
+  <div
+    style={{
+      backgroundColor: '#fff',
+      borderRadius: '8px',
+      boxShadow: '0 10px 20px rgba(0, 0, 0, 0.15)',
+      padding: '20px',
+      maxWidth: '400px',
+      margin: 'auto',
+      position: 'relative',
+    }}
+  >
+    <h3
+      style={{
+        textAlign: 'center',
+        fontSize: '18px',
+        fontWeight: 'bold',
+        color: '#333',
+        marginBottom: '20px',
+      }}
+    >
+      Are you sure you want to Logout?
+    </h3>
+    <div style={{ display: 'flex', justifyContent: 'center', gap: '16px' }}>
+      <button
+        onClick={toggleModal}
+        type="button"
+        style={{
+          border: '2px solid #34d399', // Green border
+          color: '#34d399', // Green text
+          backgroundColor: 'transparent',
+          fontWeight: '600',
+          padding: '10px 24px',
+          borderRadius: '8px',
+          transition: 'all 0.3s ease',
+          cursor: 'pointer',
+        }}
+        onMouseEnter={(e) => (e.target.style.backgroundColor = '#34d399')}
+        onMouseLeave={(e) => (e.target.style.backgroundColor = 'transparent')}
+      >
+        No
+      </button>
+      <button
+        onClick={() => handleLogout()}
+        type="button"
+        style={{
+          backgroundColor: '#f87171', // Red background
+          color: '#fff',
+          fontWeight: '600',
+          padding: '10px 24px',
+          borderRadius: '8px',
+          transition: 'all 0.3s ease',
+          cursor: 'pointer',
+        }}
+        onMouseEnter={(e) => (e.target.style.backgroundColor = '#ef4444')}
+        onMouseLeave={(e) => (e.target.style.backgroundColor = '#f87171')}
+      >
+        Yes
+      </button>
+    </div>
+  </div>
+</Modal>
+
       </div>
     </Transition>
   );

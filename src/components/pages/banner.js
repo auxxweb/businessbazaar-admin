@@ -130,7 +130,7 @@ const BannerPage = () => {
   return (
     <>
       <div className="flex rounded-lg p-4">
-        <h2 className="text-2xl font-semibold text-gray-700">Categories</h2>
+        <h2 className="text-2xl font-semibold text-gray-700">Banners</h2>
         <div className="ml-auto flex items-center space-x-4">
           <span
             className="bg-[#0EB599] text-white rounded-full p-3 cursor-pointer"
@@ -141,7 +141,7 @@ const BannerPage = () => {
           <Modal
             isVisible={isModalVisible}
             onClose={toggleModal}
-            modalHeader={"Add Category"}>
+            modalHeader={"Add Banner"}>
             <form onSubmit={handleCreate} className="space-y-4">
               {bannerLoading && <Loader />}
               <div className="grid grid-cols-1 gap-4">

@@ -3,9 +3,11 @@ import Modal from "../reUsableCmponent/modal/Modal";
 import Pagination from "../Pagination";
 import useCategories from "../../Hooks/Category/useCategories";
 import CategoryTable from "../reUsableCmponent/Tables/CategoryTable";
-import { toast } from "sonner";
+import { toast } from "react-toastify";
 import { preRequestFun } from "../../api/s3Request";
 import { patchApi, postApi } from "../../api/api";
+import "./category.css";
+import Loader from "../Loader/Loader";
 
 const Clients = () => {
   const {
@@ -26,19 +28,23 @@ const Clients = () => {
     image: "",
     coverImage: ""
   });
-  const [handleClick,setHandleSelect]=useState(false)
+  const [handleClick, setHandleSelect] = useState(false);
+  const [catLoading, setCatLoading] = useState(false);
 
+  useEffect(() => {
+    setSearch(searchText);
+  }, [handleClick]);
 
-useEffect(()=>{
-  setSearch(searchText)
-},[handleClick])
+  useEffect(() => {
+    setCatLoading(loading);
+  }, [loading]);
 
   const handleSearchTextChange = (event) => {
     setSearchText(event.target.value);
   };
 
   const handleSearch = () => {
-    setHandleSelect(!handleClick)
+    setHandleSelect(!handleClick);
   };
 
   const handlePageChange = (page) => {
@@ -65,62 +71,66 @@ useEffect(()=>{
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
 
-  const toggleModal = () => {
-    setIsModalVisible(!isModalVisible);
-  };
-  const toggleEditModal = () => {
-    setIsEditModalVisible(!isEditModalVisible);
-  };
-
   const [image, setImage] = useState("");
   const [imageUrl, setImageUrl] = useState(null);
   const [coverImage, setCoverImage] = useState("");
   const [coverImageUrl, setCoverImageUrl] = useState(null);
   const [name, setName] = useState("");
   const [isEdit, setEdit] = useState(false);
+  const [imageFile, setImageFile] = useState(null);
+  const [coverImageFile, setCoverImageFile] = useState(null);
 
-  useEffect(()=>{
-getAllCategories()
-  },[handleClick])
+  const toggleModal = () => {
+    setIsModalVisible(!isModalVisible);
+    setName("");
+    setImageFile(null);
+    setCoverImageFile(null);
+  };
+  const toggleEditModal = () => {
+    setUpdateData({
+      name: "",
+      image: "",
+      coverImage: ""
+    });
+    setImageFile(null);
+    setCoverImageFile(null);
+    setImageUrl(null);
+    setCoverImageUrl(null);
+    setIsEditModalVisible(!isEditModalVisible);
+  };
+
+  useEffect(() => {
+    getAllCategories();
+  }, [handleClick]);
 
   const handlePreviewImage = async (e, type) => {
-    const file = e.target.files[0];
-
-    // Handle image upload if the image file is selected
     const imageFile = e.target.files[0]; // Access the selected image file
-    if (imageFile && imageFile.size <= 5 * 1024 * 1024) {
-      // Check if it's valid
-      const preReq = await preRequestFun(file, "Category");
 
-      if (type === "image") {
-        setImageUrl(URL.createObjectURL(e.target.files[0]));
-        isEdit
-          ? setUpdateData({
-              ...updateData,
-              image: preReq?.accessLink
-            })
-          : setImage(preReq?.accessLink);
-      } else {
-        setCoverImageUrl(URL.createObjectURL(e.target.files[0]));
-        isEdit
-          ? setUpdateData({
-              ...updateData,
-              coverImage: preReq?.accessLink
-            })
-          : setCoverImage(preReq?.accessLink);
-      }
-    } else {
+    // Check if the file is selected and its size is within the limit
+    if (!imageFile || imageFile.size > 5 * 1024 * 1024) {
       // Optionally, you could show an error toast here
       toast.warning("Please select a valid image file (less than 5 MB).", {
         position: "top-right",
         duration: 2000,
         style: {
-          backgroundColor: "#e5cc0e", // Custom red color for error
+          backgroundColor: "#e5cc0e", // Custom yellow color for warning
           color: "#FFFFFF" // Text color
         },
         dismissible: true
       });
-      return; // Exit the function if there's no valid image
+      return; // Exit the function if the image is invalid
+    }
+
+    // Proceed with setting the image preview based on type
+    if (type === "image") {
+      setImageFile(imageFile);
+      setImageUrl(URL.createObjectURL(imageFile));
+    } else if (type === "cover_image") {
+      setCoverImageFile(imageFile);
+      setCoverImageUrl(URL.createObjectURL(imageFile));
+    } else {
+      // Optionally, handle invalid 'type' values if necessary
+      console.error("Invalid type specified");
     }
   };
 
@@ -135,23 +145,31 @@ getAllCategories()
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    if (!image || !coverImage || !name) {
-      toast.warning("Please select all the fields", {
-        position: "top-right",
-        duration: 2000,
-        style: {
-          backgroundColor: "#e5cc0e", // Custom red color for error
-          color: "#FFFFFF" // Text color
-        },
-        dismissible: true
-      });
-      return;
-    }
 
     try {
+      if (!imageFile || !name || !coverImageFile) {
+        toast.warning("Please select all the fields", {
+          position: "top-right",
+          duration: 2000,
+          style: {
+            backgroundColor: "#e5cc0e", // Custom red color for error
+            color: "#FFFFFF" // Text color
+          },
+          dismissible: true
+        });
+        return;
+      }
+      const preReq = await preRequestFun(imageFile, "category");
+
+      const preReqC = await preRequestFun(coverImageFile, "category");
+
       await postApi({
         url: "category",
-        body: { name, image, coverImage },
+        body: {
+          name,
+          image: preReq?.accessLink,
+          coverImage: preReqC?.accessLink
+        },
         authToken: true
       });
       getAllCategories();
@@ -187,17 +205,46 @@ getAllCategories()
     }
   };
 
-  const onEditSubmit = async () => {
+  const onEditSubmit = async (e) => {
+    e.preventDefault();
     try {
+      let updatedData = { ...updateData };
+
+      if (imageFile) {
+        setCatLoading(true);
+        const preReq = await preRequestFun(imageFile, "category");
+        console.log("preRequestFun response for image:", preReq); // Log response
+        updatedData.image = preReq?.accessLink;
+      }
+
+      if (coverImageFile) {
+        setCatLoading(true);
+        const preReqC = await preRequestFun(coverImageFile, "category");
+        console.log("preRequestFun response for cover image:", preReqC); // Log response
+        updatedData.coverImage = preReqC?.accessLink;
+      }
+      setCatLoading(false);
+
+      // You can directly use updatedData here for API call
       await patchApi({
-        url: `category/${updateData?.categoryId}`,
-        body: {
-          ...updateData
-        }
+        url: `/category/${updatedData?.categoryId}`, // Ensure URL starts with '/'
+        body: updatedData
       });
-      getAllCategories();
+      toggleEditModal();
+      await getAllCategories(); // Wait for the categories to refresh
+
+      toast.success("Category updated successfully", {
+        position: "top-right",
+        duration: 2000,
+        style: {
+          backgroundColor: "#28a745", // Custom green color for success
+          color: "#FFFFFF" // Text color
+        },
+        dismissible: true
+      });
     } catch (error) {
-      toast.error("Failed to Update category", {
+      console.error("Error updating category:", error); // Log error for debugging
+      toast.error("Failed to update category", {
         position: "top-right",
         duration: 2000,
         style: {
@@ -226,157 +273,173 @@ getAllCategories()
               isVisible={isModalVisible}
               onClose={toggleModal}
               modalHeader={"Add Category"}>
-              <form onSubmit={onSubmit} className="space-y-4">
-                <div className="grid grid-cols-1 gap-4">
-                  <div>
-                    <label
-                      htmlFor="name"
-                      className="block text-sm font-medium text-gray-700">
-                      Category Name
-                    </label>
-                    <input
-                      type="text"
-                      value={name}
-                      name="name"
-                      id="name"
-                      className="mt-1 block w-full border-2 p-1 border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                      placeholder="Category Name"
-                      onChange={handleNameChange}
-                      required
-                    />
-                  </div>
-
-                  <div className="mt-2">
-                    <label
-                      htmlFor="image"
-                      className="block text-sm font-medium text-gray-700">
-                      Image
-                    </label>
-                    <input
-                      type="file"
-                      name="image"
-                      id="image"
-                      className="mt-1 block w-full border-2 p-1 border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                      onChange={(e) => handlePreviewImage(e, "image")}
-                    />
-                    {imageUrl && (
-                      <img
-                        className="mt-2 w-20 h-auto"
-                        src={imageUrl}
-                        alt="previewImage"
-                      />
-                    )}
-                  </div>
-
-                  <div className="mt-2">
-                    <label
-                      htmlFor="coverImage"
-                      className="block text-sm font-medium text-gray-700">
-                      Cover Image
-                    </label>
-                    <input
-                      type="file"
-                      name="coverImage"
-                      id="coverImage"
-                      className="mt-1 block w-full border-2 p-1 border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                      onChange={(e) => handlePreviewImage(e, "cover_image")}
-                    />
-                    {coverImageUrl && (
-                      <img
-                        className="mt-2 w-20 h-auto"
-                        src={coverImageUrl}
-                        alt="previewImage"
-                      />
-                    )}
-                  </div>
-                </div>
-
-                <div className="flex justify-center">
-                  <button
-                    type="submit"
-                    className="cursor-pointer bg-[#0EB599] hover:bg-[#068A55] text-white p-2 lg:w-[100px] text-center rounded-3xl">
-                    Submit
+              <div className="modal-overlay">
+                <div className="modal-content">
+                  {/* Close button positioned in the top-right corner */}
+                  <button className="modal-close-btn" onClick={toggleModal}>
+                    ✕
                   </button>
+
+                  <h2 className="modal-header">Add Category</h2>
+                  <form onSubmit={onSubmit} className="space-y-4">
+                    <div className="grid grid-cols-1 gap-4">
+                      <div>
+                        <label
+                          htmlFor="name"
+                          className="block text-sm font-medium text-gray-700">
+                          Category Name
+                        </label>
+                        <input
+                          type="text"
+                          value={name}
+                          name="name"
+                          id="name"
+                          className="modal-input mt-1"
+                          placeholder="Category Name"
+                          onChange={handleNameChange}
+                          required
+                        />
+                      </div>
+                      <div className="mt-2">
+                        <label
+                          htmlFor="image"
+                          className="block text-sm font-medium text-gray-700">
+                          Image
+                        </label>
+                        <input
+                          type="file"
+                          name="image"
+                          id="image"
+                          className="modal-input mt-1"
+                          onChange={(e) => handlePreviewImage(e, "image")}
+                        />
+                        {imageUrl && (
+                          <img
+                            className="mt-2 w-20 h-auto"
+                            src={imageUrl}
+                            alt="previewImage"
+                          />
+                        )}
+                      </div>
+                      <div className="mt-2">
+                        <label
+                          htmlFor="coverImage"
+                          className="block text-sm font-medium text-gray-700">
+                          Cover Image
+                        </label>
+                        <input
+                          type="file"
+                          name="coverImage"
+                          id="coverImage"
+                          className="modal-input mt-1"
+                          onChange={(e) => handlePreviewImage(e, "cover_image")}
+                        />
+                        {coverImageUrl && (
+                          <img
+                            className="mt-2 w-20 h-auto"
+                            src={coverImageUrl}
+                            alt="previewImage"
+                          />
+                        )}
+                      </div>
+                    </div>
+                    <div className="flex justify-center">
+                      <button type="submit" className="modal-submit-btn">
+                        Submit
+                      </button>
+                    </div>
+                  </form>
                 </div>
-              </form>
+              </div>
             </Modal>
+
             <Modal
               isVisible={isEditModalVisible}
               onClose={toggleEditModal}
               modalHeader={"Edit Category"}>
-              <form onSubmit={onEditSubmit} className="space-y-4">
-                <div className="grid grid-cols-1 gap-4">
-                  <div>
-                    <label
-                      htmlFor="name"
-                      className="block text-sm font-medium text-gray-700">
-                      Category Name
-                    </label>
-                    <input
-                      type="text"
-                      value={updateData?.name}
-                      name="name"
-                      id="name"
-                      className="mt-1 block w-full border-2 p-1 border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                      placeholder="Category Name"
-                      onChange={handleNameChange}
-                      required
-                    />
-                  </div>
-
-                  <div className="mt-2">
-                    <label
-                      htmlFor="image"
-                      className="block text-sm font-medium text-gray-700">
-                      Image
-                    </label>
-                    <input
-                      type="file"
-                      name="image"
-                      id="image"
-                      className="mt-1 block w-full border-2 p-1 border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                      onChange={(e) => handlePreviewImage(e, "image")}
-                    />
-                    {(imageUrl || updateData?.image) && (
-                      <img
-                        className="mt-2 w-20 h-auto"
-                        src={imageUrl ?? updateData?.image}
-                        alt="previewImage"
-                      />
-                    )}
-                  </div>
-
-                  <div className="mt-2">
-                    <label
-                      htmlFor="coverImage"
-                      className="block text-sm font-medium text-gray-700">
-                      Cover Image
-                    </label>
-                    <input
-                      type="file"
-                      name="coverImage"
-                      id="coverImage"
-                      className="mt-1 block w-full border-2 p-1 border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                      onChange={(e) => handlePreviewImage(e, "cover_image")}
-                    />
-                    {(coverImageUrl || updateData?.coverImage) && (
-                      <img
-                        className="mt-2 w-20 h-auto"
-                        src={coverImageUrl ?? updateData?.coverImage}
-                        alt="previewImage"
-                      />
-                    )}
-                  </div>
-                </div>
-
-                <div className="flex justify-center">
-                  <button
-                    type="submit"
-                    className="cursor-pointer bg-[#0EB599] hover:bg-[#068A55] text-white p-2 lg:w-[100px] text-center rounded-3xl">
-                    Submit
+              <div className="modal-overlay">
+                <div className="modal-content">
+                  {/* Close button positioned in the top-right corner */}
+                  <button className="modal-close-btn" onClick={toggleEditModal}>
+                    ✕
                   </button>
+
+                  <h2 className="modal-header">Edit Category</h2>
+
+                  <form onSubmit={onEditSubmit} className="space-y-4">
+                    <div className="grid grid-cols-1 gap-4">
+                      <div>
+                        <label
+                          htmlFor="name"
+                          className="block text-sm font-medium text-gray-700">
+                          Category Name
+                        </label>
+                        <input
+                          type="text"
+                          value={updateData?.name}
+                          name="name"
+                          id="name"
+                          className="modal-input mt-1"
+                          placeholder="Category Name"
+                          onChange={handleNameChange}
+                          required
+                        />
+                      </div>
+                      <div className="mt-2">
+                        <label
+                          htmlFor="image"
+                          className="block text-sm font-medium text-gray-700">
+                          Image
+                        </label>
+                        <input
+                          type="file"
+                          name="image"
+                          id="image"
+                          className="modal-input mt-1"
+                          onChange={(e) => handlePreviewImage(e, "image")}
+                        />
+                        {(imageUrl || updateData?.image) && (
+                          <img
+                            className="mt-2 w-20 h-auto"
+                            src={imageUrl ?? updateData?.image}
+                            alt="previewImage"
+                          />
+                        )}
+                      </div>
+                      <div className="mt-2">
+                        <label
+                          htmlFor="coverImage"
+                          className="block text-sm font-medium text-gray-700">
+                          Cover Image
+                        </label>
+                        <input
+                          type="file"
+                          name="coverImage"
+                          id="coverImage"
+                          className="modal-input mt-1"
+                          onChange={(e) => handlePreviewImage(e, "cover_image")}
+                        />
+                        {(coverImageUrl || updateData?.coverImage) && (
+                          <img
+                            className="mt-2 w-20 h-auto"
+                            src={coverImageUrl ?? updateData?.coverImage}
+                            alt="previewImage"
+                          />
+                        )}
+                      </div>
+                    </div>
+                    <div className="flex justify-center">
+                      {catLoading ? (
+                        <Loader />
+                      ) : (
+                        <button type="submit" className="modal-submit-btn">
+                          Submit
+                        </button>
+                      )}
+                    </div>
+                  </form>
                 </div>
-              </form>
+              </div>
             </Modal>
           </span>
         </div>
@@ -405,6 +468,7 @@ getAllCategories()
           tableData={categories}
           handleDeleteCategory={handleDeleteCategory}
           handleEditCategory={handleEditCategory}
+          loading={catLoading}
         />
       </div>
       <div className="m-auto flex justify-end mt-8">
