@@ -20,7 +20,13 @@ const SettingAndConfi = () => {
   };
 
   const handleSubmit = async () => {
-    if (passwordData?.newPassword !== passwordData?.confirmPassword) {
+    if (
+      !passwordData?.oldPassword ||
+      !passwordData?.newPassword ||
+      !passwordData?.confirmPassword
+    ) {
+      toast.warning("Fields should not be empty")
+    } else if (passwordData?.newPassword !== passwordData?.confirmPassword) {
       toast.warning("New password and confirm password do not match");
     } else {
       await changePassword(passwordData);
