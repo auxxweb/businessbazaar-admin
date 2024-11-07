@@ -53,13 +53,13 @@ const Login = () => {
   return (
     <>
       <div
-        className="relative min-h-screen bg-cover bg-center "
+        className="relative min-h-screen bg-[#e7edf4] bg-center items-center"
         // style={{ backgroundImage: 'url("/quranBackground.jpeg")' }}
       >
         <div className="relative z-10 flex flex-col h-full items-center space-y-4 justify-center p-3 ">
           <div className="flex flex-row w-28 h-auto justify-center">
             <img
-              src="/logonew-auxxweb 1.png"
+              src="/logo.jpeg"
               alt=" Logo"
               className="h-full w-full object-contain"
               priority
@@ -68,7 +68,7 @@ const Login = () => {
           <div className="w-full max-w-lg ">
             <form
               onSubmit={onSubmit}
-              className="bg-white border space-y-3 sm:space-y-4 border-[#0EB599] shadow-lg rounded-lg text-center py-8 sm:py-10 px-3 sm:px-8  w-full"
+              className="bg-white border space-y-3 sm:space-y-4 border-[#105193] shadow-lg rounded-lg text-center py-8 sm:py-10 px-3 sm:px-8  w-full"
             >
               <h1 className=" text-4xl sm:text-5xl text-[#] font-semibold">
                 Log In
@@ -87,7 +87,7 @@ const Login = () => {
                   E-mail
                 </label>
                 <input
-                  className="w-full px-4 sm:px-6 py-3 sm:py-4 border border-[#0EB599] text-gold-500 placeholder-gold-500 rounded-[22px] bg-transparent outline-none focus:border-gold-600 "
+                  className="w-full px-4 sm:px-6 py-3 sm:py-4 border border-[#105193] text-gold-500 placeholder-gold-500 rounded-[22px] bg-transparent outline-none focus:border-gold-600 "
                   type="email"
                   id="email"
                   placeholder="Email"
@@ -106,7 +106,7 @@ const Login = () => {
                 </label>
                 <div className="relative">
                   <input
-                    className="w-full px-4 sm:px-6 py-3 sm:py-4 border border-[#0EB599] text-gold-500 placeholder-gold-500 rounded-[22px] bg-transparent outline-none focus:border-gold-600 "
+                    className="w-full px-4 sm:px-6 py-3 sm:py-4 border border-[#105193] text-gold-500 placeholder-gold-500 rounded-[22px] bg-transparent outline-none focus:border-gold-600 "
                     type={showPassword ? "text" : "password"}
                     id="password"
                     name="password"
@@ -124,7 +124,7 @@ const Login = () => {
               </div>
 
               {/* Forgot Password Link (Right-aligned under Password) */}
-              <div className="flex justify-between mb-8 text-sm text-[#0EB599] ">
+              <div className="flex justify-between mb-8 text-sm text-[#105193] ">
                 <span className="space-x-2 flex items-center">
                   <input type="checkbox" className="bg-[#C19D5C] h-4 w-4" />
                   <span className="hover:underline cursor-pointer">
@@ -143,7 +143,7 @@ const Login = () => {
               <div className="pt-3">
                 <button
                   disabled={false}
-                  className="w-full  py-3 max-w-[217px] hover:-translate-y-1 transform transition rounded-lg bg-gradient-to-r from-[#0EB599] to-[#000000]  text-white  "
+                  className="w-full  py-3 max-w-[217px] hover:-translate-y-1 transform transition rounded-lg bg-gradient-to-r from-[#105193] to-[#107D93]  text-white  "
                   type="submit"
                 >
                   Log In
