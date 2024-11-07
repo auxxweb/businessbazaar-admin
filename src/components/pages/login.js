@@ -41,15 +41,15 @@ const Login = () => {
   };
 
   return (
-    <div className="relative min-h-screen bg-cover bg-center" style={{ backgroundImage: 'url("/background-image.jpg")' }}>
+    <div className="relative min-h-screen bg-[#e7edf4] bg-center p-8" >
       <div className="relative z-10 flex flex-col h-full items-center justify-center p-6">
         <div className="w-full max-w-lg bg-white shadow-xl rounded-2xl p-8 space-y-6" style={{ boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)" }}>
           <div className="flex justify-center mb-6">
-            <img src="/logonew-auxxweb 1.png" alt="Logo" className="h-20 object-contain" />
+            <img src="/logo.jpeg" alt="Logo" className="h-24 object-contain" />
           </div>
 
           <form onSubmit={onSubmit} className="space-y-4">
-            <h1 className="text-3xl font-semibold text-center text-[#333]">Log In</h1>
+            <h1 className="text-3xl font-semibold text-center text-[#333]">Login</h1>
             <h3 className="text-sm sm:text-base text-center text-[#686219]">Enter your Email and Password to Log In</h3>
 
             {/* Email Input Field */}
@@ -61,7 +61,7 @@ const Login = () => {
                 name="email"
                 placeholder="Email"
                 required
-                className="w-full px-4 py-3 border border-[#0EB599] rounded-lg bg-transparent focus:ring-2 focus:ring-[#0EB599] outline-none transition duration-300"
+                className="w-full px-4 py-3 border border-[#105193] rounded-lg bg-transparent focus:ring-2 focus:ring-[#105193] outline-none transition duration-300"
               />
             </div>
 
@@ -75,7 +75,7 @@ const Login = () => {
                   name="password"
                   placeholder="Password"
                   required
-                  className="w-full px-4 py-3 border border-[#0EB599] rounded-lg bg-transparent focus:ring-2 focus:ring-[#0EB599] outline-none transition duration-300"
+                  className="w-full px-4 py-3 border border-[#105193] rounded-lg bg-transparent focus:ring-2 focus:ring-[#105193] outline-none transition duration-300"
                 />
                 <button
                   type="button"
@@ -88,7 +88,7 @@ const Login = () => {
             </div>
 
             {/* Remember Me and Forgot Password */}
-            <div className="flex justify-between mb-8 text-sm text-[#0EB599]">
+            <div className="flex justify-between mb-8 text-sm text-[#105193]">
               <label className="flex items-center space-x-2">
                 <input type="checkbox" className="h-4 w-4" />
                 <span>Remember me</span>
@@ -105,7 +105,7 @@ const Login = () => {
             <div className="pt-4">
               <button
                 type="submit"
-                className="w-full py-3 bg-gradient-to-r from-[#0EB599] to-[#000000] text-white font-semibold rounded-lg hover:translate-y-1 transform transition duration-300"
+                className="w-full py-3 bg-gradient-to-r from-[#105193] to-[#107D93] text-white font-semibold rounded-lg hover:translate-y-1 transform transition duration-300"
               >
                 Log In
               </button>
