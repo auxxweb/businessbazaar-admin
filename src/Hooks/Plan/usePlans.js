@@ -145,7 +145,7 @@ const usePlans = (initialSearch = "") => {
         toast.success("Plan deleted successfully", {
           theme: "colored",
           style: {
-            backgroundColor: "#e74c3c",
+            backgroundColor: "#1c980c",
             color: "#FFFFFF"
           }
         });
