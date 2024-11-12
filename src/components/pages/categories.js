@@ -193,15 +193,18 @@ const Clients = () => {
       });
       getAllCategories();
     } catch (error) {
-      toast.error("Failed to delete category", {
-        position: "top-right",
-        duration: 2000,
-        style: {
-          backgroundColor: "#e50e0e", // Custom red color for error
-          color: "#FFFFFF" // Text color
-        },
-        dismissible: true
-      });
+      toast.error(
+        error?.response?.data?.message ?? "Failed to delete category",
+        {
+          position: "top-right",
+          duration: 2000,
+          style: {
+            backgroundColor: "#e50e0e", // Custom red color for error
+            color: "#FFFFFF" // Text color
+          },
+          dismissible: true
+        }
+      );
     }
   };
 
@@ -244,15 +247,18 @@ const Clients = () => {
       });
     } catch (error) {
       console.error("Error updating category:", error); // Log error for debugging
-      toast.error("Failed to update category", {
-        position: "top-right",
-        duration: 2000,
-        style: {
-          backgroundColor: "#e50e0e", // Custom red color for error
-          color: "#FFFFFF" // Text color
-        },
-        dismissible: true
-      });
+      toast.error(
+        error?.response?.data?.message ?? "Failed to update category",
+        {
+          position: "top-right",
+          duration: 2000,
+          style: {
+            backgroundColor: "#e50e0e", // Custom red color for error
+            color: "#FFFFFF" // Text color
+          },
+          dismissible: true
+        }
+      );
     }
   };
 
