@@ -79,7 +79,8 @@ const TableView = ({ tableData, handleDelete, handleStatusUpdate }) => {
               <tr
                 key={index}
                 className="odd:bg-[#d4e0ec] even:bg-grey border-[2px] border-opacity-50 border-[#9e9696]">
-                <td className="px-4 py-2 flex border-r border-gray-400">
+                <td className="px-4 py-2  border-r border-gray-400">
+                  <span className="flex  business-details">
                   <img
                     src={business?.logo && business?.logo !== "" ? business?.logo : Placeholder}
                     alt={business?.businessName}
@@ -88,6 +89,7 @@ const TableView = ({ tableData, handleDelete, handleStatusUpdate }) => {
                   <span className="items-center flex">  
                     {business?.businessName}{" "}
                   </span>
+                  </span> 
                 </td>
                 <td className="px-4 py-2 border-r border-gray-400">
                   {business?.businessId}
@@ -183,6 +185,16 @@ const TableView = ({ tableData, handleDelete, handleStatusUpdate }) => {
           </div>
         </div>
       </Modal>
+      <style>{`.business-details {
+  display: flex;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  -ms-overflow-style: none; /* Hide scrollbar in Internet Explorer and Edge */
+  scrollbar-width: none; /* Hide scrollbar in Firefox */
+}
+
+.business-details::-webkit-scrollbar {
+  display: none; /* Hide scrollbar in WebKit browsers (Chrome, Safari, etc.) */
+}`}</style>
     </div>
   );
 };

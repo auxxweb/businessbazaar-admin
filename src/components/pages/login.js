@@ -55,7 +55,7 @@ const Login = () => {
 
           <form onSubmit={onSubmit} className="space-y-4">
             <h1 className="text-3xl font-semibold text-center text-[#333]">Welcome back</h1>
-            <h3 className="text-sm sm:text-base text-center text-[#686219]">Sign in to your account to continue</h3>
+            <h3 className="text-sm sm:text-base text-center text-[#686219]">Sign in to your Admin dashboard to continue</h3>
 
             {/* Email Input Field */}
             <div className="relative mb-6">
