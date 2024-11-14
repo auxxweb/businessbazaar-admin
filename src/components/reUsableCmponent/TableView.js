@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { BiSolidDownArrow } from "react-icons/bi";
 import Modal from "./modal/Modal";
 import { formatDate } from "../../utils/app.utils";
+import Placeholder from "../../../src/images/businesses-icon.png";
 
 const TableView = ({ tableData, handleDelete, handleStatusUpdate }) => {
   const [showDeletePopup, setShowDeletePopup] = useState(false);
@@ -48,6 +49,9 @@ const TableView = ({ tableData, handleDelete, handleStatusUpdate }) => {
               Business
             </th>
             <th className="px-4 py-4 text-left border-r border-gray-400">
+              Business ID
+            </th>
+            <th className="px-4 py-4 text-left border-r border-gray-400">
               Business Email
             </th>
 
@@ -77,13 +81,16 @@ const TableView = ({ tableData, handleDelete, handleStatusUpdate }) => {
                 className="odd:bg-[#d4e0ec] even:bg-grey border-[2px] border-opacity-50 border-[#9e9696]">
                 <td className="px-4 py-2 flex border-r border-gray-400">
                   <img
-                    src={business?.logo}
+                    src={business?.logo && business?.logo !== "" ? business?.logo : Placeholder}
                     alt={business?.businessName}
                     className="w-10 h-10 rounded-full mr-2 mt-2"
                   />
-                  <span className="items-center flex">
+                  <span className="items-center flex">  
                     {business?.businessName}{" "}
                   </span>
+                </td>
+                <td className="px-4 py-2 border-r border-gray-400">
+                  {business?.businessId}
                 </td>
                 <td className="px-4 py-2 border-r border-gray-400">
                   {business?.email}
