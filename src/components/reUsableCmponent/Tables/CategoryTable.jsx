@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import Modal from '../modal/Modal'
 import Loader from '../../Loader/Loader'
+import Placeholder from '../../../../src/images/more.png'
+import PlaceholderCover from '../../../../src/images/Placeholder.jpg'
 
 const CategoryTable = ({
   tableData,
@@ -59,14 +61,14 @@ const CategoryTable = ({
                   </td>
                   <td className="px-4 py-2 border-r border-gray-400">
                     <img
-                      src={category?.image}
+                      src={category?.image && category?.image !== '' ? category?.image : Placeholder} 
                       alt={category?.image}
                       className="w-10 h-10 rounded-full"
                     />
                   </td>
                   <td className="px-4 py-2 border-r border-gray-400">
                     <img
-                      src={category?.coverImage}
+                      src={category?.coverImage && category?.coverImage !== '' ? category?.coverImage : PlaceholderCover}
                       alt={category?.coverImage}
                       className="w-20 h-10 rounded-full"
                     />
