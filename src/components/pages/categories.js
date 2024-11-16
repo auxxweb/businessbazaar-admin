@@ -310,7 +310,7 @@ const Clients = () => {
                         <label
                           htmlFor="image"
                           className="block text-sm font-medium text-gray-700">
-                          Image
+                          Image <span style={{color:'grey'}}>(Ratio 1 : 1)</span>
                         </label>
                         <input
                           type="file"
@@ -331,7 +331,7 @@ const Clients = () => {
                         <label
                           htmlFor="coverImage"
                           className="block text-sm font-medium text-gray-700">
-                          Cover Image
+                          Cover Image <span style={{color:'grey'}}>(Ratio 16 : 9)</span>
                         </label>
                         <input
                           type="file"
@@ -395,7 +395,7 @@ const Clients = () => {
                         <label
                           htmlFor="image"
                           className="block text-sm font-medium text-gray-700">
-                          Image
+                          Image<span style={{color:'grey'}}>(Ratio 1 : 1)</span>
                         </label>
                         <input
                           type="file"
@@ -416,7 +416,7 @@ const Clients = () => {
                         <label
                           htmlFor="coverImage"
                           className="block text-sm font-medium text-gray-700">
-                          Cover Image
+                          Cover Image <span style={{color:'grey'}}>(Ratio 16 : 9)</span>
                         </label>
                         <input
                           type="file"
