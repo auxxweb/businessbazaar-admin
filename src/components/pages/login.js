@@ -50,7 +50,7 @@ const Login = () => {
           className="w-full max-w-lg bg-white shadow-xl rounded-2xl p-8 space-y-6"
           style={{ boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)" }}>
           <div className="flex justify-center mb-6">
-            <img src="/logo.jpeg" alt="Logo" className="h-24 object-contain" />
+            <img src="/enConnectLogo.jpg" alt="Logo" className="h-24 object-contain" />
           </div>
 
           <form onSubmit={onSubmit} className="space-y-4">
