@@ -1,25 +1,25 @@
-import React, { useState } from 'react'
-import moment from 'moment'
-import Loader from '../../Loader/Loader'
-import Modal from '../modal/Modal'
+import React, { useState } from "react";
+import moment from "moment";
+import Loader from "../../Loader/Loader";
+import Modal from "../modal/Modal";
 
 const BannerTable = ({ bannerData, loading, editFunction, deleteFunction }) => {
-  const [selectedBanner, setSelectedBanner] = useState(null)
-  const [showDeletePopup, setShowDeletePopup] = useState(false)
+  const [selectedBanner, setSelectedBanner] = useState(null);
+  const [showDeletePopup, setShowDeletePopup] = useState(false);
 
   const handleDeleteClick = (id) => {
-    setSelectedBanner(id)
-    setShowDeletePopup(true)
-  }
+    setSelectedBanner(id);
+    setShowDeletePopup(true);
+  };
 
   const handleDeleteModalClose = () => {
-    setShowDeletePopup(false)
-  }
+    setShowDeletePopup(false);
+  };
 
   const handleDeleteFun = () => {
-    deleteFunction(selectedBanner)
-    handleDeleteModalClose()
-  }
+    deleteFunction(selectedBanner);
+    handleDeleteModalClose();
+  };
 
   return (
     <div className="overflow-x-auto w-full max-w-full p-4">
@@ -49,13 +49,13 @@ const BannerTable = ({ bannerData, loading, editFunction, deleteFunction }) => {
                   className="odd:bg-[#d4e0ec] even:bg-grey border-[2px] border-opacity-50 border-[#9e9696]"
                 >
                   <td className="px-4 py-2 border-r border-gray-400">
-                    {moment(banner?.createdAt).format('DD/MM/YYYY')}
+                    {moment(banner?.createdAt).format("DD/MM/YYYY")}
                   </td>
                   <td className="px-4 py-2 border-r border-gray-400">
                     <img
                       src={banner?.image}
                       alt={banner?.image}
-                      className="w-20 h-10 "
+                      className="w-40 h-20 "
                     />
                   </td>
                   <td className="px-4 py-2 border-r flex text-center border-gray-400">
@@ -113,7 +113,7 @@ const BannerTable = ({ bannerData, loading, editFunction, deleteFunction }) => {
         </div>
       </Modal>
     </div>
-  )
-}
+  );
+};
 
-export default BannerTable
+export default BannerTable;

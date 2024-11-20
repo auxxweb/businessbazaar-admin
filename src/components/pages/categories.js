@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Cropper from "react-easy-crop";
 import Modal from "../reUsableCmponent/modal/Modal";
 import Pagination from "../Pagination";
 import useCategories from "../../Hooks/Category/useCategories";
@@ -8,6 +9,7 @@ import { preRequestFun } from "../../api/s3Request";
 import { patchApi, postApi } from "../../api/api";
 import "./category.css";
 import Loader from "../Loader/Loader";
+import getCroppedImg from "../../utils/cropper.utils";
 
 const Clients = () => {
   const {
@@ -18,7 +20,7 @@ const Clients = () => {
     limit,
     totalCategories,
     setSearch,
-    getAllCategories
+    getAllCategories,
   } = useCategories();
 
   // const [filteredCategoies, setFilteredCategories] = useState([]);
@@ -26,7 +28,7 @@ const Clients = () => {
   const [updateData, setUpdateData] = useState({
     name: "",
     image: "",
-    coverImage: ""
+    coverImage: "",
   });
   const [handleClick, setHandleSelect] = useState(false);
   const [catLoading, setCatLoading] = useState(false);
@@ -64,7 +66,7 @@ const Clients = () => {
       name: selectedCategory?.name,
       coverImage: selectedCategory?.coverImage,
       image: selectedCategory?.image,
-      categoryId: id
+      categoryId: id,
     });
   };
 
@@ -79,6 +81,11 @@ const Clients = () => {
   const [isEdit, setEdit] = useState(false);
   const [imageFile, setImageFile] = useState(null);
   const [coverImageFile, setCoverImageFile] = useState(null);
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+  const [isCropping, setIsCropping] = useState(false);
+  const [isCoverCropping, setIsCoverCropping] = useState(false);
 
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
@@ -90,7 +97,7 @@ const Clients = () => {
     setUpdateData({
       name: "",
       image: "",
-      coverImage: ""
+      coverImage: "",
     });
     setImageFile(null);
     setCoverImageFile(null);
@@ -114,9 +121,9 @@ const Clients = () => {
         duration: 2000,
         style: {
           backgroundColor: "#e5cc0e", // Custom yellow color for warning
-          color: "#FFFFFF" // Text color
+          color: "#FFFFFF", // Text color
         },
-        dismissible: true
+        dismissible: true,
       });
       return; // Exit the function if the image is invalid
     }
@@ -125,9 +132,11 @@ const Clients = () => {
     if (type === "image") {
       setImageFile(imageFile);
       setImageUrl(URL.createObjectURL(imageFile));
+      setIsCropping(true);
     } else if (type === "cover_image") {
       setCoverImageFile(imageFile);
       setCoverImageUrl(URL.createObjectURL(imageFile));
+      setIsCoverCropping(true);
     } else {
       // Optionally, handle invalid 'type' values if necessary
       console.error("Invalid type specified");
@@ -138,7 +147,7 @@ const Clients = () => {
     isEdit
       ? setUpdateData({
           ...updateData,
-          name: e.target.value
+          name: e.target.value,
         })
       : setName(e.target.value);
   };
@@ -153,9 +162,9 @@ const Clients = () => {
           duration: 2000,
           style: {
             backgroundColor: "#e5cc0e", // Custom red color for error
-            color: "#FFFFFF" // Text color
+            color: "#FFFFFF", // Text color
           },
-          dismissible: true
+          dismissible: true,
         });
         return;
       }
@@ -168,9 +177,9 @@ const Clients = () => {
         body: {
           name,
           image: preReq?.accessLink,
-          coverImage: preReqC?.accessLink
+          coverImage: preReqC?.accessLink,
         },
-        authToken: true
+        authToken: true,
       });
       getAllCategories();
       setIsModalVisible(false);
@@ -188,8 +197,8 @@ const Clients = () => {
       await patchApi({
         url: `category/${categoryId}`,
         body: {
-          isDeleted: true
-        }
+          isDeleted: true,
+        },
       });
       getAllCategories();
     } catch (error) {
@@ -200,9 +209,9 @@ const Clients = () => {
           duration: 2000,
           style: {
             backgroundColor: "#e50e0e", // Custom red color for error
-            color: "#FFFFFF" // Text color
+            color: "#FFFFFF", // Text color
           },
-          dismissible: true
+          dismissible: true,
         }
       );
     }
@@ -231,7 +240,7 @@ const Clients = () => {
       // You can directly use updatedData here for API call
       await patchApi({
         url: `/category/${updatedData?.categoryId}`, // Ensure URL starts with '/'
-        body: updatedData
+        body: updatedData,
       });
       toggleEditModal();
       await getAllCategories(); // Wait for the categories to refresh
@@ -241,9 +250,9 @@ const Clients = () => {
         duration: 2000,
         style: {
           backgroundColor: "#28a745", // Custom green color for success
-          color: "#FFFFFF" // Text color
+          color: "#FFFFFF", // Text color
         },
-        dismissible: true
+        dismissible: true,
       });
     } catch (error) {
       console.error("Error updating category:", error); // Log error for debugging
@@ -254,9 +263,9 @@ const Clients = () => {
           duration: 2000,
           style: {
             backgroundColor: "#e50e0e", // Custom red color for error
-            color: "#FFFFFF" // Text color
+            color: "#FFFFFF", // Text color
           },
-          dismissible: true
+          dismissible: true,
         }
       );
     }
@@ -271,14 +280,16 @@ const Clients = () => {
           <span className="flex items-center">
             <span
               className="bg-[#105193] hover:bg-[#107D93] text-white rounded-full p-3 cursor-pointer"
-              onClick={toggleModal}>
+              onClick={toggleModal}
+            >
               + Add New Category
             </span>
 
             <Modal
               isVisible={isModalVisible}
               onClose={toggleModal}
-              modalHeader={"Add Category"}>
+              modalHeader={"Add Category"}
+            >
               <div className="modal-overlay">
                 <div className="modal-content">
                   {/* Close button positioned in the top-right corner */}
@@ -292,7 +303,8 @@ const Clients = () => {
                       <div>
                         <label
                           htmlFor="name"
-                          className="block text-sm font-medium text-gray-700">
+                          className="block text-sm font-medium text-gray-700"
+                        >
                           Category Name
                         </label>
                         <input
@@ -309,8 +321,10 @@ const Clients = () => {
                       <div className="mt-2">
                         <label
                           htmlFor="image"
-                          className="block text-sm font-medium text-gray-700">
-                          Image <span style={{color:'grey'}}>(Ratio 1 : 1)</span>
+                          className="block text-sm font-medium text-gray-700"
+                        >
+                          Image{" "}
+                          <span style={{ color: "grey" }}>(Ratio 1 : 1)</span>
                         </label>
                         <input
                           type="file"
@@ -330,8 +344,10 @@ const Clients = () => {
                       <div className="mt-2">
                         <label
                           htmlFor="coverImage"
-                          className="block text-sm font-medium text-gray-700">
-                          Cover Image <span style={{color:'grey'}}>(Ratio 16 : 9)</span>
+                          className="block text-sm font-medium text-gray-700"
+                        >
+                          Cover Image{" "}
+                          <span style={{ color: "grey" }}>(Ratio 16 : 9)</span>
                         </label>
                         <input
                           type="file"
@@ -362,7 +378,8 @@ const Clients = () => {
             <Modal
               isVisible={isEditModalVisible}
               onClose={toggleEditModal}
-              modalHeader={"Edit Category"}>
+              modalHeader={"Edit Category"}
+            >
               <div className="modal-overlay">
                 <div className="modal-content">
                   {/* Close button positioned in the top-right corner */}
@@ -377,7 +394,8 @@ const Clients = () => {
                       <div>
                         <label
                           htmlFor="name"
-                          className="block text-sm font-medium text-gray-700">
+                          className="block text-sm font-medium text-gray-700"
+                        >
                           Category Name
                         </label>
                         <input
@@ -394,8 +412,10 @@ const Clients = () => {
                       <div className="mt-2">
                         <label
                           htmlFor="image"
-                          className="block text-sm font-medium text-gray-700">
-                          Image<span style={{color:'grey'}}>(Ratio 1 : 1)</span>
+                          className="block text-sm font-medium text-gray-700"
+                        >
+                          Image
+                          <span style={{ color: "grey" }}>(Ratio 1 : 1)</span>
                         </label>
                         <input
                           type="file"
@@ -407,7 +427,7 @@ const Clients = () => {
                         {(imageUrl || updateData?.image) && (
                           <img
                             className="mt-2 w-20 h-auto"
-                            src={imageUrl ?? updateData?.image}
+                            src={imageUrl || updateData?.image}
                             alt="previewImage"
                           />
                         )}
@@ -415,8 +435,10 @@ const Clients = () => {
                       <div className="mt-2">
                         <label
                           htmlFor="coverImage"
-                          className="block text-sm font-medium text-gray-700">
-                          Cover Image <span style={{color:'grey'}}>(Ratio 16 : 9)</span>
+                          className="block text-sm font-medium text-gray-700"
+                        >
+                          Cover Image{" "}
+                          <span style={{ color: "grey" }}>(Ratio 16 : 9)</span>
                         </label>
                         <input
                           type="file"
@@ -428,7 +450,7 @@ const Clients = () => {
                         {(coverImageUrl || updateData?.coverImage) && (
                           <img
                             className="mt-2 w-20 h-auto"
-                            src={coverImageUrl ?? updateData?.coverImage}
+                            src={coverImageUrl || updateData?.coverImage}
                             alt="previewImage"
                           />
                         )}
@@ -463,7 +485,8 @@ const Clients = () => {
         <span className="flex items-center">
           <div
             className="cursor-pointer bg-[#105193] hover:bg-[#107D93] text-white p-2 lg:w-[100px] text-center rounded-3xl"
-            onClick={handleSearch}>
+            onClick={handleSearch}
+          >
             Search
           </div>
         </span>
@@ -485,6 +508,63 @@ const Clients = () => {
           onPageChange={handlePageChange}
         />
       </div>
+
+      <Modal
+        isVisible={isCropping || isCoverCropping}
+        onClose={() => {
+          setIsCropping(false);
+          setIsCoverCropping(false);
+        }}
+        modalHeader={"Crop Image"}
+      >
+        <div
+          className="crop-container position-relative"
+          style={{
+            height: "400px",
+            position: "relative",
+            marginBottom: "20px",
+          }}
+        >
+          <Cropper
+            image={isCropping ? imageUrl : coverImageUrl}
+            crop={crop}
+            zoom={zoom}
+            aspect={isCropping ? 1 : 16 / 9} // Adjust aspect ratio as needed
+            onCropChange={setCrop}
+            onZoomChange={setZoom}
+            onCropComplete={(croppedArea, croppedAreaPixels) => {
+              setCroppedAreaPixels(croppedAreaPixels);
+            }}
+          />
+        </div>
+
+        <div className="flex justify-center">
+          <button
+            className="bg-[#105193] hover:bg-[#107D93] text-white p-2 lg:w-[150px] text-center rounded-3xl"
+            onClick={async () => {
+              if (isCropping) {
+                const { blob, fileUrl } = await getCroppedImg(
+                  imageUrl,
+                  croppedAreaPixels
+                );
+                setImageUrl(fileUrl);
+                setImageFile(blob);
+                setIsCropping(false);
+              } else {
+                const { blob, fileUrl } = await getCroppedImg(
+                  coverImageUrl,
+                  croppedAreaPixels
+                );
+                setCoverImageUrl(fileUrl);
+                setCoverImageFile(blob);
+                setIsCoverCropping(false);
+              }
+            }}
+          >
+            Crop & Save
+          </button>
+        </div>
+      </Modal>
     </>
   );
 };
