@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Cropper from "react-easy-crop";
 import Pagination from "../Pagination";
 import "../reUsableCmponent/Tables/paymentTable.css";
 import useBanner from "../../Hooks/banner/useBanner";
@@ -7,6 +8,7 @@ import { toast } from "react-toastify";
 import { preRequestFun } from "../../api/s3Request";
 import BannerTable from "../reUsableCmponent/Tables/bannerTable";
 import Loader from "../Loader/Loader";
+import getCroppedImg from "../../utils/cropper.utils";
 
 const BannerPage = () => {
   const [page, setPage] = useState(1);
@@ -19,7 +21,7 @@ const BannerPage = () => {
     getBannersData,
     createBanner,
     updateBanner,
-    deleteBanner
+    deleteBanner,
   } = useBanner({ page, limit });
 
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -27,6 +29,10 @@ const BannerPage = () => {
   const [imageUrl, setImageUrl] = useState(null);
   const [imageFile, setImageFile] = useState(null);
   const [selectedBanner, setSelectedBanner] = useState({});
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+  const [isCropping, setIsCropping] = useState(false);
 
   useEffect(() => {
     setBannerLoading(loading);
@@ -53,7 +59,7 @@ const BannerPage = () => {
     if (!imageFile) {
       toast.warning("Please upload an image.", {
         position: "top-right",
-        autoClose: 2000
+        autoClose: 2000,
       });
       return;
     }
@@ -68,7 +74,7 @@ const BannerPage = () => {
       setBannerLoading(false);
       toast.error("Failed to upload image.", {
         position: "top-right",
-        autoClose: 2000
+        autoClose: 2000,
       });
     }
   };
@@ -78,10 +84,11 @@ const BannerPage = () => {
     if (file && file.size <= 5 * 1024 * 1024) {
       setImageFile(file);
       setImageUrl(URL.createObjectURL(file));
+      setIsCropping(true);
     } else {
       toast.warning("Please select a valid image file (less than 5 MB).", {
         position: "top-right",
-        autoClose: 2000
+        autoClose: 2000,
       });
     }
   };
@@ -90,10 +97,11 @@ const BannerPage = () => {
     if (file && file.size <= 5 * 1024 * 1024) {
       setImageFile(file);
       setImageUrl(URL.createObjectURL(file));
+      setIsCropping(true);
     } else {
       toast.warning("Please select a valid image file (less than 5 MB).", {
         position: "top-right",
-        autoClose: 2000
+        autoClose: 2000,
       });
     }
   };
@@ -118,7 +126,7 @@ const BannerPage = () => {
       setBannerLoading(false);
       toast.error("Failed to upload image.", {
         position: "top-right",
-        autoClose: 2000
+        autoClose: 2000,
       });
     }
   };
@@ -134,22 +142,25 @@ const BannerPage = () => {
         <div className="ml-auto flex items-center space-x-4">
           <span
             className="bg-[#105193] hover:bg-[#107D93] text-white rounded-full p-3 cursor-pointer"
-            onClick={toggleModal}>
+            onClick={toggleModal}
+          >
             + Add New Banner
           </span>
 
           <Modal
             isVisible={isModalVisible}
             onClose={toggleModal}
-            modalHeader={"Add Banner"}>
+            modalHeader={"Add Banner"}
+          >
             <form onSubmit={handleCreate} className="space-y-4">
               {bannerLoading && <Loader />}
               <div className="grid grid-cols-1 gap-4">
                 <div className="mt-2">
                   <label
                     htmlFor="image"
-                    className="block text-sm font-medium text-gray-700">
-                    Image <span style={{color:'grey'}}>(Ratio 16 : 9)</span>
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Image <span style={{ color: "grey" }}>(Ratio 16 : 9)</span>
                   </label>
                   <input
                     type="file"
@@ -170,7 +181,8 @@ const BannerPage = () => {
               <div className="flex justify-center">
                 <button
                   type="submit"
-                  className="bg-[#105193] hover:bg-[#107D93] text-white p-2 lg:w-[100px] text-center rounded-3xl">
+                  className="bg-[#105193] hover:bg-[#107D93] text-white p-2 lg:w-[100px] text-center rounded-3xl"
+                >
                   Submit
                 </button>
               </div>
@@ -179,15 +191,17 @@ const BannerPage = () => {
           <Modal
             isVisible={isEditModalVisible}
             onClose={toggleEditModal}
-            modalHeader={"Edit banner"}>
+            modalHeader={"Edit banner"}
+          >
             <form onSubmit={handleEditFn} className="space-y-4">
               {bannerLoading && <Loader />}
               <div className="grid grid-cols-1 gap-4">
                 <div className="mt-2">
                   <label
                     htmlFor="image"
-                    className="block text-sm font-medium text-gray-700">
-                    Image <span style={{color:'grey'}}>(Ratio 16 : 9)</span>
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Image <span style={{ color: "grey" }}>(Ratio 16 : 9)</span>
                   </label>
                   <input
                     type="file"
@@ -211,7 +225,8 @@ const BannerPage = () => {
                 <div className="flex justify-center">
                   <button
                     type="submit"
-                    className="bg-[#105193] hover:bg-[#107D93] text-white p-2 lg:w-[100px] text-center rounded-3xl">
+                    className="bg-[#105193] hover:bg-[#107D93] text-white p-2 lg:w-[100px] text-center rounded-3xl"
+                  >
                     update
                   </button>
                 </div>
@@ -237,6 +252,50 @@ const BannerPage = () => {
           onPageChange={handlePageChange}
         />
       </div>
+
+      <Modal
+        isVisible={isCropping}
+        onClose={() => setIsCropping(false)}
+        modalHeader={"Crop Image"}
+      >
+        <div
+          className="crop-container position-relative"
+          style={{
+            height: "400px",
+            position: "relative",
+            marginBottom: "20px",
+          }}
+        >
+          <Cropper
+            image={imageUrl}
+            crop={crop}
+            zoom={zoom}
+            aspect={16 / 9} // Adjust aspect ratio as needed
+            onCropChange={setCrop}
+            onZoomChange={setZoom}
+            onCropComplete={(croppedArea, croppedAreaPixels) => {
+              setCroppedAreaPixels(croppedAreaPixels);
+            }}
+          />
+        </div>
+
+        <div className="flex justify-center">
+          <button
+            className="bg-[#105193] hover:bg-[#107D93] text-white p-2 lg:w-[150px] text-center rounded-3xl"
+            onClick={async () => {
+              const { blob, fileUrl } = await getCroppedImg(
+                imageUrl,
+                croppedAreaPixels
+              );
+              setImageUrl(fileUrl);
+              setImageFile(blob);
+              setIsCropping(false);
+            }}
+          >
+            Crop & Save
+          </button>
+        </div>
+      </Modal>
     </>
   );
 };
