@@ -70,6 +70,11 @@ export const patchApi = async ({ url = "", body, authToken = true }) => {
   return response?.data;
 };
 
+
+
+
+
+
 export const deleteApi = async (url, authToken = true) => {
   const userData = JSON.parse(localStorage.getItem("authToken"));
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import EmpCard from "../reUsableCmponent/EmpCard";
 import Modal from "../reUsableCmponent/modal/Modal";
 import Pagination from "../Pagination";
-import { deleteApi, getApi, patchApi } from "../../api/api";
+import { deleteApi, getApi, patchApi, patchApii } from "../../api/api";
 import { setBusiness } from "../../Features/Business";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -16,6 +16,7 @@ function ContentArea() {
   const [searchClick, setSearchClick] = useState(false);
   const [page, setPage] = useState(1);
   const [reFetch, SetReFetch] = useState(false);
+  const [reFetch1, SetReFetch1] = useState(false);
   const limit = 10;
   // const totalItems = 50;
   const dispatch = useDispatch();
@@ -89,7 +90,7 @@ function ContentArea() {
       }
     };
     fetchBusinessData();
-  }, [page, selectedDesignation, searchClick, reFetch]);
+  }, [page, selectedDesignation, searchClick, reFetch,reFetch1]);
 
   const handleSearch = () => {
     setSearchClick(!searchClick);
@@ -110,6 +111,18 @@ function ContentArea() {
     } catch (error) {
       console.log(error, "error");
     }
+  };
+
+  const handleisFreeUpdate = async (id) => {
+    try {
+      
+      await patchApi({ url: `business/admin/isfree/${id}`, body: {} });
+      SetReFetch1(!reFetch1);
+    } catch (error) {
+      console.log("Error Message:", error.message);
+      console.log("Error Response:", error.response?.data);
+    }
+    
   };
 
   return (
@@ -166,6 +179,7 @@ function ContentArea() {
           tableData={businessData}
           handleDelete={handleDelete}
           handleStatusUpdate={handleStatusUpdate}
+          handleisFreeUpdate={handleisFreeUpdate}
         />
       </div>
 
