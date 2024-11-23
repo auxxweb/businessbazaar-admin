@@ -68,7 +68,7 @@ const Login = () => {
           style={{ boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)" }}
         >
           <div className="flex justify-center mb-6">
-            <img src="/enConnectLogo.jpg" alt="Logo" className="h-24 object-contain" />
+            <img src="/enConnectLogo.jpeg" alt="Logo" className="h-24 object-contain" />
           </div>
           <form onSubmit={onSubmit} className="space-y-4">
             <h1 className="text-3xl font-semibold text-center text-[#333]">Welcome back</h1>
