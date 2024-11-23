@@ -69,9 +69,9 @@ const useBusiness = () => {
     setLoading(true);
     try {
       const response = await postApi(
-        `business/reset-password`,
-        { ...body },
-        false,
+        {url:`admin/reset-password`,
+        body:{ ...body },
+        authToken:false},
         logout,
         navigate
       );
