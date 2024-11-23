@@ -153,7 +153,7 @@ const AddPlanModal = ({ isModalVisible, toggleModal, handleAddPlan }) => {
             </div>
 
             {/* Is Premium Checkbox */}
-            <div className="flex items-center mt-2">
+            {/* <div className="flex items-center mt-2">
               <input
                 type="checkbox"
                 name="isPremium"
@@ -170,7 +170,7 @@ const AddPlanModal = ({ isModalVisible, toggleModal, handleAddPlan }) => {
               <label htmlFor="isPremium" className="ml-2 text-sm text-gray-700">
                 Is Premium
               </label>
-            </div>
+            </div> */}
           </div>
 
           {/* Submit Button */}
