@@ -5,3 +5,4 @@ export const appConfig = {
   razorpayKeySecret: process.env.REACT_APP_RAZORPAY_KEY_SECRET ?? ""
 
 };
+
