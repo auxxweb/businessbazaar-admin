@@ -4,7 +4,6 @@ import { appConfig } from "../config/appConfig";
 
 export const postApi = async ({ url = "", body, authToken = true }) => {
   console.log(url, "url-url-url");
-
   const userData = JSON.parse(localStorage.getItem("authToken"));
   const config = {
     headers: {

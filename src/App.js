@@ -6,31 +6,23 @@ import Login from './components/pages/login';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ForgotPassword from './components/pages/forgotPassword';
+import ChangePassword from './components/pages/changePassword';
 
 function App() {
   const token = useSelector((state) => state.authority.isAuthenticated);
 
   return (
+
     <BrowserRouter>
+
       <Routes>
         {/* Protected Route - Browse */}
-        <Route
-          path="/*"
-          element={token ? <Browse /> : <Navigate to="/login" />}
-        />
-
+        <Route path="/*" element={token ? <Browse /> : <Navigate to="/login" />} />
         {/* Public Route - Login */}
-        <Route
-          path="/login"
-          element={token ? <Navigate to="/" /> : <Login />}
-        />
-         <Route
-          path="/forgotPassword"
-          element={<ForgotPassword/>}
-        />
+        <Route path="/login" element={token ? <Navigate to="/" /> : <Login />} />
+        <Route path="/forgotPassword" element={<ForgotPassword />} />
+        <Route path="/changePassword/:id" element={<ChangePassword />} />
       </Routes>
-
-      {/* Toast Notifications */}
       <ToastContainer
         position="top-right"
         autoClose={3000}
@@ -43,6 +35,7 @@ function App() {
         pauseOnHover
         theme="colored"
       />
+
     </BrowserRouter>
   );
 }
