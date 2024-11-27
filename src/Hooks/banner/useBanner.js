@@ -4,9 +4,11 @@ import { getApi, postApi, deleteApi, patchApi } from "../../api/api";
 
 const useBanner = ({ page = 1, limit = 10 }) => {
   const [banners, setBanners] = useState([]);
+  const [trashBanners, setTrashBanners] = useState([]);
+
   const [loading, setLoading] = useState(false);
   const [totalBanners, setTotalBanners] = useState(0);
-
+  const [trashTotalBanners, setTrashTotalBanners] = useState(0);
   // Fetch banners with pagination and search term
   const getBannersData = async () => {
     setLoading(true);
@@ -21,6 +23,22 @@ const useBanner = ({ page = 1, limit = 10 }) => {
       setLoading(false);
     }
   };
+
+
+  const getTrashBannersData = async () => {
+    setLoading(true);
+    try {
+      const response = await getApi(`banner/trash-banner?page=${page}&limit=${limit}`, true);
+      setTrashBanners(response?.data?.data);
+      setTrashTotalBanners(response?.data?.totalCount); // Assuming 'totalCount' gives total number of items
+    } catch (error) {
+      toast.error("Failed to fetch banner details");
+      console.error("Error fetching banner details:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
 
   // Create a new banner
   const createBanner = async (bannerData) => {
@@ -67,8 +85,16 @@ const useBanner = ({ page = 1, limit = 10 }) => {
     getBannersData();
   }, [page, limit]);
 
+  useEffect(() => {
+    getTrashBannersData();
+  }, [page, limit]);
+
+
   return {
     banners,
+    getTrashBannersData,
+    trashBanners,
+    trashTotalBanners,
     loading,
     totalBanners,
     createBanner,

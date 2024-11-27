@@ -74,11 +74,10 @@ function Sidebar({ isOpen, setIsOpen }) {
               />
             </svg>
             <span
-              className={`text-custom-16 ${
-                sideBarOption == "dashboard"
-                  ? "text-[#e7edf4]"
-                  : "text-[#909294]"
-              }  hover:text-[#e7edf4] ml-4`}>
+              className={`text-custom-16 ${sideBarOption == "dashboard"
+                ? "text-[#e7edf4]"
+                : "text-[#909294]"
+                }  hover:text-[#e7edf4] ml-4`}>
               Dashboard
             </span>
           </span>
@@ -87,8 +86,9 @@ function Sidebar({ isOpen, setIsOpen }) {
         <Disclosure>
           {({ open }) => (
             <>
+              {/* Main Button */}
               <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#e7edf4] lg:2xl px-4 py-2">
-                <div className=" flex mr-14">
+                <div className="flex mr-14">
                   <span className="ml-[-10px]">
                     <svg
                       width="24"
@@ -104,22 +104,62 @@ function Sidebar({ isOpen, setIsOpen }) {
                     </svg>
                   </span>
                   <span
-                    onClick={() => {
-                      navigate("/business");
-                      setSideBaroption("business");
-                    }}
-                    className={`text-custom-16 ${
-                      sideBarOption == "business"
-                        ? "text-[#e7edf4]"
-                        : "text-[#909294]"
-                    }  hover:text-[#e7edf4] ml-4`}>
+                    className={`text-custom-16 ${sideBarOption === "business" ? "text-[#e7edf4]" : "text-[#909294]"
+                      } hover:text-[#e7edf4] ml-4`}
+                  >
                     Business
                   </span>
                 </div>
+                <span className="text-[#909294] hover:text-[#e7edf4] cursor-pointer transition-transform duration-200">
+                  {open ? (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="2"
+                      stroke="currentColor"
+                      className="w-5 h-5 transform rotate-90"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 9l6 6 6-6" />
+                    </svg>
+                  ) : (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 20 20"
+                      strokeWidth="2"
+                      stroke="currentColor"
+                      className="w-5 h-5 ml-8"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 15l6-6 6 6" />
+                    </svg>
+                  )}
+                </span>
               </Disclosure.Button>
+
+              {/* Additional Buttons */}
+              {open && (
+                <div className="flex flex-col p-4 space-y-2 rounded-md shadow-md">
+                  <button
+                    onClick={() => navigate("/business")}
+                    className={`text-custom-14 text-start ${sideBarOption === "business" ? "text-[#e7edf4]" : "text-[#909294]"
+                    } hover:text-[#e7edf4] ml-4`}
+                  >
+                    Go to Business
+                  </button>
+                  <button
+                    onClick={() => navigate("/trashbusiness")}
+                    className={`text-custom-14 text-start ${sideBarOption === "business" ? "text-[#e7edf4]" : "text-[#909294]"
+                    } hover:text-[#e7edf4] ml-4`}
+                  >
+                    Go to Trash Business
+                  </button>
+                </div>
+              )}
             </>
           )}
         </Disclosure>
+
         <Disclosure>
           {({ open }) => (
             <>
@@ -143,31 +183,75 @@ function Sidebar({ isOpen, setIsOpen }) {
                       navigate("/categories");
                       setSideBaroption("categories");
                     }}
-                    className={`text-custom-16 ${
-                      sideBarOption == "categories"
-                        ? "text-[#e7edf4]"
-                        : "text-[#909294]"
-                    }  hover:text-[#e7edf4] ml-4`}>
+                    className={`text-custom-16 ${sideBarOption == "categories"
+                      ? "text-[#e7edf4]"
+                      : "text-[#909294]"
+                      }  hover:text-[#e7edf4] ml-4`}>
                     Categories
                   </span>
                 </div>
+                {/* Right section: Arrow */}
+                <span
+                  className="text-[#909294] hover:text-[#e7edf4] cursor-pointer transition-transform duration-200"
+                >
+                  {open ? (
+                    // Arrow pointing down
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="2"
+                      stroke="currentColor"
+                      className="w-5 h-5 transform rotate-90"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 9l6 6 6-6" />
+                    </svg>
+                  ) : (
+                    // Arrow pointing right
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 20 20"
+                      strokeWidth="2"
+                      stroke="currentColor"
+                      className="w-5 h-5 ml-5"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 15l6-6 6 6" />
+                    </svg>
+                  )}
+                </span>
               </Disclosure.Button>
+
+              {/* Disclosure.Panel to display additional text */}
+              <Disclosure.Panel className="p-4 text-[#e7edf4] bg-[#1E293B] rounded-md shadow-md"
+                onClick={() => {
+                  navigate("/trashcategories");
+                  // setSideBaroption("plans");
+                }}
+              >
+                {/* Replace with your additional text */}
+                Trash Categories
+              </Disclosure.Panel>
+
             </>
           )}
         </Disclosure>
         <Disclosure>
           {({ open }) => (
             <>
-              <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#e7edf4] lg:2xl px-4 py-2">
-                <div className=" flex mr-14">
+              <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#e7edf4] lg:2xl px-4 py-2 w-full">
+                {/* Left section: Icon and Plans Text */}
+                <div className="flex items-center">
                   <span className="ml-[-10px]">
+                    {/* Plans Icon */}
                     <svg
                       width="20"
                       height="20"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                       xmlns="http://www.w3.org/2000/svg"
-                      className="transition-colors duration-200">
+                      className="transition-colors duration-200"
+                    >
                       <path
                         d="M19.9534 0.0466668L18.43 0C17.7745 0 17.1022 0.031111 16.4133 0.0933332C15.4289 0.186667 14.64 0.32 14.0467 0.493333C13.1711 0.742222 12.4911 1.10889 12.0067 1.59333C11.3045 2.29778 9.77335 4.18889 7.41335 7.26667L6.75668 8.13333L5.47001 8.06333C4.98557 8.03222 4.52446 8.11444 4.08668 8.31C3.6489 8.50333 3.28113 8.78778 2.98335 9.16333L1.41335 11.0867L0.640015 12.07L4.32001 12.7967L7.20335 15.68L7.69668 18.14L7.95335 19.36L10.8367 17.0167C11.2122 16.7189 11.4967 16.3511 11.69 15.9133C11.8856 15.4756 11.9678 15.0144 11.9367 14.53L11.8667 13.2667L12.7567 12.5867C14.2567 11.4467 15.3745 10.5789 16.11 9.98333C17.25 9.07889 18.0233 8.42333 18.43 8.01667C18.9145 7.53222 19.2811 6.85222 19.53 5.97667C19.6878 5.38333 19.8133 4.57889 19.9067 3.56333C20 2.54778 20.0233 1.60222 19.9767 0.726667L19.9534 0.0466668ZM17.75 1.5C17.8745 1.5 18.0389 1.50778 18.2433 1.52333H18.4767V1.59333C18.4922 2.18667 18.4689 2.80444 18.4067 3.44667C18.3445 4.18 18.2111 4.88667 18.0067 5.56667C17.8045 6.24667 17.5856 6.70333 17.35 6.93667C17.0389 7.25 16.3289 7.86 15.22 8.76667C14.22 9.56222 13.0945 10.4367 11.8433 11.39L7.97668 14.3433L5.68002 12.0467L5.89001 11.7667C6.82779 10.5 7.72668 9.30445 8.58668 8.18C9.54002 6.92889 10.4222 5.80333 11.2333 4.80333C12.1245 3.69444 12.7345 2.97667 13.0633 2.65C13.3122 2.39889 13.7811 2.17222 14.47 1.97C15.1256 1.76556 15.82 1.63222 16.5533 1.57C17.0689 1.52333 17.4678 1.5 17.75 1.5ZM14.3267 4.15C13.9067 4.15 13.5522 4.29778 13.2633 4.59333C12.9722 4.89111 12.8267 5.25111 12.8267 5.67333C12.8267 6.09333 12.9722 6.45222 13.2633 6.75C13.5522 7.04778 13.9067 7.19667 14.3267 7.19667C14.7489 7.19667 15.1089 7.04778 15.4067 6.75C15.7022 6.45222 15.85 6.09333 15.85 5.67333C15.85 5.25111 15.7022 4.89111 15.4067 4.59333C15.1089 4.29778 14.7489 4.15 14.3267 4.15ZM5.37668 9.56333L5.65668 9.58667L4.36668 11.2733L3.36001 11.0633L4.13335 10.1267C4.2889 9.93778 4.47668 9.79222 4.69668 9.69C4.91446 9.59 5.14113 9.54778 5.37668 9.56333ZM4.72001 14.5067L3.66335 13.4533C3.1789 13.9378 2.75779 14.6956 2.40001 15.7267C2.22668 16.2267 2.10113 16.68 2.02335 17.0867L1.79001 18.1867L3.29001 17.8833C3.60113 17.8211 3.91335 17.7356 4.22668 17.6267C5.24224 17.2822 6.00779 16.8522 6.52335 16.3367L5.47001 15.28C5.18779 15.5622 4.65668 15.8444 3.87668 16.1267C4.17224 15.3133 4.45335 14.7733 4.72001 14.5067ZM8.72668 15.6333L10.4133 14.3433L10.4367 14.6267C10.4522 14.8756 10.4133 15.1056 10.32 15.3167C10.2267 15.5278 10.0867 15.7111 9.90001 15.8667L8.93668 16.64L8.72668 15.6333Z"
                         fill="currentColor"
@@ -179,18 +263,61 @@ function Sidebar({ isOpen, setIsOpen }) {
                       navigate("/plans");
                       setSideBaroption("plans");
                     }}
-                    className={`text-custom-16 ${
-                      sideBarOption == "plans"
-                        ? "text-[#e7edf4]"
-                        : "text-[#909294]"
-                    }  hover:text-[#e7edf4] ml-4`}>
+                    className={`text-custom-16 ${sideBarOption == "plans"
+                      ? "text-[#e7edf4]"
+                      : "text-[#909294]"
+                      }  hover:text-[#e7edf4] ml-4`}
+                  >
                     Plans
                   </span>
                 </div>
+
+                {/* Right section: Arrow */}
+                <span
+                  className="text-[#909294] hover:text-[#e7edf4] cursor-pointer transition-transform duration-200"
+                >
+                  {open ? (
+                    // Arrow pointing down
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="2"
+                      stroke="currentColor"
+                      className="w-5 h-5 transform rotate-90"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 9l6 6 6-6" />
+                    </svg>
+                  ) : (
+                    // Arrow pointing right
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 20 20"
+                      strokeWidth="2"
+                      stroke="currentColor"
+                      className="w-5 h-5 mr-2"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 15l6-6 6 6" />
+                    </svg>
+                  )}
+                </span>
               </Disclosure.Button>
+
+              {/* Disclosure.Panel to display additional text */}
+              <Disclosure.Panel className="p-4 text-[#e7edf4] bg-[#1E293B] rounded-md shadow-md"
+                onClick={() => {
+                  navigate("/trashplans");
+                  // setSideBaroption("plans");
+                }}
+              >
+                {/* Replace with your additional text */}
+                Trash plans
+              </Disclosure.Panel>
             </>
           )}
         </Disclosure>
+
         <Disclosure>
           {({ open }) => (
             <>
@@ -215,11 +342,10 @@ function Sidebar({ isOpen, setIsOpen }) {
                       navigate("/paymentpage");
                       setSideBaroption("payments");
                     }}
-                    className={`text-custom-16 ${
-                      sideBarOption == "payments"
-                        ? "text-[#e7edf4]"
-                        : "text-[#909294]"
-                    }  hover:text-[#e7edf4] ml-4`}>
+                    className={`text-custom-16 ${sideBarOption == "payments"
+                      ? "text-[#e7edf4]"
+                      : "text-[#909294]"
+                      }  hover:text-[#e7edf4] ml-4`}>
                     Payment
                   </span>
                 </div>
@@ -247,15 +373,55 @@ function Sidebar({ isOpen, setIsOpen }) {
                       navigate("/banner");
                       setSideBaroption("banner");
                     }}
-                    className={`text-custom-16 ${
-                      sideBarOption == "banner"
-                        ? "text-[#e7edf4]"
-                        : "text-[#909294]"
-                    }  hover:text-[#e7edf4] ml-4`}>
+                    className={`text-custom-16 ${sideBarOption == "banner"
+                      ? "text-[#e7edf4]"
+                      : "text-[#909294]"
+                      }  hover:text-[#e7edf4] ml-4`}>
                     Banner
                   </span>
                 </div>
+                {/* Right section: Arrow */}
+                <span
+                  className="text-[#909294] hover:text-[#e7edf4] cursor-pointer transition-transform duration-200"
+                >
+                  {open ? (
+                    // Arrow pointing down
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="2"
+                      stroke="currentColor"
+                      className="w-5 h-5 transform rotate-90"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 9l6 6 6-6" />
+                    </svg>
+                  ) : (
+                    // Arrow pointing right
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 20 20"
+                      strokeWidth="2"
+                      stroke="currentColor"
+                      className="w-5 h-5 ml-12"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 15l6-6 6 6" />
+                    </svg>
+                  )}
+                </span>
               </Disclosure.Button>
+
+              {/* Disclosure.Panel to display additional text */}
+              <Disclosure.Panel className="p-4 text-[#e7edf4] bg-[#1E293B] rounded-md shadow-md"
+                onClick={() => {
+                  navigate("/trashbanner");
+                  // setSideBaroption("plans");
+                }}
+              >
+                {/* Replace with your additional text */}
+                Trash Banner
+              </Disclosure.Panel>
             </>
           )}
         </Disclosure>
@@ -282,11 +448,10 @@ function Sidebar({ isOpen, setIsOpen }) {
                       navigate("/terms");
                       setSideBaroption("terms");
                     }}
-                    className={`text-custom-16 ${
-                      sideBarOption == "terms"
-                        ? "text-[#e7edf4]"
-                        : "text-[#909294]"
-                    }  hover:text-[#e7edf4] ml-2`}>
+                    className={`text-custom-16 ${sideBarOption == "terms"
+                      ? "text-[#e7edf4]"
+                      : "text-[#909294]"
+                      }  hover:text-[#e7edf4] ml-2`}>
                     Terms&conditions
                   </span>
                 </div>
@@ -317,11 +482,10 @@ function Sidebar({ isOpen, setIsOpen }) {
                       navigate("/settingandconfi");
                       setSideBaroption("settingandconfi");
                     }}
-                    className={`text-custom-16 ${
-                      sideBarOption == "settingandconfi"
-                        ? "text-[#e7edf4]"
-                        : "text-[#909294]"
-                    }  hover:text-[#e7edf4] ml-2`}>
+                    className={`text-custom-16 ${sideBarOption == "settingandconfi"
+                      ? "text-[#e7edf4]"
+                      : "text-[#909294]"
+                      }  hover:text-[#e7edf4] ml-2`}>
                     Settings & Config
                   </span>
                 </div>
@@ -335,27 +499,26 @@ function Sidebar({ isOpen, setIsOpen }) {
               <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#e7edf4] lg:2xl px-4 py-2">
                 <div className=" flex mr-14">
                   <span className="ml-[-10px]">
-                  <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              className="h-6 w-6"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-              strokeLinecap="round"
-              strokeLinejoin="round">
-              <path d="M16 17l5-5-5-5M21 12H9" />
-              <path d="M9 21H4a2 2 0 01-2-2V5a2 2 0 012-2h5" />
-            </svg>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      className="h-6 w-6"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round">
+                      <path d="M16 17l5-5-5-5M21 12H9" />
+                      <path d="M9 21H4a2 2 0 01-2-2V5a2 2 0 012-2h5" />
+                    </svg>
                   </span>
                   <span
-                  onClick={toggleModal}
-                    className={`text-custom-16 ${
-                      sideBarOption == "logout"
-                        ? "text-[#e7edf4]"
-                        : "text-[#909294]"
-                    }  hover:text-[#e7edf4] ml-2`}>
-                  Logout
+                    onClick={toggleModal}
+                    className={`text-custom-16 ${sideBarOption == "logout"
+                      ? "text-[#e7edf4]"
+                      : "text-[#909294]"
+                      }  hover:text-[#e7edf4] ml-2`}>
+                    Logout
                   </span>
                 </div>
               </Disclosure.Button>
@@ -374,68 +537,68 @@ function Sidebar({ isOpen, setIsOpen }) {
             logout
           </button>
         </Modal> */}
- <Modal isVisible={isModalVisible} onClose={toggleModal}>
-  <div
-    style={{
-      backgroundColor: '#fff',
-      borderRadius: '8px',
-      boxShadow: '0 10px 20px rgba(0, 0, 0, 0.15)',
-      padding: '20px',
-      maxWidth: '400px',
-      margin: 'auto',
-      position: 'relative',
-    }}
-  >
-    <h3
-      style={{
-        textAlign: 'center',
-        fontSize: '18px',
-        fontWeight: 'bold',
-        color: '#333',
-        marginBottom: '20px',
-      }}
-    >
-      Are you sure you want to Logout?
-    </h3>
-    <div style={{ display: 'flex', justifyContent: 'center', gap: '16px' }}>
-      <button
-        onClick={toggleModal}
-        type="button"
-        style={{
-          border: '2px solid #34d399', // Green border
-          color: '#34d399', // Green text
-          backgroundColor: 'transparent',
-          fontWeight: '600',
-          padding: '10px 24px',
-          borderRadius: '8px',
-          transition: 'all 0.3s ease',
-          cursor: 'pointer',
-        }}
-        onMouseEnter={(e) => (e.target.style.backgroundColor = '#34d399')}
-        onMouseLeave={(e) => (e.target.style.backgroundColor = 'transparent')}
-      >
-        No
-      </button>
-      <button
-        onClick={() => handleLogout()}
-        type="button"
-        style={{
-          backgroundColor: '#f87171', // Red background
-          color: '#fff',
-          fontWeight: '600',
-          padding: '10px 24px',
-          borderRadius: '8px',
-          transition: 'all 0.3s ease',
-          cursor: 'pointer',
-        }}
-        onMouseEnter={(e) => (e.target.style.backgroundColor = '#ef4444')}
-        onMouseLeave={(e) => (e.target.style.backgroundColor = '#f87171')}
-      >
-        Yes
-      </button>
-    </div>
-  </div>
-</Modal>
+        <Modal isVisible={isModalVisible} onClose={toggleModal}>
+          <div
+            style={{
+              backgroundColor: '#fff',
+              borderRadius: '8px',
+              boxShadow: '0 10px 20px rgba(0, 0, 0, 0.15)',
+              padding: '20px',
+              maxWidth: '400px',
+              margin: 'auto',
+              position: 'relative',
+            }}
+          >
+            <h3
+              style={{
+                textAlign: 'center',
+                fontSize: '18px',
+                fontWeight: 'bold',
+                color: '#333',
+                marginBottom: '20px',
+              }}
+            >
+              Are you sure you want to Logout?
+            </h3>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '16px' }}>
+              <button
+                onClick={toggleModal}
+                type="button"
+                style={{
+                  border: '2px solid #34d399', // Green border
+                  color: '#34d399', // Green text
+                  backgroundColor: 'transparent',
+                  fontWeight: '600',
+                  padding: '10px 24px',
+                  borderRadius: '8px',
+                  transition: 'all 0.3s ease',
+                  cursor: 'pointer',
+                }}
+                onMouseEnter={(e) => (e.target.style.backgroundColor = '#34d399')}
+                onMouseLeave={(e) => (e.target.style.backgroundColor = 'transparent')}
+              >
+                No
+              </button>
+              <button
+                onClick={() => handleLogout()}
+                type="button"
+                style={{
+                  backgroundColor: '#f87171', // Red background
+                  color: '#fff',
+                  fontWeight: '600',
+                  padding: '10px 24px',
+                  borderRadius: '8px',
+                  transition: 'all 0.3s ease',
+                  cursor: 'pointer',
+                }}
+                onMouseEnter={(e) => (e.target.style.backgroundColor = '#ef4444')}
+                onMouseLeave={(e) => (e.target.style.backgroundColor = '#f87171')}
+              >
+                Yes
+              </button>
+            </div>
+          </div>
+        </Modal>
 
       </div>
     </Transition>

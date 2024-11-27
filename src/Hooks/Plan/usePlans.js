@@ -4,10 +4,12 @@ import { toast } from "react-toastify";
 
 const usePlans = (initialSearch = "") => {
   const [plans, setPlans] = useState([]);
+  const [trashPlans, setTrashPlans] = useState([]);
   const [plan, setPlan] = useState({});
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [totalPlans, setTotalPlans] = useState(0);
+  const [trashTotalPlans, setTrashTotalPlans] = useState(0);
   const [search, setSearch] = useState(initialSearch);
   const [refetch, setRefetch] = useState(false);
   const limit = 10;
@@ -30,6 +32,30 @@ const usePlans = (initialSearch = "") => {
       setLoading(false);
     }
   };
+
+
+  const getTrashPlans = async () => {
+    setLoading(true);
+    try {
+      const plansData = await getApi(
+        `plans/trash-plans?page=${page}&limit=${limit}&searchTerm=${encodeURIComponent(
+          search
+        )}`,
+        true
+      );
+      setTrashPlans(plansData?.data?.data);
+      setTrashTotalPlans(plansData?.data?.totalCount);
+    } catch (error) {
+      toast.error("Fetch plans failed");
+      console.error("Error fetching plans:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
+
+
   const getPlanById = async (planId) => {
     setLoading(true);
     try {
@@ -172,8 +198,17 @@ const usePlans = (initialSearch = "") => {
     getAllPlans();
   }, [page, search, refetch]);
 
+
+  useEffect(() => {
+    getTrashPlans();
+  }, [page, search, refetch]);
+
+
   return {
     plans,
+    trashPlans,
+    trashTotalPlans,
+   
     loading,
     setPage,
     totalPlans,

@@ -5,6 +5,7 @@ import Pagination from "../Pagination";
 import { deleteApi, getApi, patchApi, patchApii } from "../../api/api";
 import { setBusiness } from "../../Features/Business";
 import { useDispatch, useSelector } from "react-redux";
+import EmpCard1 from "../reUsableCmponent/EmpCard1";
 
 function ContentArea() {
   const [selectedDesignation, setSelectedDesignation] = useState("");
