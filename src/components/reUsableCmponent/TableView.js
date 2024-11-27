@@ -157,9 +157,10 @@ const TableView = ({ tableData, handleDelete, handleStatusUpdate, handleisFreeUp
                   <button onClick={() => handleDeleteClick(business?._id)}>
                     <img
                       alt="pics"
-                      src="/icons/delete.svg"
+                      src="/icons/edit.svg"
                       className="w-6 h-6 rounded-full mr-2 fill-red-500"
                     />
+                    
                   </button>
                 </td>
               </tr>
@@ -177,7 +178,7 @@ const TableView = ({ tableData, handleDelete, handleStatusUpdate, handleisFreeUp
       <Modal isVisible={showDeletePopup} onClose={handleDeleteModalClose}>
         <div className="bg-white rounded-lg shadow-md p-6 max-w-sm mx-auto">
           <h3 className="text-center text-lg font-semibold text-gray-800 mb-6">
-            Are you sure you want to delete?
+            Are you sure you want to move to business?
           </h3>
           <div className="flex justify-center space-x-4">
             <button
