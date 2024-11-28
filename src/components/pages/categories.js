@@ -239,7 +239,7 @@ const Clients = () => {
 
       // You can directly use updatedData here for API call
       await patchApi({
-        url: `/category/${updatedData?.categoryId}`, // Ensure URL starts with '/'
+        url: `category/${updatedData?.categoryId}`, // Ensure URL starts with '/'
         body: updatedData,
       });
       toggleEditModal();

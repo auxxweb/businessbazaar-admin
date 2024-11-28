@@ -30,6 +30,7 @@ const BannerPage = () => {
   const [imageFile, setImageFile] = useState(null);
   const [selectedBanner, setSelectedBanner] = useState({});
   const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [cropImage,setCropImage]= useState(null)
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
   const [isCropping, setIsCropping] = useState(false);
@@ -40,9 +41,11 @@ const BannerPage = () => {
 
   const toggleModal = () => {
     setImageFile(null);
+    setCropImage(null)
     setIsModalVisible(!isModalVisible);
   };
   const toggleEditModal = () => {
+    setImageFile(null);
     setIsEditModalVisible(!isEditModalVisible);
   };
 
@@ -64,12 +67,14 @@ const BannerPage = () => {
       return;
     }
     setBannerLoading(true);
+
     const preReq = await preRequestFun(imageFile, "banner");
     if (preReq?.accessLink) {
       setBannerLoading(false);
       await createBanner({ image: preReq.accessLink });
       toggleModal();
       setImageUrl(null);
+      setCropImage(null)
     } else {
       setBannerLoading(false);
       toast.error("Failed to upload image.", {
@@ -82,7 +87,7 @@ const BannerPage = () => {
   const handlePreviewImage = (e) => {
     const file = e.target.files[0];
     if (file && file.size <= 5 * 1024 * 1024) {
-      setImageFile(file);
+      // setImageFile(file);
       setImageUrl(URL.createObjectURL(file));
       setIsCropping(true);
     } else {
@@ -92,10 +97,12 @@ const BannerPage = () => {
       });
     }
   };
+  
   const handleEditPreviewImage = (e) => {
+
     const file = e.target.files[0];
     if (file && file.size <= 5 * 1024 * 1024) {
-      setImageFile(file);
+      // setImageFile(file);
       setImageUrl(URL.createObjectURL(file));
       setIsCropping(true);
     } else {
@@ -112,24 +119,23 @@ const BannerPage = () => {
   };
   const handleEditFn = async (e) => {
     e.preventDefault();
-    if (!imageFile) {
-      return;
-    }
     setBannerLoading(true);
+    // If no new file is selected, use the existing image from `selectedBanner`
+    let fileToUpload = selectedBanner.image;
+    if(imageFile){
     const preReq = await preRequestFun(imageFile, "banner");
-    if (preReq?.accessLink) {
-      setBannerLoading(false);
-      await updateBanner(selectedBanner?._id, { image: preReq.accessLink });
-      toggleEditModal();
-      setImageUrl(null);
-    } else {
-      setBannerLoading(false);
-      toast.error("Failed to upload image.", {
-        position: "top-right",
-        autoClose: 2000,
-      });
+    fileToUpload= preReq.accessLink
     }
-  };
+      setBannerLoading(false);
+      
+      await updateBanner(selectedBanner?._id, { image: fileToUpload });
+      toggleEditModal(); // Close modal
+      setImageUrl(null); // Reset state
+      setImageFile(null);
+  }
+    
+
+  
 
   const deleteFunction = async (id) => {
     await deleteBanner(id);
@@ -169,10 +175,10 @@ const BannerPage = () => {
                     className="mt-1 block w-full border-2 p-1 border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     onChange={handlePreviewImage}
                   />
-                  {imageUrl && (
+                  {cropImage && (
                     <img
                       className="mt-2 w-100 h-auto"
-                      src={imageUrl}
+                      src={cropImage}
                       alt="previewImage"
                     />
                   )}
@@ -207,14 +213,16 @@ const BannerPage = () => {
                     type="file"
                     name="image"
                     id="image"
+                    
                     className="mt-1 block w-full border-2 p-1 border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     onChange={handleEditPreviewImage}
                   />
-                  {(imageUrl || selectedBanner?.image) && (
+                  {(cropImage || selectedBanner?.image) && (
                     <img
                       className="mt-2 w-100 h-auto"
-                      src={imageUrl ?? selectedBanner?.image}
+                      src={cropImage ?? selectedBanner?.image}
                       alt="previewImage"
+                      
                     />
                   )}
                 </div>
@@ -288,6 +296,7 @@ const BannerPage = () => {
                 croppedAreaPixels
               );
               setImageUrl(fileUrl);
+              setCropImage(fileUrl)
               setImageFile(blob);
               setIsCropping(false);
             }}

@@ -157,7 +157,7 @@ const TableView = ({ tableData, handleDelete, handleStatusUpdate, handleisFreeUp
                   <button onClick={() => handleDeleteClick(business?._id)}>
                     <img
                       alt="pics"
-                      src="/icons/edit.svg"
+                      src="/icons/delete.svg"
                       className="w-6 h-6 rounded-full mr-2 fill-red-500"
                     />
                     
