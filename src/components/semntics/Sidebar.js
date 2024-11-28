@@ -31,7 +31,7 @@ function Sidebar({ isOpen, setIsOpen }) {
       leave="transition duration-300 transform"
       leaveFrom="translate-x-0"
       leaveTo="-translate-x-full"
-      className="bg-[#212529] w-[268px] h-[900px] space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform lg:relative lg:translate-x-0 z-50"
+      className="bg-[#212529] w-[268px] h-[1100px] space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform lg:relative lg:translate-x-0 z-50"
     >
       {/* Sidebar content */}
       <div>
@@ -104,8 +104,10 @@ function Sidebar({ isOpen, setIsOpen }) {
                     </svg>
                   </span>
                   <span
-                    className={`text-custom-16 ${sideBarOption === "business" ? "text-[#e7edf4]" : "text-[#909294]"
-                      } hover:text-[#e7edf4] ml-4`}
+                    className={`text-custom-16 ${sideBarOption == "business"
+                      ? "text-[#e7edf4]"
+                      : "text-[#909294]"
+                      }  hover:text-[#e7edf4] ml-4`}
                   >
                     Business
                   </span>
