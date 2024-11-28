@@ -91,7 +91,7 @@ function ContentArea() {
       }
     };
     fetchBusinessData();
-  }, [page, selectedDesignation, searchClick, reFetch,reFetch1]);
+  }, [page, selectedDesignation, searchClick, reFetch, reFetch1]);
 
   const handleSearch = () => {
     setSearchClick(!searchClick);
@@ -116,14 +116,14 @@ function ContentArea() {
 
   const handleisFreeUpdate = async (id) => {
     try {
-      
+
       await patchApi({ url: `business/admin/isfree/${id}`, body: {} });
       SetReFetch1(!reFetch1);
     } catch (error) {
       console.log("Error Message:", error.message);
       console.log("Error Response:", error.response?.data);
     }
-    
+
   };
 
   return (
@@ -153,6 +153,7 @@ function ContentArea() {
             ))}
           </select>
         </div>
+        
 
         <div className="ml-auto lg:mr-0 flex items-center space-x-4 justify-end pt-0">
           {/* Parent div for span elements */}

@@ -31,7 +31,7 @@ function Sidebar({ isOpen, setIsOpen }) {
       leave="transition duration-300 transform"
       leaveFrom="translate-x-0"
       leaveTo="-translate-x-full"
-      className="bg-[#212529] w-[268px] h-[900px] space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform lg:relative lg:translate-x-0 z-50"
+      className="bg-[#212529] w-[268px] h-[1100px] space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform lg:relative lg:translate-x-0 z-50"
     >
       {/* Sidebar content */}
       <div>
@@ -104,8 +104,10 @@ function Sidebar({ isOpen, setIsOpen }) {
                     </svg>
                   </span>
                   <span
-                    className={`text-custom-16 ${sideBarOption === "business" ? "text-[#e7edf4]" : "text-[#909294]"
-                      } hover:text-[#e7edf4] ml-4`}
+                    className={`text-custom-16 ${sideBarOption == "business"
+                      ? "text-[#e7edf4]"
+                      : "text-[#909294]"
+                      }  hover:text-[#e7edf4] ml-4`}
                   >
                     Business
                   </span>
@@ -145,14 +147,14 @@ function Sidebar({ isOpen, setIsOpen }) {
                     className={`text-custom-14 text-start ${sideBarOption === "business" ? "text-[#e7edf4]" : "text-[#909294]"
                     } hover:text-[#e7edf4] ml-4`}
                   >
-                    Go to Business
+                   All Business
                   </button>
                   <button
                     onClick={() => navigate("/trashbusiness")}
                     className={`text-custom-14 text-start ${sideBarOption === "business" ? "text-[#e7edf4]" : "text-[#909294]"
                     } hover:text-[#e7edf4] ml-4`}
                   >
-                    Go to Trash Business
+                  Trash Business
                   </button>
                 </div>
               )}
@@ -222,14 +224,14 @@ function Sidebar({ isOpen, setIsOpen }) {
                     className={`text-custom-14 text-start ${sideBarOption === "category" ? "text-[#e7edf4]" : "text-[#909294]"
                     } hover:text-[#e7edf4] ml-4`}
                   >
-                    Go to Categories
+                   All Categories
                   </button>
                   <button
                     onClick={() => navigate("/trashcategories")}
                     className={`text-custom-14 text-start ${sideBarOption === "category" ? "text-[#e7edf4]" : "text-[#909294]"
                     } hover:text-[#e7edf4] ml-4`}
                   >
-                    Go to Trash Categories
+                    Trash Categories
                   </button>
                 </div>
               )}
@@ -301,14 +303,14 @@ function Sidebar({ isOpen, setIsOpen }) {
                     className={`text-custom-14 text-start ${sideBarOption === "plans" ? "text-[#e7edf4]" : "text-[#909294]"
                     } hover:text-[#e7edf4] ml-4`}
                   >
-                    Go to Plans
+                    All Plans
                   </button>
                   <button
                     onClick={() => navigate("/trashplans")}
                     className={`text-custom-14 text-start ${sideBarOption === "plans" ? "text-[#e7edf4]" : "text-[#909294]"
                     } hover:text-[#e7edf4] ml-4`}
                   >
-                    Go to Trash Plans
+                    Trash Plans
                   </button>
                 </div>
               )}
@@ -411,14 +413,14 @@ function Sidebar({ isOpen, setIsOpen }) {
                     className={`text-custom-14 text-start ${sideBarOption === "banner" ? "text-[#e7edf4]" : "text-[#909294]"
                     } hover:text-[#e7edf4] ml-4`}
                   >
-                    Go to Banner
+                    All Banner
                   </button>
                   <button
                     onClick={() => navigate("/trashbanner")}
                     className={`text-custom-14 text-start ${sideBarOption === "banner" ? "text-[#e7edf4]" : "text-[#909294]"
                     } hover:text-[#e7edf4] ml-4`}
                   >
-                    Go to Trash Banner
+                 Trash Banner
                   </button>
                 </div>
               )}
