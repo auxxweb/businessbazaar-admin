@@ -10,6 +10,7 @@ import { patchApi, postApi } from "../../api/api";
 import "./category.css";
 import Loader from "../Loader/Loader";
 import getCroppedImg from "../../utils/cropper.utils";
+import TrashCategoryTable from "../reUsableCmponent/Tables/TrashCategoryTable";
 
 
 function TrashCategories() {
@@ -199,12 +200,12 @@ function TrashCategories() {
       const handleDeleteCategory = async (categoryId) => {
         try {
           await patchApi({
-            url: `category/${categoryId}`,
+            url: `category/undelete/${categoryId}`,
             body: {
               isDeleted: true,
             },
           });
-          getAllCategories();
+          getTrashCategories();
         } catch (error) {
           toast.error(
             error?.response?.data?.message ?? "Failed to delete category",
@@ -497,7 +498,7 @@ function TrashCategories() {
           </div>
     
           <div className="flex flex-wrap justify-center mt-4">
-            <CategoryTable
+            <TrashCategoryTable
               tableData={trashCategories}
               handleDeleteCategory={handleDeleteCategory}
               handleEditCategory={handleEditCategory}

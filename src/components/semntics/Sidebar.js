@@ -129,7 +129,7 @@ function Sidebar({ isOpen, setIsOpen }) {
                       viewBox="0 0 20 20"
                       strokeWidth="2"
                       stroke="currentColor"
-                      className="w-5 h-5 ml-8"
+                      className="w-5 h-5 ml-7"
                     >
                       <path strokeLinecap="round" strokeLinejoin="round" d="M6 15l6-6 6 6" />
                     </svg>
@@ -160,12 +160,14 @@ function Sidebar({ isOpen, setIsOpen }) {
           )}
         </Disclosure>
 
+
         <Disclosure>
           {({ open }) => (
             <>
+              {/* Main Button */}
               <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#e7edf4] lg:2xl px-4 py-2">
-                <div className=" flex mr-14">
-                  <span className="ml-[-10px]">
+                <div className="flex mr-14">
+                <span className="ml-[-10px]">
                     <svg
                       width="24"
                       height="24"
@@ -179,23 +181,14 @@ function Sidebar({ isOpen, setIsOpen }) {
                     </svg>
                   </span>
                   <span
-                    onClick={() => {
-                      navigate("/categories");
-                      setSideBaroption("categories");
-                    }}
-                    className={`text-custom-16 ${sideBarOption == "categories"
-                      ? "text-[#e7edf4]"
-                      : "text-[#909294]"
-                      }  hover:text-[#e7edf4] ml-4`}>
+                    className={`text-custom-16 ${sideBarOption === "business" ? "text-[#e7edf4]" : "text-[#909294]"
+                      } hover:text-[#e7edf4] ml-4`}
+                  >
                     Categories
                   </span>
                 </div>
-                {/* Right section: Arrow */}
-                <span
-                  className="text-[#909294] hover:text-[#e7edf4] cursor-pointer transition-transform duration-200"
-                >
+                <span className="text-[#909294] hover:text-[#e7edf4] cursor-pointer transition-transform duration-200">
                   {open ? (
-                    // Arrow pointing down
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -207,14 +200,13 @@ function Sidebar({ isOpen, setIsOpen }) {
                       <path strokeLinecap="round" strokeLinejoin="round" d="M6 9l6 6 6-6" />
                     </svg>
                   ) : (
-                    // Arrow pointing right
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 20 20"
                       strokeWidth="2"
                       stroke="currentColor"
-                      className="w-5 h-5 ml-5"
+                      className="w-5 h-5 ml-3"
                     >
                       <path strokeLinecap="round" strokeLinejoin="round" d="M6 15l6-6 6 6" />
                     </svg>
@@ -222,27 +214,36 @@ function Sidebar({ isOpen, setIsOpen }) {
                 </span>
               </Disclosure.Button>
 
-              {/* Disclosure.Panel to display additional text */}
-              <Disclosure.Panel className="p-4 text-[#e7edf4] bg-[#1E293B] rounded-md shadow-md"
-                onClick={() => {
-                  navigate("/trashcategories");
-                  // setSideBaroption("plans");
-                }}
-              >
-                {/* Replace with your additional text */}
-                Trash Categories
-              </Disclosure.Panel>
-
+              {/* Additional Buttons */}
+              {open && (
+                <div className="flex flex-col p-4 space-y-2 rounded-md shadow-md">
+                  <button
+                    onClick={() => navigate("/categories")}
+                    className={`text-custom-14 text-start ${sideBarOption === "category" ? "text-[#e7edf4]" : "text-[#909294]"
+                    } hover:text-[#e7edf4] ml-4`}
+                  >
+                    Go to Categories
+                  </button>
+                  <button
+                    onClick={() => navigate("/trashcategories")}
+                    className={`text-custom-14 text-start ${sideBarOption === "category" ? "text-[#e7edf4]" : "text-[#909294]"
+                    } hover:text-[#e7edf4] ml-4`}
+                  >
+                    Go to Trash Categories
+                  </button>
+                </div>
+              )}
             </>
           )}
         </Disclosure>
+
         <Disclosure>
           {({ open }) => (
             <>
-              <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#e7edf4] lg:2xl px-4 py-2 w-full">
-                {/* Left section: Icon and Plans Text */}
-                <div className="flex items-center">
-                  <span className="ml-[-10px]">
+              {/* Main Button */}
+              <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#e7edf4] lg:2xl px-4 py-2">
+                <div className="flex mr-14">
+                <span className="ml-[-10px]">
                     {/* Plans Icon */}
                     <svg
                       width="20"
@@ -259,25 +260,14 @@ function Sidebar({ isOpen, setIsOpen }) {
                     </svg>
                   </span>
                   <span
-                    onClick={() => {
-                      navigate("/plans");
-                      setSideBaroption("plans");
-                    }}
-                    className={`text-custom-16 ${sideBarOption == "plans"
-                      ? "text-[#e7edf4]"
-                      : "text-[#909294]"
-                      }  hover:text-[#e7edf4] ml-4`}
+                    className={`text-custom-16 ${sideBarOption === "business" ? "text-[#e7edf4]" : "text-[#909294]"
+                      } hover:text-[#e7edf4] ml-4`}
                   >
                     Plans
                   </span>
                 </div>
-
-                {/* Right section: Arrow */}
-                <span
-                  className="text-[#909294] hover:text-[#e7edf4] cursor-pointer transition-transform duration-200"
-                >
+                <span className="text-[#909294] hover:text-[#e7edf4] cursor-pointer transition-transform duration-200">
                   {open ? (
-                    // Arrow pointing down
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -289,14 +279,13 @@ function Sidebar({ isOpen, setIsOpen }) {
                       <path strokeLinecap="round" strokeLinejoin="round" d="M6 9l6 6 6-6" />
                     </svg>
                   ) : (
-                    // Arrow pointing right
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 20 20"
                       strokeWidth="2"
                       stroke="currentColor"
-                      className="w-5 h-5 mr-2"
+                      className="w-5 h-5 ml-14"
                     >
                       <path strokeLinecap="round" strokeLinejoin="round" d="M6 15l6-6 6 6" />
                     </svg>
@@ -304,16 +293,25 @@ function Sidebar({ isOpen, setIsOpen }) {
                 </span>
               </Disclosure.Button>
 
-              {/* Disclosure.Panel to display additional text */}
-              <Disclosure.Panel className="p-4 text-[#e7edf4] bg-[#1E293B] rounded-md shadow-md"
-                onClick={() => {
-                  navigate("/trashplans");
-                  // setSideBaroption("plans");
-                }}
-              >
-                {/* Replace with your additional text */}
-                Trash plans
-              </Disclosure.Panel>
+              {/* Additional Buttons */}
+              {open && (
+                <div className="flex flex-col p-4 space-y-2 rounded-md shadow-md">
+                  <button
+                    onClick={() => navigate("/plans")}
+                    className={`text-custom-14 text-start ${sideBarOption === "plans" ? "text-[#e7edf4]" : "text-[#909294]"
+                    } hover:text-[#e7edf4] ml-4`}
+                  >
+                    Go to Plans
+                  </button>
+                  <button
+                    onClick={() => navigate("/trashplans")}
+                    className={`text-custom-14 text-start ${sideBarOption === "plans" ? "text-[#e7edf4]" : "text-[#909294]"
+                    } hover:text-[#e7edf4] ml-4`}
+                  >
+                    Go to Trash Plans
+                  </button>
+                </div>
+              )}
             </>
           )}
         </Disclosure>
@@ -353,12 +351,15 @@ function Sidebar({ isOpen, setIsOpen }) {
             </>
           )}
         </Disclosure>
+
+
         <Disclosure>
           {({ open }) => (
             <>
+              {/* Main Button */}
               <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#e7edf4] lg:2xl px-4 py-2">
-                <div className=" flex mr-14">
-                  <span className="ml-[-10px]">
+                <div className="flex mr-14">
+                <span className="ml-[-10px]">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
@@ -369,23 +370,14 @@ function Sidebar({ isOpen, setIsOpen }) {
                     </svg>
                   </span>
                   <span
-                    onClick={() => {
-                      navigate("/banner");
-                      setSideBaroption("banner");
-                    }}
-                    className={`text-custom-16 ${sideBarOption == "banner"
-                      ? "text-[#e7edf4]"
-                      : "text-[#909294]"
-                      }  hover:text-[#e7edf4] ml-4`}>
+                    className={`text-custom-16 ${sideBarOption === "banner" ? "text-[#e7edf4]" : "text-[#909294]"
+                      } hover:text-[#e7edf4] ml-4`}
+                  >
                     Banner
                   </span>
                 </div>
-                {/* Right section: Arrow */}
-                <span
-                  className="text-[#909294] hover:text-[#e7edf4] cursor-pointer transition-transform duration-200"
-                >
+                <span className="text-[#909294] hover:text-[#e7edf4] cursor-pointer transition-transform duration-200">
                   {open ? (
-                    // Arrow pointing down
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -397,14 +389,13 @@ function Sidebar({ isOpen, setIsOpen }) {
                       <path strokeLinecap="round" strokeLinejoin="round" d="M6 9l6 6 6-6" />
                     </svg>
                   ) : (
-                    // Arrow pointing right
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 20 20"
                       strokeWidth="2"
                       stroke="currentColor"
-                      className="w-5 h-5 ml-12"
+                      className="w-5 h-5 ml-10"
                     >
                       <path strokeLinecap="round" strokeLinejoin="round" d="M6 15l6-6 6 6" />
                     </svg>
@@ -412,19 +403,30 @@ function Sidebar({ isOpen, setIsOpen }) {
                 </span>
               </Disclosure.Button>
 
-              {/* Disclosure.Panel to display additional text */}
-              <Disclosure.Panel className="p-4 text-[#e7edf4] bg-[#1E293B] rounded-md shadow-md"
-                onClick={() => {
-                  navigate("/trashbanner");
-                  // setSideBaroption("plans");
-                }}
-              >
-                {/* Replace with your additional text */}
-                Trash Banner
-              </Disclosure.Panel>
+              {/* Additional Buttons */}
+              {open && (
+                <div className="flex flex-col p-4 space-y-2 rounded-md shadow-md">
+                  <button
+                    onClick={() => navigate("/banner")}
+                    className={`text-custom-14 text-start ${sideBarOption === "banner" ? "text-[#e7edf4]" : "text-[#909294]"
+                    } hover:text-[#e7edf4] ml-4`}
+                  >
+                    Go to Banner
+                  </button>
+                  <button
+                    onClick={() => navigate("/trashbanner")}
+                    className={`text-custom-14 text-start ${sideBarOption === "banner" ? "text-[#e7edf4]" : "text-[#909294]"
+                    } hover:text-[#e7edf4] ml-4`}
+                  >
+                    Go to Trash Banner
+                  </button>
+                </div>
+              )}
             </>
           )}
         </Disclosure>
+
+       
         <Disclosure>
           {({ open }) => (
             <>
