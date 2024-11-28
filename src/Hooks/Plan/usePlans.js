@@ -194,6 +194,50 @@ const usePlans = (initialSearch = "") => {
     }
   };
 
+
+  const deleteTrashPlan = async (planId, setShowDeletePopup) => {
+    setLoading(true);
+    try {
+      const response = await patchApi({
+        url: `plans/undelete/${planId}`,
+        body: { isDeleted: true }
+      });
+      const updatedPlan = response?.data;
+
+      if (updatedPlan) {
+        setPlans((prevPlans) =>
+          prevPlans.map((plan) =>
+            plan._id === planId ? { ...plan, isDeleted: true } : plan
+          )
+        );
+        setShowDeletePopup(false);
+        setRefetch(!refetch);
+        toast.success("Moved To Plan successfully", {
+          theme: "colored",
+          style: {
+            backgroundColor: "#1c980c",
+            color: "#FFFFFF"
+          }
+        });
+      }
+    } catch (error) {
+      toast.error(
+        error?.response?.data?.message ??
+          "Failed to delete plan. Please try again.",
+        {
+          theme: "colored",
+          style: {
+            backgroundColor: "#e74c3c",
+            color: "#FFFFFF"
+          }
+        }
+      );
+      console.error("Error deleting plan:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     getAllPlans();
   }, [page, search, refetch]);
@@ -219,7 +263,8 @@ const usePlans = (initialSearch = "") => {
     getPlanById,
     plan,
     editPlan,
-    deletePlan
+    deletePlan,
+    deleteTrashPlan
   };
 };
 

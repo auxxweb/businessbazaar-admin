@@ -81,6 +81,18 @@ const useBanner = ({ page = 1, limit = 10 }) => {
     }
   };
 
+  const deleteTrashBanner = async (bannerId) => {
+    try {
+      await deleteApi(`banner/undelete/${bannerId}`, true);
+      toast.success("Banner deleted successfully");
+      setBanners((prev) => prev.filter((banner) => banner._id !== bannerId));
+      setTotalBanners((prevTotal) => prevTotal - 1);
+    } catch (error) {
+      toast.error("Failed to delete banner");
+      console.error("Error deleting banner:", error);
+    }
+  };
+
   useEffect(() => {
     getBannersData();
   }, [page, limit]);
@@ -100,7 +112,8 @@ const useBanner = ({ page = 1, limit = 10 }) => {
     createBanner,
     updateBanner,
     deleteBanner,
-    getBannersData
+    getBannersData,
+    deleteTrashBanner
   };
 };
 

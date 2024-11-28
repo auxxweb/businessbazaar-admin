@@ -9,6 +9,7 @@ import { preRequestFun } from "../../api/s3Request";
 import BannerTable from "../reUsableCmponent/Tables/bannerTable";
 import Loader from "../Loader/Loader";
 import getCroppedImg from "../../utils/cropper.utils";
+import TrashBannerTable from "../reUsableCmponent/Tables/TrashBannerTable";
 
 function TrashBanner() {
     const [page, setPage] = useState(1);
@@ -24,6 +25,7 @@ function TrashBanner() {
       createBanner,
       updateBanner,
       deleteBanner,
+      deleteTrashBanner
     } = useBanner({ page, limit });
   
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -134,7 +136,7 @@ function TrashBanner() {
     };
   
     const deleteFunction = async (id) => {
-      await deleteBanner(id);
+      await deleteTrashBanner(id);
     };
   
     return (
@@ -239,7 +241,7 @@ function TrashBanner() {
         </div>
   
         <div className="p-2">
-          <BannerTable
+          <TrashBannerTable
             bannerData={trashBanners}
             loading={bannerLoading}
             editFunction={handleEdit}

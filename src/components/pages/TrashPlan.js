@@ -5,6 +5,7 @@ import usePlans from "../../Hooks/Plan/usePlans";
 import PlanTable from "../reUsableCmponent/Tables/PlansTable";
 import AddPlanModal from "../reUsableCmponent/modal/AddPlanModal";
 import EditPlanModal from "../reUsableCmponent/modal/EditPlanModal";
+import TrashPlanTable from "../reUsableCmponent/Tables/TrashPlanTable";
 
 function TrashPlan() {
     const {
@@ -19,7 +20,8 @@ function TrashPlan() {
         setSearch,
         addPlan,
         editPlan,
-        deletePlan
+        deletePlan,
+        deleteTrashPlan
       } = usePlans();
     
       const [selectedPlan, setSelectedPlan] = useState(null);
@@ -70,7 +72,7 @@ function TrashPlan() {
       };
     
       const handleDeletePlan = async (id,setShowDeletePopup) => {
-        await deletePlan(id,setShowDeletePopup)
+        await deleteTrashPlan(id,setShowDeletePopup)
       };
     
       return (
@@ -137,7 +139,7 @@ function TrashPlan() {
             <ProjectDetailsCard />
           </div> */}
             <div className="flex flex-wrap justify-center mt-4">
-              <PlanTable tableData={trashPlans} handlePlanEdit={handlePlanEdit} handlePlanDelete={handleDeletePlan} />
+              <TrashPlanTable tableData={trashPlans} handlePlanEdit={handlePlanEdit} handlePlanDelete={handleDeletePlan} />
             </div>
           </div>
           <div className="m-auto flex justify-end mt-8">
