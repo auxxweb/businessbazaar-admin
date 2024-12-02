@@ -1,6 +1,11 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { appConfig } from "../config/appConfig";
+import { toast } from "react-toastify";
+
 // import { getLocalStorageItem } from '../utils/appUtils'
+
+
+
 
 export const postApi = async ({ url = "", body, authToken = true }) => {
   console.log(url, "url-url-url");
@@ -16,15 +21,32 @@ export const postApi = async ({ url = "", body, authToken = true }) => {
       Authorization: `Bearer ${userData?.token}`
     };
   }
-  const response = await axios.post(
-    `${appConfig?.apiUrl}/${url}`,
-    body,
-    config
-  );
-  console.log(response, "response");
 
-  return response?.data;
+  try {
+    const response = await axios.post(
+      `${appConfig?.apiUrl}/${url}`,
+      body,
+      config
+    );
+    console.log(response, "response");
+  
+    return response?.data;
+  } catch (error) {
+    // if (error.response?.status === 401) {
+    //   localStorage.removeItem("authToken"); // Clear invalid token
+    //   redirectToLogin(); // Redirect to login page
+    // } else {
+    //   throw error; // Re-throw other errors
+    // }
+  }
+ 
 };
+
+
+// navigation.js
+
+
+
 
 export const getApi = async (url, authToken) => {
   const adminData = localStorage.getItem("authToken");
@@ -42,10 +64,30 @@ export const getApi = async (url, authToken) => {
     };
   }
 
-  const response = await axios.get(`${appConfig.apiUrl}/${url}`, config);
+  
+  try {
+    const response = await axios.get(`${appConfig.apiUrl}/${url}`, config);
+    return response?.data;
+  } catch (error) {
+    if (error.response?.status === 401) {
+      localStorage.removeItem("authToken"); // Clear invalid token
+      toast.error("Session expired. Redirecting to login...", {
+        position: "top-right",
+        autoClose: 3000 // Close after 3 seconds
+      });
 
-  return response?.data;
+      // redirectToLogin(); // Redirect to login page
+    } else {
+      // Rethrow for other errors
+      throw error;
+    }
+  }
+
 };
+
+
+
+
 export const patchApi = async ({ url = "", body, authToken = true }) => {
   const userData = JSON.parse(localStorage.getItem("authToken"));
 
