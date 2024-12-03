@@ -29,7 +29,7 @@ function Header({ toggleSidebar }) {
          <img
               src="/enConnectLogo.jpeg"
               alt=" Logo"
-              className="width-40 h-10 object-contain"
+              className="width-50 h-12 object-contain"
               priority
             />
       <div className="flex items-center">
