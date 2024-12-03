@@ -5,11 +5,14 @@ import { PiEyeFill, PiEyeSlashFill } from "react-icons/pi";
 import { toast } from "react-toastify";
 import { setLogin } from "../../Features/Authority";
 import { useDispatch } from "react-redux";
+import Loader from "../Loader/Loader";
 
 const Login = () => {
   const navigate = useNavigate();
   const [errors, setErrors] = useState({ email: "", password: "" }); // Manage errors for both fields
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const dispatch = useDispatch();
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -21,7 +24,9 @@ const Login = () => {
     setErrors({ email: "", password: "" });
   
     try {
+      setIsLoading(true);
       const body = { email, password };
+
       const res = await logIn?.(body);
   
       // Debugging: Check the response
@@ -56,11 +61,19 @@ const Login = () => {
         setErrors({ email: "Invalid email address", password: "Invalid password" });
       }
       
+    } finally {
+      setIsLoading(false);
     }
   };
+
+  if(isLoading){
+    return <Loader/>
+  }
   
 
   return (
+
+    
     <div className="relative min-h-screen bg-[#e7edf4] bg-center p-8">
       <div className="relative z-10 flex flex-col h-full items-center justify-center p-6">
         <div
