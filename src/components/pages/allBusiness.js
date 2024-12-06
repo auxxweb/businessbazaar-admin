@@ -28,7 +28,7 @@ function ContentArea() {
 
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
-  };
+  };     
 
   const selectProfession = (event) => {
     setSelectedDesignation(event.target.value);

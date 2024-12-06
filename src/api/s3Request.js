@@ -39,8 +39,8 @@ export const preRequestFun = async (file, position) => {
           headers: { 'Content-Type': 'application/json' },
       });
       const preReq = response.data.data[0];
-  
-
+      console.log(preReq,'prereeq');
+      
       if (!preReq.url) {
           throw new Error('The URL is not defined in the response.');
       }
