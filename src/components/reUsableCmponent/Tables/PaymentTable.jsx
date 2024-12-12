@@ -77,7 +77,7 @@ const PaymentTable = ({ tableData, loading }) => {
                       : 'text-green-600 bg-green-100 font-semibold'
                       }`}
                   >
-                    {moment(addYears(payment?.plan?.createdAt, payment?.plan?.validity)).format('DD/MM/YYYY')}
+                    {moment(addYears(payment?.createdAt, payment?.plan?.validity)).format('DD/MM/YYYY')}
                   </td>
                 </tr>
               ))
