@@ -2,15 +2,23 @@ import React from 'react'
 import moment from 'moment'
 import Loader from '../../Loader/Loader';
 
-// Premium Loader Componen
+function addYears(oldDate, yearsToAdd) {
+  const currentDate = new Date(oldDate); // Get the current date
+  currentDate.setFullYear(currentDate.getFullYear() + yearsToAdd); // Add the years
+  return currentDate; // Return the updated date
+}
+
+// Premium Loader Component
 
 const PaymentTable = ({ tableData, loading }) => {
+  console.log({ tableData });
+
   return (
     <div className="overflow-x-auto w-full max-w-full p-4">
       {/* Conditionally show loading spinner */}
       {loading ? (
         <Loader />
-         // Show premium loader when loading
+        // Show premium loader when loading
       ) : (
         <table className="min-w-full table-auto mt-6">
           <thead className="bg-white border-gray-400 border-t-[2px] border-l-[2px] border-r-[2px] border-b-[2px]">
@@ -64,13 +72,12 @@ const PaymentTable = ({ tableData, loading }) => {
                     {moment(payment?.date).format('DD/MM/YYYY')}
                   </td>
                   <td
-                    className={`px-4 py-2 border-r border-gray-400 rounded-md text-center ${
-                      moment(payment?.expiryDate).isBefore(moment())
-                        ? 'text-red-600 bg-red-100 font-semibold'
-                        : 'text-green-600 bg-green-100 font-semibold'
-                    }`}
+                    className={`px-4 py-2 border-r border-gray-400 rounded-md text-center ${moment(payment?.expiryDate).isBefore(moment())
+                      ? 'text-red-600 bg-red-100 font-semibold'
+                      : 'text-green-600 bg-green-100 font-semibold'
+                      }`}
                   >
-                    {moment(payment?.expiryDate).format('DD/MM/YYYY')}
+                    {moment(addYears(payment?.plan?.createdAt, payment?.plan?.validity)).format('DD/MM/YYYY')}
                   </td>
                 </tr>
               ))
