@@ -31,13 +31,13 @@ function Sidebar({ isOpen, setIsOpen }) {
       leave="transition duration-300 transform"
       leaveFrom="translate-x-0"
       leaveTo="-translate-x-full"
-      className="bg-[#212529] w-[268px] h-[1100px] space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform lg:relative lg:translate-x-0 z-50"
+      className="bg-[#212529] fixed top-16  lg:top-20 w-[268px] h-full space-y-6 py-7 px-2  inset-y-0 left-0 transform lg:relative lg:translate-x-0 z-50"
     >
       {/* Sidebar content */}
       <div>
         {/* Close button for mobile */}
         <button
-          className="lg:hidden text-white focus:outline-none absolute right-4 top-4"
+          className="lg:hidden  text-white focus:outline-none absolute right-4 top-4"
           onClick={() => {
             setIsOpen(false);
             setSideBaroption("dashboard");
@@ -87,7 +87,7 @@ function Sidebar({ isOpen, setIsOpen }) {
           {({ open }) => (
             <>
               {/* Main Button */}
-              <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#e7edf4] lg:2xl px-4 py-2">
+              <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#e7edf4] lg:2xl px-4 ">
                 <div className="flex mr-14">
                   <span className="ml-[-10px]">
                     <svg
@@ -145,16 +145,16 @@ function Sidebar({ isOpen, setIsOpen }) {
                   <button
                     onClick={() => navigate("/business")}
                     className={`text-custom-14 text-start ${sideBarOption === "business" ? "text-[#e7edf4]" : "text-[#909294]"
-                    } hover:text-[#e7edf4] ml-4`}
+                      } hover:text-[#e7edf4] ml-4`}
                   >
-                   All Business
+                    All Business
                   </button>
                   <button
                     onClick={() => navigate("/trashbusiness")}
                     className={`text-custom-14 text-start ${sideBarOption === "business" ? "text-[#e7edf4]" : "text-[#909294]"
-                    } hover:text-[#e7edf4] ml-4`}
+                      } hover:text-[#e7edf4] ml-4`}
                   >
-                  Trash Business
+                    Trash Business
                   </button>
                 </div>
               )}
@@ -167,9 +167,9 @@ function Sidebar({ isOpen, setIsOpen }) {
           {({ open }) => (
             <>
               {/* Main Button */}
-              <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#e7edf4] lg:2xl px-4 py-2">
+              <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#e7edf4] lg:2xl px-4 ">
                 <div className="flex mr-14">
-                <span className="ml-[-10px]">
+                  <span className="ml-[-10px]">
                     <svg
                       width="24"
                       height="24"
@@ -222,14 +222,14 @@ function Sidebar({ isOpen, setIsOpen }) {
                   <button
                     onClick={() => navigate("/categories")}
                     className={`text-custom-14 text-start ${sideBarOption === "category" ? "text-[#e7edf4]" : "text-[#909294]"
-                    } hover:text-[#e7edf4] ml-4`}
+                      } hover:text-[#e7edf4] ml-4`}
                   >
-                   All Categories
+                    All Categories
                   </button>
                   <button
                     onClick={() => navigate("/trashcategories")}
                     className={`text-custom-14 text-start ${sideBarOption === "category" ? "text-[#e7edf4]" : "text-[#909294]"
-                    } hover:text-[#e7edf4] ml-4`}
+                      } hover:text-[#e7edf4] ml-4`}
                   >
                     Trash Categories
                   </button>
@@ -243,9 +243,9 @@ function Sidebar({ isOpen, setIsOpen }) {
           {({ open }) => (
             <>
               {/* Main Button */}
-              <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#e7edf4] lg:2xl px-4 py-2">
+              <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#e7edf4] lg:2xl px-4 `">
                 <div className="flex mr-14">
-                <span className="ml-[-10px]">
+                  <span className="ml-[-10px]">
                     {/* Plans Icon */}
                     <svg
                       width="20"
@@ -301,14 +301,14 @@ function Sidebar({ isOpen, setIsOpen }) {
                   <button
                     onClick={() => navigate("/plans")}
                     className={`text-custom-14 text-start ${sideBarOption === "plans" ? "text-[#e7edf4]" : "text-[#909294]"
-                    } hover:text-[#e7edf4] ml-4`}
+                      } hover:text-[#e7edf4] ml-4`}
                   >
                     All Plans
                   </button>
                   <button
                     onClick={() => navigate("/trashplans")}
                     className={`text-custom-14 text-start ${sideBarOption === "plans" ? "text-[#e7edf4]" : "text-[#909294]"
-                    } hover:text-[#e7edf4] ml-4`}
+                      } hover:text-[#e7edf4] ml-4`}
                   >
                     Trash Plans
                   </button>
@@ -321,7 +321,7 @@ function Sidebar({ isOpen, setIsOpen }) {
         <Disclosure>
           {({ open }) => (
             <>
-              <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#e7edf4] lg:2xl px-4 py-2">
+              <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#e7edf4] lg:2xl px-4">
                 <div className=" flex mr-14">
                   <span className="ml-[-10px]">
                     <svg
@@ -359,9 +359,9 @@ function Sidebar({ isOpen, setIsOpen }) {
           {({ open }) => (
             <>
               {/* Main Button */}
-              <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#e7edf4] lg:2xl px-4 py-2">
+              <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#e7edf4] lg:2xl px-4 ">
                 <div className="flex mr-14">
-                <span className="ml-[-10px]">
+                  <span className="ml-[-10px]">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
@@ -411,16 +411,16 @@ function Sidebar({ isOpen, setIsOpen }) {
                   <button
                     onClick={() => navigate("/banner")}
                     className={`text-custom-14 text-start ${sideBarOption === "banner" ? "text-[#e7edf4]" : "text-[#909294]"
-                    } hover:text-[#e7edf4] ml-4`}
+                      } hover:text-[#e7edf4] ml-4`}
                   >
                     All Banner
                   </button>
                   <button
                     onClick={() => navigate("/trashbanner")}
                     className={`text-custom-14 text-start ${sideBarOption === "banner" ? "text-[#e7edf4]" : "text-[#909294]"
-                    } hover:text-[#e7edf4] ml-4`}
+                      } hover:text-[#e7edf4] ml-4`}
                   >
-                 Trash Banner
+                    Trash Banner
                   </button>
                 </div>
               )}
@@ -428,11 +428,11 @@ function Sidebar({ isOpen, setIsOpen }) {
           )}
         </Disclosure>
 
-       
+
         <Disclosure>
           {({ open }) => (
             <>
-              <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#e7edf4] lg:2xl px-4 py-2">
+              <Disclosure.Button className="flex items-center justify-between text-custom-16 text-[#909294] hover:text-[#e7edf4] lg:2xl px-4 ">
                 <div className=" flex mr-14">
                   <span className="ml-[-10px]">
                     <svg
