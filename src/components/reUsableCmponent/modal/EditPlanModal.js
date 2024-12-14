@@ -17,6 +17,7 @@ const EditPlanModal = ({
     plan: "",
     validity: 0,
     amount: 0,
+    actualAmount: 0,
     description: [],
     isPremium: false
   });
@@ -27,6 +28,7 @@ const EditPlanModal = ({
       plan: plan?.plan,
       validity: plan?.validity,
       amount: plan?.amount,
+      actualAmount:plan?.actualAmount,
       description: plan?.description,
       isPremium: plan?.isPremium
     });
@@ -127,13 +129,35 @@ const EditPlanModal = ({
           />
         </div>
 
+
+         {/* Actual Amount */}
+         <div>
+          <label
+            htmlFor="actualAmount"
+            className="block text-sm font-medium text-gray-700"
+          >
+           Actual Amount
+          </label>
+          <input
+            type="number"
+            value={plansData.actualAmount}
+            name="actualAmount"
+            id="actualAmount"
+            className="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+            placeholder="Actaul Amount"
+            onChange={handleFieldChange}
+            required
+          />
+        </div>
+
+
         {/* Amount */}
         <div>
           <label
             htmlFor="amount"
             className="block text-sm font-medium text-gray-700"
           >
-            Amount
+           Offer Amount
           </label>
           <input
             type="number"
