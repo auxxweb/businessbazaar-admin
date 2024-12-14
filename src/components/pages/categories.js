@@ -86,6 +86,7 @@ const Clients = () => {
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
   const [isCropping, setIsCropping] = useState(false);
   const [isCoverCropping, setIsCoverCropping] = useState(false);
+  const [preview, setPreview] = useState(null)
 
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
@@ -111,34 +112,28 @@ const Clients = () => {
   }, [handleClick]);
 
   const handlePreviewImage = async (e, type) => {
-    const imageFile = e.target.files[0]; // Access the selected image file
+    const imageFile = e.target.files[0];
 
-    // Check if the file is selected and its size is within the limit
     if (!imageFile || imageFile.size > 5 * 1024 * 1024) {
-      // Optionally, you could show an error toast here
       toast.warning("Please select a valid image file (less than 5 MB).", {
         position: "top-right",
         duration: 2000,
         style: {
-          backgroundColor: "#e5cc0e", // Custom yellow color for warning
-          color: "#FFFFFF", // Text color
+          backgroundColor: "#e5cc0e",
+          color: "#FFFFFF",
         },
         dismissible: true,
       });
-      return; // Exit the function if the image is invalid
+      return;
     }
 
-    // Proceed with setting the image preview based on type
     if (type === "image") {
-      setImageFile(imageFile);
-      setImageUrl(URL.createObjectURL(imageFile));
+      setPreview(URL.createObjectURL(imageFile))
       setIsCropping(true);
     } else if (type === "cover_image") {
-      setCoverImageFile(imageFile);
-      setCoverImageUrl(URL.createObjectURL(imageFile));
+      setPreview(URL.createObjectURL(imageFile))
       setIsCoverCropping(true);
     } else {
-      // Optionally, handle invalid 'type' values if necessary
       console.error("Invalid type specified");
     }
   };
@@ -146,9 +141,9 @@ const Clients = () => {
   const handleNameChange = (e) => {
     isEdit
       ? setUpdateData({
-          ...updateData,
-          name: e.target.value,
-        })
+        ...updateData,
+        name: e.target.value,
+      })
       : setName(e.target.value);
   };
 
@@ -526,7 +521,7 @@ const Clients = () => {
           }}
         >
           <Cropper
-            image={isCropping ? imageUrl : coverImageUrl}
+            image={preview}
             crop={crop}
             zoom={zoom}
             aspect={isCropping ? 1 : 16 / 9} // Adjust aspect ratio as needed
@@ -544,7 +539,7 @@ const Clients = () => {
             onClick={async () => {
               if (isCropping) {
                 const { blob, fileUrl } = await getCroppedImg(
-                  imageUrl,
+                  preview,
                   croppedAreaPixels
                 );
                 setImageUrl(fileUrl);
@@ -552,7 +547,7 @@ const Clients = () => {
                 setIsCropping(false);
               } else {
                 const { blob, fileUrl } = await getCroppedImg(
-                  coverImageUrl,
+                  preview,
                   croppedAreaPixels
                 );
                 setCoverImageUrl(fileUrl);

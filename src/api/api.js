@@ -29,7 +29,7 @@ export const postApi = async ({ url = "", body, authToken = true }) => {
       config
     );
     console.log(response, "response");
-  
+
     return response?.data;
   } catch (error) {
     // if (error.response?.status === 401) {
@@ -39,7 +39,7 @@ export const postApi = async ({ url = "", body, authToken = true }) => {
     //   throw error; // Re-throw other errors
     // }
   }
- 
+
 };
 
 
@@ -64,7 +64,7 @@ export const getApi = async (url, authToken) => {
     };
   }
 
-  
+
   try {
     const response = await axios.get(`${appConfig.apiUrl}/${url}`, config);
     return response?.data;
@@ -75,7 +75,7 @@ export const getApi = async (url, authToken) => {
         position: "top-right",
         autoClose: 3000 // Close after 3 seconds
       });
-
+      window?.location('/login')
       // redirectToLogin(); // Redirect to login page
     } else {
       // Rethrow for other errors
