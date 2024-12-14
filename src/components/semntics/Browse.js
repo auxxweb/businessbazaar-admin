@@ -7,7 +7,7 @@ function Browse() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   return (
-    <div className="flex-1 flex flex-col z-50">
+    <div className="flex-1 flex flex-col z-50 bg-white">
       <Header toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
       <div className="flex h-[100%] bg-[#212529] z-40">
         <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
