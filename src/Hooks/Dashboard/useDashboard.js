@@ -15,9 +15,7 @@ const useDashboard = () => {
       const response = await getApi(`dashboard/admin`, true);
       setDashboardData(response.data)
     } catch (error) {
-      if (error.response?.status !== 401) {
-        toast.error("Failed to fetch dashboard data.", { position: "top-right" });
-      }
+      
       console.error("Error fetching dashboard data:", error);
     } finally {
       setLoading(false);
@@ -30,7 +28,7 @@ const useDashboard = () => {
       const response = await getApi(`dashboard/admin/chart`, true);
       setDashboardChartsData(response.data)
     } catch (error) {
-      toast.error("Fetch dashboard charts data failed");
+      // toast.error("Fetch dashboard charts data failed");
       console.error("Error fetching dashboard charts data:", error);
     } finally {
       setLoading(false);
