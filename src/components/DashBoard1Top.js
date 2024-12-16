@@ -18,7 +18,7 @@ const DashBoard1Top = ({data}) => {
     {/* <svg classNameName='mr-2' width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M4.81921 1V11M4.81921 1L8.81921 5M4.81921 1L0.819214 5" stroke="#10A242" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
     </svg> */}
-      <span classNameName='text-sm'>{data?.totalActiveBusiness} active businesses</span>  
+      {/* <span classNameName='text-sm'>{data?.totalActiveBusiness} active businesses</span>   */}
     </p>
   </div>
 
