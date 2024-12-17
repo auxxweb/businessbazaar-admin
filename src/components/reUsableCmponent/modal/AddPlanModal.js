@@ -1,15 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "./Modal";
 
-const AddPlanModal = ({ isModalVisible, toggleModal, handleAddPlan }) => {
-  const [plansData, setPlansData] = useState({
-    plan: "",
-    validity: 0,
-    amount: 0,
-    actualAmount: 0,
-    description: [],
-    isPremium: false
-  });
+const AddPlanModal = ({ isModalVisible, toggleModal, handleAddPlan, setPlansData, plansData }) => {
+
 
   const [descriptionInput, setDescriptionInput] = useState("");
 
@@ -42,6 +35,7 @@ const AddPlanModal = ({ isModalVisible, toggleModal, handleAddPlan }) => {
     e.preventDefault();
     handleAddPlan(plansData);
   };
+
 
   return (
     <Modal
@@ -94,12 +88,12 @@ const AddPlanModal = ({ isModalVisible, toggleModal, handleAddPlan }) => {
             </div>
 
 
-             {/* Actual Amount */}
-             <div>
+            {/* Actual Amount */}
+            <div>
               <label
                 htmlFor="actualAmount"
                 className="block text-sm font-medium text-gray-700">
-               Actual Amount
+                Actual Amount
               </label>
               <input
                 type="number"
@@ -118,7 +112,7 @@ const AddPlanModal = ({ isModalVisible, toggleModal, handleAddPlan }) => {
               <label
                 htmlFor="amount"
                 className="block text-sm font-medium text-gray-700">
-               Offer Amount
+                Offer Amount
               </label>
               <input
                 type="number"
