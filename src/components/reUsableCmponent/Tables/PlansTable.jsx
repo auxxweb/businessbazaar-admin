@@ -15,7 +15,7 @@ const PlanTable = ({ tableData, handlePlanEdit, handlePlanDelete }) => {
   }
 
   const handleDeleteFun = () => {
-    handlePlanDelete(selectedPlan ,setShowDeletePopup)
+    handlePlanDelete(selectedPlan, setShowDeletePopup)
   }
 
   return (
@@ -33,7 +33,10 @@ const PlanTable = ({ tableData, handlePlanEdit, handlePlanDelete }) => {
               Description
             </th>
             <th className="px-4 py-4 text-left border-r border-gray-400">
-              Amount
+              Actual Amount
+            </th>
+            <th className="px-4 py-4 text-left border-r border-gray-400">
+              Offer Amount
             </th>
             <th className="px-4 py-4 text-left border-r border-gray-400">
               template
@@ -68,15 +71,17 @@ const PlanTable = ({ tableData, handlePlanEdit, handlePlanDelete }) => {
                   </ul>
                 </td>
                 <td className="px-4 py-2 border-r border-gray-400">
+                  {plan?.actualAmount}
+                </td>
+                <td className="px-4 py-2 border-r border-gray-400">
                   {plan?.amount}
                 </td>
 
                 <td
-                  className={`px-2 py-1 text-center ${
-                    plan?.isPremium
-                      ? 'border border-yellow-500 text-yellow-600 font-bold   '
-                      : 'border border-blue-500 text-blue-600 font-semibold '
-                  }`}
+                  className={`px-2 py-1 text-center ${plan?.isPremium
+                    ? 'border border-yellow-500 text-yellow-600 font-bold   '
+                    : 'border border-blue-500 text-blue-600 font-semibold '
+                    }`}
                   style={{ minWidth: '80px' }} // Adjust to make the cell narrower
                 >
                   {plan?.isPremium ? (

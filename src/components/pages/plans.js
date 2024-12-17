@@ -21,6 +21,14 @@ const ProjetsPage = () => {
   } = usePlans();
 
   const [selectedPlan, setSelectedPlan] = useState(null);
+  const [plansData, setPlansData] = useState({
+    plan: "",
+    validity: 0,
+    amount: 0,
+    actualAmount: 0,
+    description: [],
+    isPremium: false
+  });
 
   const handlePageChange = (page) => {
     setPage(page);
@@ -48,6 +56,14 @@ const ProjetsPage = () => {
     setSearchText(event.target.value);
   };
   const toggleModal = () => {
+    setPlansData({
+      plan: "",
+      validity: 0,
+      amount: 0,
+      actualAmount: 0,
+      description: [],
+      isPremium: false
+    })
     setIsModalVisible(!isModalVisible);
   };
 
@@ -67,8 +83,8 @@ const ProjetsPage = () => {
     await editPlan(selectedPlan, planUpdateData, toggleEditModal);
   };
 
-  const handleDeletePlan = async (id,setShowDeletePopup) => {
-    await deletePlan(id,setShowDeletePopup)
+  const handleDeletePlan = async (id, setShowDeletePopup) => {
+    await deletePlan(id, setShowDeletePopup)
   };
 
   return (
@@ -87,6 +103,8 @@ const ProjetsPage = () => {
               isModalVisible={isModalVisible}
               toggleModal={toggleModal}
               handleAddPlan={handleAddPlan}
+              setPlansData={setPlansData}
+              plansData={plansData}
             />
             <EditPlanModal
               isModalVisible={isEditModalVisible}
@@ -102,7 +120,7 @@ const ProjetsPage = () => {
         <input
           type="text"
           value={selectedDesignation}
-          className="p-2 lg:w-[300px] w-full appearance-none bg-white border border-gray-500 focus:ring-indigo-500 focus:border-indigo-500 pr-10 bg-no-repeat bg-right"
+          className="p-2  bg-white border border-gray-500 focus:ring-indigo-500 focus:border-indigo-500 pr-10 bg-no-repeat bg-right"
           disabled
         />
 
@@ -128,12 +146,7 @@ const ProjetsPage = () => {
 
       <div className="m-4">
         <h1 className="mt-0 mb-8 text-2xl font-semibold">All Plans</h1>
-        {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 justify-center">
-        <ProjectDetailsCard isGrid={isGrid} />
-        <ProjectDetailsCard />
-        <ProjectDetailsCard />
-        <ProjectDetailsCard />
-      </div> */}
+
         <div className="flex flex-wrap justify-center mt-4">
           <PlanTable tableData={plans} handlePlanEdit={handlePlanEdit} handlePlanDelete={handleDeletePlan} />
         </div>
